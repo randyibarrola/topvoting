@@ -1,0 +1,17 @@
+dashboard_login:
+    pattern:  /dashboard/login
+    defaults: { _controller: DashboardBundle:User:login }
+
+dashboard_login_check:
+    pattern:  /dashboard/login_check
+
+dashboard_logout:
+    pattern:  /dashboard/logout
+
+dashboard:
+    pattern:  /dashboard
+    defaults: { _controller: DashboardBundle:Default:index }
+
+homepage:
+    pattern:  /
+    defaults: { _controller: FrontendBundle:Default:index, name: '' }

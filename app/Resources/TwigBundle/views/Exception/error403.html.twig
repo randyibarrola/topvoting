@@ -1,0 +1,19 @@
+{% extends '::base-error.html.twig' %}
+{% block title %}{{ parents() }} | {{ 'Acceso denegado' | trans }}{% endblock %}
+
+{% block body %}
+    <div class="row-fluid">
+        <div class="span12 page-404">
+            <div class="number" style="color: #dbb450">
+                403
+            </div>
+            <div class="details">
+                <h3>Opps, Usted no tiene permisos.</h3>
+                <p>
+                    Contacte con el administrados si presenta problemas con el acceso a esta página.<br />
+                    <a href="{{ path('hompage') }}">Return home</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

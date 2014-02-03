@@ -1,0 +1,85 @@
+{% extends '::base-dashboard.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - {{ 'Página de acceso' | trans }}
+{% endblock %}
+
+
+{% block level_stylesheet %}
+    <link href="{{ asset('css/metronic/css/pages/login.css') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %}login{% endblock %}
+
+{% block plugins_javascript %}
+    <script src="{{ asset('plugins/jquery-validation/dist/jquery.validate.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block level_javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var login_form = $('#dashboard-login-form');
+    </script>
+    <script src="{{ asset('js/metronic/login.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block init_javascript %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            Login.init();
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <!-- BEGIN LOGO -->
+    <div class="logo">
+        <img src="{{ asset('images/metronic/logo-big.png') }}" alt="" />
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        <form id="dashboard-login-form" class="form-vertical login-form" action="{{ path('dashboard_login_check') }}" method="post">
+            <h3 class="form-title">{{ 'Formulario de acceso' | trans }}</h3>
+            <div class="alert alert-error {{ not error ? 'hide' : '' }}">
+                <button class="close" data-dismiss="alert"></button>
+                <span>{{ 'Inserte un usuario o contraseña correcto' | trans }}.</span>
+            </div>
+            <div class="control-group">
+                <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+                <label class="control-label visible-ie8 visible-ie9">{{ 'Usuario' | trans }}</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-user"></i>
+                        <input class="m-wrap placeholder-no-fix" type="text" placeholder="{{ 'Usuario'| trans }}" name="_username" value="{{ last_username }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label visible-ie8 visible-ie9">{{ 'Contraseña' | trans }}</label>
+                <div class="controls">
+                    <div class="input-icon left">
+                        <i class="icon-lock"></i>
+                        <input class="m-wrap placeholder-no-fix" type="password" placeholder="{{ 'Contraseña' | trans }}" name="_password"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <label class="checkbox">
+                    <input type="checkbox" name="_remember_me" value="1" checked="checked"/> {{ 'No cerrar sesión' | trans }}
+                </label>
+                <button type="submit" class="btn green pull-right">
+                    {{ 'Entrar' | trans }} <i class="m-icon-swapright m-icon-white"></i>
+                </button>
+            </div>
+        </form>
+        <!-- END LOGIN FORM -->
+    </div>
+    <!-- END LOGIN -->
+    <!-- BEGIN COPYRIGHT -->
+    <div class="copyright">
+        2013 &copy; {{ 'Metronic' | trans }}. {{ 'Admin Dashboard Template' | trans }}.
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends '::base-dashboard.html.twig' %}
+
+{% block body %}
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse navbar-fixed-top">
+        <!-- BEGIN TOP NAVIGATION BAR -->
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <!-- HEADER CONTENT GOES HERE -->
+                <!-- BEGIN LOGO -->
+                <a href="{{ path('dashboard') }}" class="brand">
+                    <img alt="logo" src="{{ asset('images/metronic/logo.png') }}">
+                </a>
+                <!-- END LOGO -->
+                <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+                <a data-target=".nav-collapse" data-toggle="collapse" class="btn-navbar collapsed" href="javascript:;">
+                    <img alt="" src="{{ asset('images/metronic/menu-toggler.png') }}">
+                </a>
+                <!-- END RESPONSIVE MENU TOGGLER -->
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                {% include 'DashboardBundle:Default:topMenu.html.twig' %}
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+        </div>
+        <!-- END TOP NAVIGATION BAR -->
+    </div>
+    <!-- END HEADER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container row-fluid">
+        <!-- BEGIN SIDEBAR -->
+        <div class="page-sidebar nav-collapse collapse">
+            <!-- PAGE SIDEBAR CONTENT GOES HERE -->
+            <!-- BEGIN SIDEBAR MENU -->
+            {{ render(controller('DashboardBundle:Default:sideBarMenu')) }}
+            <!-- END SIDEBAR MENU -->
+        </div>
+        <!-- END SIDEBAR -->
+        <!-- BEGIN PAGE -->
+        <div class="page-content">
+            <!-- PAGE CONTENT GOES HERE -->
+        </div>
+        <!-- END PAGE -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+        <!-- PAGE FOOTER GOES HERE -->
+        <div class="footer-inner">
+            2013 &copy; Metronic by keenthemes.
+        </div>
+        <div class="footer-tools">
+            <span class="go-top">
+                <i class="icon-angle-up"></i>
+            </span>
+        </div>
+    </div>
+    <!-- END FOOTER -->
+{% endblock %}

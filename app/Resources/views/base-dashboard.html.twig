@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Admin Dashboard Template{% endblock %}</title>
+    {% block base_meta %}
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+    {% endblock %}
+    {% block level_meta %}{% endblock %}
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% block base_stylesheet %}
+        <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('plugins/bootstrap/css/bootstrap-responsive.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/metronic/css/style-metro.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/metronic/css/style.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/metronic/css/style-responsive.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/metronic/css/themes/default.css') }}" rel="stylesheet" type="text/css" id="style_color"/>
+        <link href="{{ asset('plugins/uniform/css/uniform.default.css') }}" rel="stylesheet" type="text/css"/>
+    {% endblock %}
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% block plugins_stylesheet %}{% endblock %}
+    {% block level_stylesheet %}{% endblock %}
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+  </head>
+  <body class="{% block body_class %}page-header-fixed{% endblock %}">
+    {% block body %}{% endblock %}
+
+    <!-- BEGIN CORE PLUGINS -->
+    {% block base_javascript %}
+        <script src="{{ asset('plugins/jquery-1.10.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery-migrate-1.2.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        <!--[if lt IE 9]>
+        <script src="{{ asset('plugins/excanvas.min.js') }}"></script>
+        <script src="{{ asset('plugins/respond.min.js') }}"></script>
+        <![endif]-->
+        <script src="{{ asset('plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/jquery.cookie.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/uniform/jquery.uniform.min.js') }}" type="text/javascript" ></script>
+    {% endblock %}
+    <!-- END CORE PLUGINS -->
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    {% block plugins_javascript %}{% endblock %}
+    <!-- END PAGE LEVEL PLUGINS -->
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    {% block level_javascript %}
+        <script src="{{ asset('js/metronic/app.js') }}" type="text/javascript"></script>
+    {% endblock %}
+    <!-- END PAGE LEVEL SCRIPTS -->
+    {% block init_javascript %}
+        <script>
+            jQuery(document).ready(function() {
+                App.init();
+            });
+        </script>
+    {% endblock %}
+    {% block custom_javascript %}{% endblock %}
+  </body>
+</html>
