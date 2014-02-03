@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new Encuesta\DashboardBundle\DashboardBundle(),
             new Encuesta\FrontendBundle\FrontendBundle(),
+			new Encuesta\ModeloBundle\ModeloBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

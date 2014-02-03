@@ -1,0 +1,7 @@
+parameters:
+#    modelo.example.class: Administracion\ModeloBundle\Example
+
+services:
+#    modelo.example:
+#        class: %modelo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
