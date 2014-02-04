@@ -32,16 +32,7 @@ class Usuario implements UserInterface, \Serializable
    *
    * @ORM\OneToMany(targetEntity="Evento", mappedBy="creador")
    */
-    protected $eventos; 	
-    
-  /**
-   * @var Sucursal $sucursal
-   *
-   * @ORM\ManyToOne(targetEntity="Sucursal", inversedBy="usuarios")
-   * @ORM\JoinColumn(nullable=false, onDelete="cascade", nullable=true)
-   * @Assert\Type(type="Encuesta\ModeloBundle\Entity\Sucursal")
-   */
-    protected $sucursal;    
+    protected $eventos; 
 
     /**
      * @var string
@@ -124,7 +115,15 @@ class Usuario implements UserInterface, \Serializable
   private $updated_at;    
   
 
-
+  /**
+   * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
+   * @ORM\ManyToMany(targetEntity="Rol")
+   * @ORM\JoinTable(name="usuario_rol",
+   *     joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="cascade")},
+   *     inverseJoinColumns={@ORM\JoinColumn(name="rol_id", referencedColumnName="id")}
+   * )
+   */
+  protected $usuario_roles;  
 
     
     public function serialize()
@@ -140,6 +139,26 @@ class Usuario implements UserInterface, \Serializable
     public function __sleep()
     {
         return array($this->id); // add your own fields
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getPassword() {
+        
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function getSalt() {
+        
+    }
+
+    public function getUsername() {
+        
     }
 
 

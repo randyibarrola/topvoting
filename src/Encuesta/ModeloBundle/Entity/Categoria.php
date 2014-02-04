@@ -26,23 +26,23 @@ class Categoria {
     /**
      * @var string $nombre
      * @Gedmo\Translatable   
-     * @ORM\Column(name="nombre", type="string", length=200, unique=true, )
+     * @ORM\Column(name="nombre", type="string", length=200, unique=true )
      */
     protected $nombre;
 	
     /**
-     * @OneToMany(targetEntity="Categoria", mappedBy="padre")
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="padre")
      **/
     private $subcategorias;	
 	
     /**
-     * @OneToMany(targetEntity="Categoria", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="categoria")
      **/
     private $candidatos;		
     
     /**
-     * @ManyToOne(targetEntity="Categoria", inversedBy="subcategorias")
-     * @JoinColumn(name="padre_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="subcategorias")
+     * @ORM\JoinColumn(name="padre_id", referencedColumnName="id")
      **/
     private $padre;  
 	

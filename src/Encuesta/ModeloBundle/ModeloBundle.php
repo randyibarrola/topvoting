@@ -1,6 +1,6 @@
 <?php
 
-namespace Administracion\ModeloBundle;
+namespace Encuesta\ModeloBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

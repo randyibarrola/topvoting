@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Encuesta\ModeloBundle\Entity\Categoria;
 
 /**
  * Candidato
@@ -25,7 +26,7 @@ class Candidato {
     /**
      * @var string $titulo
      * @Gedmo\Translatable   
-     * @ORM\Column(name="titulo", type="string", length=200, unique=true, )
+     * @ORM\Column(name="titulo", type="string", length=200, unique=true )
      */
     protected $titulo;
 	
@@ -37,7 +38,7 @@ class Candidato {
     private $descripcion;	
     
     /**
-     * @ManyToOne(targetEntity="Categoria", inversedBy="candidatos")
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="candidatos")
      * @ORM\JoinColumn(nullable=false, onDelete="cascade", nullable=true)
      **/
     private $categoria;  
