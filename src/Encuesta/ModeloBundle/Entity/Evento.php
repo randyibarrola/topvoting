@@ -95,4 +95,221 @@ class Evento
 
 
    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $titulo
+     * @return Evento
+     */
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
+    
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string 
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Evento
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set numero_votaciones
+     *
+     * @param integer $numeroVotaciones
+     * @return Evento
+     */
+    public function setNumeroVotaciones($numeroVotaciones)
+    {
+        $this->numero_votaciones = $numeroVotaciones;
+    
+        return $this;
+    }
+
+    /**
+     * Get numero_votaciones
+     *
+     * @return integer 
+     */
+    public function getNumeroVotaciones()
+    {
+        return $this->numero_votaciones;
+    }
+
+    /**
+     * Set fecha_fin
+     *
+     * @param \DateTime $fechaFin
+     * @return Evento
+     */
+    public function setFechaFin($fechaFin)
+    {
+        $this->fecha_fin = $fechaFin;
+    
+        return $this;
+    }
+
+    /**
+     * Get fecha_fin
+     *
+     * @return \DateTime 
+     */
+    public function getFechaFin()
+    {
+        return $this->fecha_fin;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Evento
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+    
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Evento
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+    
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set created_at
+     *
+     * @param \DateTime $createdAt
+     * @return Evento
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->created_at = $createdAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return Evento
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
+
+    /**
+     * Set creador
+     *
+     * @param \Encuesta\ModeloBundle\Entity\Usuario $creador
+     * @return Evento
+     */
+    public function setCreador(\Encuesta\ModeloBundle\Entity\Usuario $creador = null)
+    {
+        $this->creador = $creador;
+    
+        return $this;
+    }
+
+    /**
+     * Get creador
+     *
+     * @return \Encuesta\ModeloBundle\Entity\Usuario 
+     */
+    public function getCreador()
+    {
+        return $this->creador;
+    }
 }

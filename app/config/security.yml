@@ -4,18 +4,15 @@ jms_security_extra:
 
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Encuesta\ModeloBundle\Entity\Usuario: { algorithm: sha512, iterations: 5 }
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        usuarios:
+            entity: { class: Encuesta\ModeloBundle\Entity\Usuario, property: username }
 
     firewalls:
 #        dev:
@@ -23,7 +20,7 @@ security:
 #            security: false
         dashboard:
             pattern: ^/dashboard
-            provider:  in_memory
+            provider:  usuarios
             anonymous: ~
             form_login:
                 login_path: dashboard_login
