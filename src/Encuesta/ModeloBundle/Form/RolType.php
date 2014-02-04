@@ -1,15 +1,10 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Date;
+
 
 class RolType extends AbstractType
 {
@@ -20,7 +15,7 @@ class RolType extends AbstractType
             ->add('nombre', 'text', array(
                 'label' => 'Rol',
                 'attr' => array(
-                    'class' => 'validate[required] txt_gris12',
+                    'class' => 'validate[required]',
                     'size'=>40
                 ),
                 'required' => true,
@@ -30,15 +25,15 @@ class RolType extends AbstractType
               ));
 	}
 	
-	public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Rol'            
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Rol'            
         ));       
     }
 
     public function getName()
     {
-        return 'administracion_modelobundle_roltype';
+        return 'encuesta_modelobundle_roltype';
     }
 }
