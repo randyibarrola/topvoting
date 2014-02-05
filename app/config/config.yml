@@ -37,6 +37,9 @@ gregwar_captcha:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        default_locale: "%locale%"
+        image_upload_dir: "/uploads/images/"
 
 # Assetic Configuration
 assetic:
@@ -91,4 +94,11 @@ services:
             - { name: twig.extension }            
 
 
-parameters: ~
+parameters:
+    default_locale: "%locale%"
+
+    idiomas:
+        es: Español
+        en: English
+
+    image_upload_dir: %kernel.root_dir%/../web/uploads/images/

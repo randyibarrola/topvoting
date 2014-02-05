@@ -17,6 +17,10 @@ class CategoriaController extends Controller
 
     public function newAction()
     {
-        return $this->render('DashboardBundle:Categoria:form.html.twig');
+        $idiomas = $this->container->getParameter('idiomas');
+
+        return $this->render('DashboardBundle:Categoria:form.html.twig', array(
+            'idiomas' => $idiomas
+        ));
     }
 }

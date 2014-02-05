@@ -2,18 +2,22 @@
 
 {% block title %}{{ parent() }} - {{ 'Listado de categorías' | trans }}{% endblock %}
 {% block plugins_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-fileupload/bootstrap-fileupload.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
 {% endblock %}
 {% block plugins_javascript %}
+    <script type="text/javascript" src="{{ asset('plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 {% endblock %}
 {% block level_javascript %}
     {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/dashboard/form.js') }}"></script>
 {% endblock %}
 {% block init_javascript %}
     {{ parent() }}
     <script>
         jQuery(document).ready(function() {
+            Form.init();
         });
     </script>
 {% endblock %}
@@ -32,4 +36,106 @@
 {% endblock %}
 
 {% block level_content %}
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-tags"></i>{{ 'Formulario de categoría' | trans }}</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+            <div class="actions">
+                <a class="btn green" href="{{ path('dashboard_categoria') }}"><i class="icon-list"></i> <span class="hidden-480">{{ 'Regresar al listado' | trans }}</span></a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <form class="horizontal-form" action="#" method="post">
+                <h3 class="form-section">{{ 'Añadir nueva categoría' | trans }}</h3>
+                <div class="row-fluid">
+                    <div class="span6 ">
+                        <div class="control-group">
+                            <label for="" class="control-label">
+                                {{ 'Seleccione el idioma' | trans }}
+                            </label>
+                            <div class="controls">
+                                <select class="span12 select2 select_translate" data-for="nombre_categoria,descripcion_categoria" data-placeholder="{{ 'Seleccione el idioma' | trans }}" tabindex="1">
+                                    {% for key, idioma in idiomas %}
+                                        <option value="{{key}}" {% if key == default_locale %}selected="selected"{% endif %}>{{idioma}}</option>
+                                    {% endfor %}
+                                </select>
+                                <span class="help-block">{{ 'Introduce el nombre y la descripción en diferentes idiomas' | trans }}</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="" class="control-label">
+                                {{ 'Nombre de la categoría' | trans }}
+                                <span class="required">(* {{ 'Requerido al menos en' | trans }} {{ idiomas[default_locale] }})</span>
+                            </label>
+                            <div class="controls">
+                                {% for key,idioma in idiomas %}
+                                    {% if key == default_locale %}
+                                        <input type="text" id="" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria validate[required]" placeholder="{{ 'Nombre de la categoría' | trans }}" />
+                                    {% else %}
+                                        <input type="text" id="" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria" placeholder="{{ 'Nombre de la categoría' | trans }}" style="display: none" />
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label for="" class="control-label">
+                                {{ 'Descripción de la categoría' | trans }}
+                            </label>
+                            <div class="controls">
+                                {% for key,idioma in idiomas %}
+                                    {% if key == default_locale %}
+                                        <textarea id="" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}"></textarea>
+                                    {% else %}
+                                        <textarea id="" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}" style="display: none"></textarea>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!--/span-->
+                    <div class="span6 ">
+                        <div class="control-group">
+                            <label for="" class="control-label">
+                                {{ 'Categoría padre' | trans }}
+                            </label>
+                            <div class="controls">
+                                <select class="span12 select2" data-placeholder="{{ 'Categoría padre' | trans }}" tabindex="1">
+                                    <option value="" ></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">{{ 'Imagen de categoría' | trans }}</label>
+                            <div class="controls">
+                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                    <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                    </div>
+                                    <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
+
+                                    </div>
+                                    <span class="help-block">{{ 'Solo se permiten imágenes de hasta 1MB' | trans }}</span>
+                                    <div>
+                                        <span class="btn btn-file">
+                                            <span class="fileupload-new mini">{{ 'Seleccionar' | trans }}</span>
+                                            <span class="fileupload-exists mini">{{ 'Cambiar' | trans }}</span>
+                                            <input type="file" class="default" />
+                                        </span>
+                                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">{{ 'Eliminar' | trans }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/row-->
+                <div class="form-actions">
+                    <button class="btn blue" type="submit"><i class="icon-ok"></i> Save</button>
+                    <button class="btn" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

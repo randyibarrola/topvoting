@@ -27,22 +27,18 @@ class Categoria {
      * @var string $nombre
      * @Gedmo\Translatable   
      * @ORM\Column(name="nombre", type="string", length=200, unique=true )
+     * @Assert\NotBlank()
      */
     protected $nombre;
 	
     /**
      * @ORM\OneToMany(targetEntity="Categoria", mappedBy="padre")
      **/
-    private $subcategorias;	
-	
-    /**
-     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="categoria")
-     **/
-    private $candidatos;		
+    private $subcategorias;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="subcategorias")
-     * @ORM\JoinColumn(name="padre_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="subcategorias", cascade = {"persist", "remove"})
+     * @ORM\JoinColumn(name="padre_id", referencedColumnName="id", onDelete="set null", nullable=true)
      **/
     private $padre;  
 	
@@ -56,7 +52,8 @@ class Categoria {
 	/**
      * @var string
      *
-     * @ORM\Column(name="imagen", type="string", length=255) 
+     * @ORM\Column(name="imagen", type="string")
+     * @Assert\Image(maxSize='500k')
      */
     private $imagen;	
     
@@ -83,7 +80,6 @@ class Categoria {
     public function __construct()
     {
         $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->candidatos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -245,39 +241,6 @@ class Categoria {
     }
 
     /**
-     * Add candidatos
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Categoria $candidatos
-     * @return Categoria
-     */
-    public function addCandidato(\Encuesta\ModeloBundle\Entity\Categoria $candidatos)
-    {
-        $this->candidatos[] = $candidatos;
-    
-        return $this;
-    }
-
-    /**
-     * Remove candidatos
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Categoria $candidatos
-     */
-    public function removeCandidato(\Encuesta\ModeloBundle\Entity\Categoria $candidatos)
-    {
-        $this->candidatos->removeElement($candidatos);
-    }
-
-    /**
-     * Get candidatos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCandidatos()
-    {
-        return $this->candidatos;
-    }
-
-    /**
      * Set padre
      *
      * @param \Encuesta\ModeloBundle\Entity\Categoria $padre
@@ -298,5 +261,10 @@ class Categoria {
     public function getPadre()
     {
         return $this->padre;
+    }
+
+    public function __toString()
+    {
+        return $this->getNombre();
     }
 }
