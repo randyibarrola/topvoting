@@ -1,6 +1,6 @@
 <?php
 
-namespace Encuesta\ModeloBundle\Tests\Controller;
+namespace Administracion\ModeloBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

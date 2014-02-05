@@ -1,6 +1,6 @@
 <?php
 
-namespace Encuesta\ModeloBundle\Controller;
+namespace Administracion\ModeloBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
