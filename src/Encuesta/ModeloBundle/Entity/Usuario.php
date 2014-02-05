@@ -100,7 +100,7 @@ class Usuario implements UserInterface, \Serializable
 	/**
      * @var string
      *
-     * @ORM\Column(name="imagen", type="string", length=255) 
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=true) 
      */
     private $imagen;
     
