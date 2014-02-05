@@ -44,9 +44,23 @@ class MessageFactory
     $this->fileSystem = $container->get('filesystem');
     $this->rootDir = $rootDir;
     $this->from = $from;
-    $this->creditCardCrypter = $container->get('wb.encriptador_tarjeta_credito');
-    $this->sitehostname = $container->getParameter('sitehostname');
-    $this->gMapCreator = $container->get('wb.gmapcreator');
+  }
+  
+  public function getMsgCreacionCuenta(Usuario $usuario)
+  {    
+    
+    $msg = Swift_Message::newInstance('Aviso: Reserva creada')
+      ->setFrom($this->from)
+      ->setTo($usuario->getEmail(), $usuario->getNombre());
+
+    //El cuerpo en html
+    $htmlPart = $this->templateEngine->render('FrontendBundle:Messages:creacionCuenta.html.twig', array(      
+      'usuario' => $usuario
+      ));
+
+    $msg->addPart($htmlPart, 'text/html');
+    
+    return $msg;
   }
 
 
@@ -62,11 +76,13 @@ class MessageFactory
 
     //El cuerpo en texto plano
     $msg
-      ->addPart($this->templateEngine->render('ModeloBundle:Messages:avisoReservaCreadaParaCliente.txt.twig', array(
-          'reserva' => $reserva,
+      ->addPart($this->templateEngine->render('FrontendBundle:Messages:avisoReservaCreadaParaCliente.txt.twig', array(
+          'usuario' => $usuario,
           'identidad' => $identidad
         )), 'text/plain')
     ;
+    
+    
 
 
     $checkPath = $this->rootDir . '/../web/images/aceptarGrande.png';
