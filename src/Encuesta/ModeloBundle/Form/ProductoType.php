@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -106,12 +106,12 @@ class ProductoType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Producto'            
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Producto'
         ));       
     }
 
     public function getName()
     {
-        return 'administracion_modelobundle_productotype';
+        return 'encuesta_modelobundle_productotype';
     }
 }

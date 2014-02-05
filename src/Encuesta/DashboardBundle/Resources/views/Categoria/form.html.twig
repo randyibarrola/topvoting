@@ -1,0 +1,35 @@
+{% extends '::dashboard.html.twig' %}
+
+{% block title %}{{ parent() }} - {{ 'Listado de categorías' | trans }}{% endblock %}
+{% block plugins_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
+{% endblock %}
+{% block plugins_javascript %}
+    <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+{% endblock %}
+{% block level_javascript %}
+    {{ parent() }}
+{% endblock %}
+{% block init_javascript %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+        });
+    </script>
+{% endblock %}
+{% block page_title %}{{ 'Categorías' | trans }} <small>{{ 'añadir nuevo' | trans }}</small>{% endblock %}
+{% block breadcrumb_list %}
+    {{ parent() }}
+    <li>
+        <i class="icon-tags"></i>
+        <a href="{{ path('dashboard_categoria') }}">{{ 'Categorías' | trans }}</a>
+        <span class="icon-angle-right"></span>
+    </li>
+    <li>
+        <i class="icon-plus"></i>
+        {{ 'Añadir nuevo' | trans }}
+    </li>
+{% endblock %}
+
+{% block level_content %}
+{% endblock %}

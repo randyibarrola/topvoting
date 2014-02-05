@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,8 +27,8 @@ class TelefonoType extends AbstractType
             ))
 			
 			->add('tipo', 'choice', array(
-                'label' => 'Tipo de teléfono',
-                'choices' => array('1'=>'Teléfono', '2'=>'Celular'),
+                'label' => 'Tipo de telï¿½fono',
+                'choices' => array('1'=>'TelÃ©fono', '2'=>'Celular'),
                 'empty_value' => false,
                 'attr' => array('class' => 'validate[required] txt_gris12'),
                 'mapped' => false,
@@ -55,13 +55,13 @@ class TelefonoType extends AbstractType
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Telefono'            
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Telefono'
         ));       
     }
 
     public function getName()
     {
-        return 'administracion_modelobundle_telefonotype';
+        return 'encuesta_modelobundle_telefonotype';
     }
 	
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,12 +55,12 @@ class SucursalType extends AbstractType
       public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Sucursal'            
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Sucursal'
         ));       
     }
 
     public function getName()
     {
-        return 'administracion_modelobundle_sucursaltype';
+        return 'encuesta_modelobundle_sucursaltype';
     }
 }

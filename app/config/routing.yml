@@ -1,16 +1,6 @@
-dashboard_login:
-    pattern:  /dashboard/login
-    defaults: { _controller: DashboardBundle:User:login }
-
-dashboard_login_check:
-    pattern:  /dashboard/login_check
-
-dashboard_logout:
-    pattern:  /dashboard/logout
-
 dashboard:
-    pattern:  /dashboard
-    defaults: { _controller: DashboardBundle:Default:index }
+    resource: "@DashboardBundle/Resources/config/routing.yml"
+    prefix:   /administracion
 
 homepage:
     pattern:  /

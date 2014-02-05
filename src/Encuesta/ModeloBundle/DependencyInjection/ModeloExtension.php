@@ -1,6 +1,6 @@
 <?php
 
-namespace Administracion\ModeloBundle\DependencyInjection;
+namespace Encuesta\ModeloBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

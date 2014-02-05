@@ -1,0 +1,25 @@
+#dashboard-logo {
+    margin-left: 20px;
+}
+
+@media (max-width: 767px) {
+    #dashboard-logo {
+        margin-left: 0;
+    }
+}
+
+.logo > h3 {
+    color: #FFFFFF;
+}
+
+.DTTT_Print {
+    background: none !important;
+}
+
+.DTTT_Print .page-content, .DTTT_Print .page-container {
+    margin: 0;
+}
+
+.dataTable .filter_column input {
+    width: auto;
+}

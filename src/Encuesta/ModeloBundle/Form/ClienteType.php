@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -86,13 +86,13 @@ class ClienteType extends AbstractType
      public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Cliente'            
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Cliente'
         ));       
     }
 
     public function getName()
     {
-        return 'administracion_modelobundle_clientetype';
+        return 'encuesta_modelobundle_clientetype';
     }
     
 }

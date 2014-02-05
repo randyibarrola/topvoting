@@ -1,3 +1,26 @@
-dashboard_homepage:
-    pattern:  /hello/{name}
+
+dashboard_login:
+    pattern:  /login
+    defaults: { _controller: DashboardBundle:User:login }
+
+dashboard_login_check:
+    pattern:  /login_check
+
+dashboard_logout:
+    pattern:  /logout
+
+dashboard_usuario:
+    pattern:  /usuario
+    defaults: { _controller: DashboardBundle:User:list }
+
+dashboard_categoria:
+    pattern:  /categoria
+    defaults: { _controller: DashboardBundle:Categoria:list }
+
+dashboard_categoria_nuevo:
+    pattern:  /categoria/nuevo
+    defaults: { _controller: DashboardBundle:Categoria:new }
+
+dashboard_hompage:
+    pattern:  /
     defaults: { _controller: DashboardBundle:Default:index }

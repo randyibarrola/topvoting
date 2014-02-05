@@ -1,6 +1,6 @@
 <?php
 
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,17 +41,17 @@ class SubcategoriaType extends AbstractType {
         'constraints' => array(
         new NotBlank()
         )
-        ))
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Administracion\ModeloBundle\Entity\Subcategoria'
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Subcategoria'
         ));
     }
 
     public function getName() {
-        return 'administracion_modelobundle_subcategoriatype';
+        return 'encuesta_modelobundle_subcategoriatype';
     }
 
 }

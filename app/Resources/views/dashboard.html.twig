@@ -2,14 +2,16 @@
 
 {% block body %}
     <!-- BEGIN HEADER -->
-    <div class="header navbar navbar-inverse navbar-fixed-top">
+    <div class="header navbar navbar-inverse navbar-fixed-top hidden-print">
         <!-- BEGIN TOP NAVIGATION BAR -->
         <div class="navbar-inner">
             <div class="container-fluid">
                 <!-- HEADER CONTENT GOES HERE -->
                 <!-- BEGIN LOGO -->
-                <a href="{{ path('dashboard') }}" class="brand">
-                    <img alt="logo" src="{{ asset('images/metronic/logo.png') }}">
+                <a href="{{ path('dashboard_hompage') }}" class="brand">
+                    <span id="dashboard-logo" class="">
+                        <i class="icon-cogs"></i> Topvoting
+                    </span>
                 </a>
                 <!-- END LOGO -->
                 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -28,7 +30,7 @@
     <!-- BEGIN CONTAINER -->
     <div class="page-container row-fluid">
         <!-- BEGIN SIDEBAR -->
-        <div class="page-sidebar nav-collapse collapse">
+        <div class="page-sidebar nav-collapse collapse hidden-print">
             <!-- PAGE SIDEBAR CONTENT GOES HERE -->
             <!-- BEGIN SIDEBAR MENU -->
             {{ render(controller('DashboardBundle:Default:sideBarMenu')) }}
@@ -38,12 +40,40 @@
         <!-- BEGIN PAGE -->
         <div class="page-content">
             <!-- PAGE CONTENT GOES HERE -->
+            <!-- BEGIN PAGE CONTAINER-->
+            <div class="container-fluid">
+                <!-- BEGIN PAGE HEADER-->
+                <div class="row-fluid">
+                    <div class="span12">
+                        <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                        <h3 class="page-title">
+                            {% block page_title %}{% endblock %}
+                        </h3>
+                        {% block breadcrumb %}
+                            <ul class="breadcrumb hidden-phone">
+                                {% block breadcrumb_list %}
+                                    <li>
+                                        <i class="icon-home"></i>
+                                        <a href="{{ path('dashboard_hompage') }}">{{ 'Inicio' | trans }}</a>
+                                        <span class="icon-angle-right"></span>
+                                    </li>
+                                {% endblock %}
+                            </ul>
+                        {% endblock %}
+                        <!-- END PAGE TITLE & BREADCRUMB-->
+                    </div>
+                </div>
+                <!-- END PAGE HEADER-->
+                <!-- CONTENT BODY GOES HERE >>>> -->
+                {% block level_content %}{% endblock %}
+            </div>
+            <!-- END PAGE CONTAINER-->
         </div>
         <!-- END PAGE -->
     </div>
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
-    <div class="footer">
+    <div class="footer hidden-print">
         <!-- PAGE FOOTER GOES HERE -->
         <div class="footer-inner">
             2013 &copy; Metronic by keenthemes.
