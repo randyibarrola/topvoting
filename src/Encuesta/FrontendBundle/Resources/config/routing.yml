@@ -7,6 +7,10 @@ frontend_login_check:
 
 frontend_logout:
     pattern:  /logout
+    
+frontend_registro:
+    pattern:  /registro
+    defaults: { _controller: FrontendBundle:Usuario:registro }    
 
 frontend_homepage:
     pattern:  /hello/{name}

@@ -1,7 +1,13 @@
 Hello {{ name }}!
 
+<br />
+
 {% if app.user %}
-    {{ app.user.username }} , {{ app.user.usuarioRolesString}}
-    
-    <a href="{{ path('frontend_logout') }}">Salir</a>
+    {{ app.user.username }} , {{ app.user.usuarioRolesString}}   
+    <ul>
+        <li>Votaciones</li>
+        <li><a href="{{ path('frontend_logout') }}">Salir</a></li>
+    </ul>    
+{% else %}
+    <a href="{{ path('frontend_registro') }}" >Registro</a>
 {% endif %}
