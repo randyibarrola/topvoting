@@ -21,4 +21,9 @@ class UserController extends Controller
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error' => $error ));
     }
+
+    public function listAction()
+    {
+        return $this->render('DashboardBundle:User:list.html.twig');
+    }
 }

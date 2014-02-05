@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="usuario")
  * @ORM\Entity
  * @DoctrineAssert\UniqueEntity("username")
+ * @ORM\Entity(repositoryClass="Encuesta\ModeloBundle\Entity\UsuarioRepository")
  */
 class Usuario implements UserInterface, \Serializable
 {
@@ -31,7 +32,16 @@ class Usuario implements UserInterface, \Serializable
    *
    * @ORM\OneToMany(targetEntity="Evento", mappedBy="creador")
    */
-    protected $eventos; 
+    protected $eventos; 	
+    
+  /**
+   * @var Sucursal $sucursal
+   *
+   * @ORM\ManyToOne(targetEntity="Sucursal", inversedBy="usuarios")
+   * @ORM\JoinColumn(nullable=false, onDelete="cascade", nullable=true)
+   * @Assert\Type(type="Encuesta\ModeloBundle\Entity\Sucursal")
+   */
+    protected $sucursal;    
 
     /**
      * @var string
@@ -60,13 +70,6 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
     private $username;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    private $email;    
 
     /**
      * @var string
@@ -121,15 +124,7 @@ class Usuario implements UserInterface, \Serializable
   private $updated_at;    
   
 
-  /**
-   * se utilizó user_roles para no hacer conflicto al aplicar ->toArray en getRoles()
-   * @ORM\ManyToMany(targetEntity="Rol")
-   * @ORM\JoinTable(name="usuario_rol",
-   *     joinColumns={@ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="cascade")},
-   *     inverseJoinColumns={@ORM\JoinColumn(name="rol_id", referencedColumnName="id")}
-   * )
-   */
-  protected $usuario_roles;  
+
 
     
     public function serialize()
@@ -145,362 +140,8 @@ class Usuario implements UserInterface, \Serializable
     public function __sleep()
     {
         return array($this->id); // add your own fields
-    }  
-
-
-    public function eraseCredentials() {
-        
     }
-
 
 
    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->eventos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->usuario_roles = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Usuario
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-    
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set apellidos
-     *
-     * @param string $apellidos
-     * @return Usuario
-     */
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
-    
-        return $this;
-    }
-
-    /**
-     * Get apellidos
-     *
-     * @return string 
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * Set telefono
-     *
-     * @param string $telefono
-     * @return Usuario
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-    
-        return $this;
-    }
-
-    /**
-     * Get telefono
-     *
-     * @return string 
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return Usuario
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    
-        return $this;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Usuario
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Usuario
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    
-        return $this;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     * @return Usuario
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-    
-        return $this;
-    }
-
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     * @return Usuario
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-    
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-    /**
-     * Set categoria
-     *
-     * @param integer $categoria
-     * @return Usuario
-     */
-    public function setCategoria($categoria)
-    {
-        $this->categoria = $categoria;
-    
-        return $this;
-    }
-
-    /**
-     * Get categoria
-     *
-     * @return integer 
-     */
-    public function getCategoria()
-    {
-        return $this->categoria;
-    }
-
-    /**
-     * Set imagen
-     *
-     * @param string $imagen
-     * @return Usuario
-     */
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-    
-        return $this;
-    }
-
-    /**
-     * Get imagen
-     *
-     * @return string 
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-    /**
-     * Set created_at
-     *
-     * @param \DateTime $createdAt
-     * @return Usuario
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->created_at = $createdAt;
-    
-        return $this;
-    }
-
-    /**
-     * Get created_at
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->created_at;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     * @return Usuario
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updated_at = $updatedAt;
-    
-        return $this;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
-    }
-
-    /**
-     * Add eventos
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Evento $eventos
-     * @return Usuario
-     */
-    public function addEvento(\Encuesta\ModeloBundle\Entity\Evento $eventos)
-    {
-        $this->eventos[] = $eventos;
-    
-        return $this;
-    }
-
-    /**
-     * Remove eventos
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Evento $eventos
-     */
-    public function removeEvento(\Encuesta\ModeloBundle\Entity\Evento $eventos)
-    {
-        $this->eventos->removeElement($eventos);
-    }
-
-    /**
-     * Get eventos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEventos()
-    {
-        return $this->eventos;
-    }
-
-    /**
-     * Add usuario_roles
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Rol $usuarioRoles
-     * @return Usuario
-     */
-    public function addUsuarioRole(\Encuesta\ModeloBundle\Entity\Rol $usuarioRoles)
-    {
-        $this->usuario_roles[] = $usuarioRoles;
-    
-        return $this;
-    }
-
-    /**
-     * Remove usuario_roles
-     *
-     * @param \Encuesta\ModeloBundle\Entity\Rol $usuarioRoles
-     */
-    public function removeUsuarioRole(\Encuesta\ModeloBundle\Entity\Rol $usuarioRoles)
-    {
-        $this->usuario_roles->removeElement($usuarioRoles);
-    }
-
-    /**
-     * Get usuario_roles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUsuarioRoles()
-    {
-        return $this->usuario_roles;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function getRoles() {
-        return $this->usuario_roles->toArray();
-    }
-
-    public function getSalt() {
-        return $this->salt;
-    }
-
-    public function getUsername() {
-        return $this->username;
-    }
-
-
 }

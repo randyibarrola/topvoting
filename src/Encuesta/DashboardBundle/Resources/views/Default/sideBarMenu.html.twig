@@ -5,65 +5,67 @@
         </div>
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
     </li>
-    <li class="start active ">
-        <a href="{{ path('dashboard') }}">
+    <li class="start {% if route_match == 'dashboard_hompage' %}active{% endif %}">
+        <a href="{{ path('dashboard_hompage') }}">
             <i class="icon-home">
             </i>
             <span class="title">
                 {{ 'Panel de control' | trans }}
             </span>
-            <span class="selected"></span>
+            {% if route_match == 'dashboard_hompage' %}
+                <span class="selected"></span>
+            {% endif %}
         </a>
     </li>
-    <li class="last">
+    <li class="">
         <a href="{{ path('homepage') }}" target="_blank">
-            <i class="icon-share">
+            <i class="icon-external-link">
             </i>
             <span class="title">
                 {{ 'Sitio' | trans }}
             </span>
         </a>
     </li>
-    <li class="">
-        <a href="javascript:;">
-            <i class="icon-shopping-cart">
+    <li class="{% if route_match in ['dashboard_usuario'] %}active{% endif %}">
+        <a href="{{ path('dashboard_usuario') }}">
+            <i class="icon-group">
             </i>
             <span class="title">
-                {{ 'Comercio electrónico' | trans }}
+                {{ 'Usuarios' | trans }}
             </span>
-            <span class="arrow "></span>
+            {% if route_match in ['dashboard_usuario'] %}
+                <span class="selected"></span>
+            {% endif %}
         </a>
-        <ul class="sub-menu">
-            <li >
-                <a href="#">
-                    Viajes
-                </a>
-            </li>
-            <li >
-                <a href="#">
-                    Electrónica
-                </a>
-            </li>
-            <li >
-                <a href="#">
-                    Ropa
-                </a>
-            </li>
-            <li >
-                <a href="#">
-                    Artículos de lujo
-                </a>
-            </li>
-            <li >
-                <a href="#">
-                    Alimentación
-                </a>
-            </li>
-            <li >
-                <a href="#">
-                    Vino
-                </a>
-            </li>
-        </ul>
+    </li>
+    <li class="{% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo'] %}active{% endif %}">
+        <a href="{{ path('dashboard_categoria') }}">
+            <i class="icon-tags">
+            </i>
+            <span class="title">
+                {{ 'Categorías' | trans }}
+            </span>
+            {% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo'] %}
+                <span class="selected"></span>
+            {% endif %}
+        </a>
+    </li>
+    <li class="">
+        <a href="{{ path('homepage') }}">
+            <i class="icon-file-text">
+            </i>
+            <span class="title">
+                {{ 'Eventos' | trans }}
+            </span>
+        </a>
+    </li>
+    <li class="last">
+        <a href="{{ path('homepage') }}">
+            <i class="icon-star">
+            </i>
+            <span class="title">
+                {{ 'Candidatos' | trans }}
+            </span>
+        </a>
     </li>
 </ul>
