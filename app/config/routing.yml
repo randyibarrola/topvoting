@@ -1,6 +1,10 @@
 dashboard:
     resource: "@DashboardBundle/Resources/config/routing.yml"
     prefix:   /administracion
+    
+frontend:
+    resource: "@FrontendBundle/Resources/config/routing.yml"
+    prefix:   /    
 
 homepage:
     pattern:  /

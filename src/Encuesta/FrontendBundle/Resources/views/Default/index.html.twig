@@ -1,1 +1,7 @@
 Hello {{ name }}!
+
+{% if app.user %}
+    {{ app.user.username }} , {{ app.user.usuarioRolesString}}
+    
+    <a href="{{ path('frontend_logout') }}">Salir</a>
+{% endif %}

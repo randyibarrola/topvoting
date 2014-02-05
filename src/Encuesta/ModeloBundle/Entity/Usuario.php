@@ -501,6 +501,14 @@ class Usuario implements UserInterface, \Serializable
     public function getUsername() {
         return $this->username;
     }
+    
+    public function getUsuarioRolesString()
+    {
+        $nombres = array();
+        foreach($this->usuario_roles as $rol)
+            $nombres[] = $rol->getNombre();
+        return implode(',', $nombres) ;
+    }    
 
 
 }

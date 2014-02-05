@@ -31,8 +31,22 @@ security:
             remember_me:
                 key: encuesta_dashboard
                 lifetime: 3600
+        frontend:
+            pattern: ^/
+            provider:  usuarios
+            anonymous: ~
+            form_login:
+                login_path: frontend_login
+                check_path: frontend_login_check
+            logout:
+                path: frontend_logout
+                target: /
+            remember_me:
+                key: encuesta_frontend
+                lifetime: 3600                
 
     access_control:
+        - { path: ^/, roles: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_USER] }
         - { path: ^/dashboard/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/dashboard, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
