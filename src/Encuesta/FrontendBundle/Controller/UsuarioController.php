@@ -38,8 +38,22 @@ class UsuarioController extends Controller
             $password = $encoder->encodePassword($peticion->get('password'),$salt );
             $usuario->setPassword($password);
             $usuario->setActivo(false);
+            $usuario->setCodigoActivacion(md5(time()));
+            
+            $rol = $em->getRepository('ModeloBundle:Rol')->findOneBy(array('nombre'=>'ROLE_USER')); 
+            $usuario->addUsuarioRole($rol);
+            
             $em->persist($usuario);
             $em->flush();
+            
+            
+            $mailer = $this->container->get('mailer');          
+
+            //Mail para el cliente
+            $msgCliente = $this->container->get('topvoting.mailer')->getMsgCreacionCuenta($usuario);            
+            $mailer->send($msgCliente);
+            
+            return $this->redirect($this->generateUrl('frontend_registro'));
             
         }
         return $this->render('FrontendBundle:Usuario:registro.html.twig');        

@@ -104,6 +104,13 @@ class Usuario implements UserInterface, \Serializable
      */
     private $imagen;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_activacion", type="string", length=255, unique=true, nullable=true)
+     */
+    private $codigo_activacion;      
+    
   /**
    * @var datetime $created_at
    *
@@ -511,4 +518,27 @@ class Usuario implements UserInterface, \Serializable
     }    
 
 
+
+    /**
+     * Set codigo_activacion
+     *
+     * @param string $codigoActivacion
+     * @return Usuario
+     */
+    public function setCodigoActivacion($codigoActivacion)
+    {
+        $this->codigo_activacion = $codigoActivacion;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigo_activacion
+     *
+     * @return string 
+     */
+    public function getCodigoActivacion()
+    {
+        return $this->codigo_activacion;
+    }
 }

@@ -2,6 +2,10 @@ parameters:
 #    frontend.example.class: Encuesta\FrontendBundle\Example
 
 services:
+    topvoting.mailer:
+        class: Encuesta\FrontendBundle\DependencyInjection\MessageFactory
+        arguments: ['@service_container', %kernel.root_dir%, %mail_from%]
+
 #    frontend.example:
 #        class: %frontend.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
