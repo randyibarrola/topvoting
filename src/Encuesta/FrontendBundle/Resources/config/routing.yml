@@ -1,6 +1,6 @@
 frontend_login:
-    pattern:  /login
-    defaults: { _controller: FrontendBundle:Usuario:login }
+    pattern:  /{culture}/login
+    defaults: { _controller: FrontendBundle:Usuario:login, culture: es}
 
 frontend_login_check:
     pattern:  /login_check
@@ -9,9 +9,9 @@ frontend_logout:
     pattern:  /logout
     
 frontend_registro:
-    pattern:  /registro
-    defaults: { _controller: FrontendBundle:Usuario:registro }    
+    pattern:  /{culture}/registro
+    defaults: { _controller: FrontendBundle:Usuario:registro , culture: es}    
 
 frontend_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: FrontendBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: FrontendBundle:Default:index, culture: es }
