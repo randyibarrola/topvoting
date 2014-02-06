@@ -39,7 +39,8 @@ class CategoriaController extends Controller
         return $this->render('DashboardBundle:Categoria:form.html.twig', array(
             'idiomas' => $idiomas,
             'obj' => $obj,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'i18n' => array()
         ));
     }
 
@@ -74,10 +75,13 @@ class CategoriaController extends Controller
             return $response;
         }
 
+        $i18n = $em->getRepository('Gedmo\Translatable\Entity\Translation')->findTranslations($obj);
+
         return $this->render('DashboardBundle:Categoria:form.html.twig', array(
             'idiomas' => $idiomas,
             'obj' => $obj,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'i18n' => $i18n
         ));
     }
 
@@ -98,6 +102,16 @@ class CategoriaController extends Controller
 
                 $em->persist($data);
                 $em->flush();
+
+                $i18n = array(
+                    'nombre' => $request->request->get('translate_nombre', array()),
+                    'descripcion' => $request->request->get('translate_descripcion', array()),
+                );
+
+                if($this->get('dashboard.entity')->persistEntityTranslations($data, $i18n)) {
+                    $em->flush();
+                }
+
 
                 $response->setMessage($translator->trans('La categoría se ha guardado satisfactoriamente'));
             }

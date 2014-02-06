@@ -12,3 +12,6 @@ services:
             - [ setTranslator, [@translator] ]
     dashboard.file:
         class: Encuesta\DashboardBundle\Util\File
+    dashboard.entity:
+        class: Encuesta\DashboardBundle\Util\Entity
+        arguments: [@doctrine.orm.entity_manager]
