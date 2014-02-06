@@ -18,13 +18,16 @@ class CategoriaType extends AbstractType {
                 'label' => false,
                 'required' => false
             ))
-            ->add('padre', 'textarea', array(
+            ->add('padre', 'entity', array(
                 'label' => false,
-                'required' => false
+                'required' => false,
+                'class' => 'ModeloBundle:Categoria',
+                'property' => 'nombre',
             ))
             ->add('imagen', 'file', array(
                 'label' => false,
-                'required' => false
+                'required' => false,
+                'data_class' => null
             ));
        
     }

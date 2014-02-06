@@ -11,8 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Categoria
  *
  * @ORM\Table(name="categoria")
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="Encuesta\ModeloBundle\Entity\CategoriaRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Categoria {
 
@@ -32,12 +32,12 @@ class Categoria {
     protected $nombre;
 	
     /**
-     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="padre")
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="padre", cascade={"remove"})
      **/
     private $subcategorias;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="subcategorias", cascade = {"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="subcategorias", cascade = {"persist"})
      * @ORM\JoinColumn(name="padre_id", referencedColumnName="id", onDelete="set null", nullable=true)
      **/
     private $padre;  
@@ -52,8 +52,8 @@ class Categoria {
 	/**
      * @var string
      *
-     * @ORM\Column(name="imagen", type="string")
-     * @Assert\Image(maxSize='500k')
+     * @ORM\Column(name="imagen", type="string", nullable=true)
+     * @Assert\Image(maxSize="500k")
      */
     private $imagen;	
     
@@ -266,5 +266,24 @@ class Categoria {
     public function __toString()
     {
         return $this->getNombre();
+    }
+
+    private $filenameForRemove;
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getImagen();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove != null) {
+            unlink(__DIR__.'/../../../../web/uploads/images/categoria/'.$this->filenameForRemove);
+        }
     }
 }

@@ -1,10 +1,6 @@
 var TableCategoria = function() {
     var initTable = function() {
-        $('#data-table-categoria').dataTable({
-            "fnDrawCallback": function(oSettings) {
-            },
-            "bRetrieve": true
-        }).columnFilter({
+        $('#data-table-categoria').dataTable().columnFilter({
             sPlaceHolder: "head:after",
             aoColumns: [
                 {type: "text"}, {type: "text"}, {type: "text"}, {type: "text"}

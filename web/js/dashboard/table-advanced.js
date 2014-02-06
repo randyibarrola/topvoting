@@ -9,12 +9,14 @@ var TableAdvanced = function () {
                 "sLengthMenu": "_MENU_"
             },
             "sDom": "<'row-fluid'<'span5'T><'span5'f><'span2'l>r>t<'row-fluid'<'span6'i><'span6'p>>",
-            "bSortCellsTop": true
+            "bSortCellsTop": true,
+            "fnCreatedRow": null,
+            "fnDrawCallback": null
         } );
 
         if(jQuery().dataTable.TableTools) {
             $.extend( true, jQuery().dataTable.TableTools.DEFAULTS, {
-                "sSwfPath": "/topvoting/plugins/data-tables/swf/copy_csv_xls.swf",
+                "sSwfPath": SWF_DT_TOOLS,
                 "oTags": {
                     "collection": {
                         "container": "ul",
@@ -59,13 +61,49 @@ var TableAdvanced = function () {
         }
 
         $('.table-advanced').each(function () {
+            var tSettings = null;
             var table = $(this);
             var indexThAction = table.find('th.table-actions-cell').eq(0).parents('tr').eq(0).find('th').index(table.find('th.table-actions-cell'));
             if(indexThAction == -1)
                 indexThAction = false;
 
+            var btnDeleteRowAction = function(nRow) {
+                var btn = $(nRow).find('.table-btn-delete-row').eq(0);
+                if(!btn.attr('onClick')) {
+                    btn.off().click(function() {
+                        $(nRow).hide();
+                        $.ajax({
+                            type: "POST",
+                            url: btn.attr('href'),
+                            dataType: "json",
+                            success: function(result) {
+                                if(result.http_code == 200)
+                                {
+                                    oTable.fnDeleteRow(nRow);
+                                }
+                                else {
+                                    $(nRow).show();
+                                }
+//                            AppConsole.show(resultado.message, resultado.message_type, 5000);
+                            },
+                            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                $(nRow).show();
+                            }
+                        });
+
+                        return false;
+                    });
+                }
+            };
+
             var oTable = table.dataTable({
-                "aoColumnDefs": indexThAction ? [{ "aTargets": [ 0 ] }, {"bSortable": false, "aTargets": [ indexThAction ] }] : [{ "aTargets": [ 0 ] }]
+                "aoColumnDefs": indexThAction ? [{ "aTargets": [ 0 ] }, {"bSortable": false, "aTargets": [ indexThAction ] }] : [{ "aTargets": [ 0 ] }],
+                "fnDrawCallback": function(oSettings) {
+                    tSettings = oSettings;
+                },
+                "fnCreatedRow": function( nRow, aData, iDataIndex ) {
+                    btnDeleteRowAction(nRow);
+                }
             });
 
             jQuery('.dataTables_filter input').addClass("m-wrap small"); // modify table search input

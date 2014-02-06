@@ -7,6 +7,8 @@ services:
         calls:
             - [ setTranslator, [@translator] ]
     dashboard.ajaxformresponse:
-            class: Encuesta\DashboardBundle\Util\AjaxFormResponse
-            calls:
-                - [ setTranslator, [@translator] ]
+        class: Encuesta\DashboardBundle\Util\AjaxFormResponse
+        calls:
+            - [ setTranslator, [@translator] ]
+    dashboard.file:
+        class: Encuesta\DashboardBundle\Util\File

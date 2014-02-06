@@ -21,6 +21,18 @@ dashboard_categoria_nuevo:
     pattern:  /categoria/nuevo
     defaults: { _controller: DashboardBundle:Categoria:new }
 
+dashboard_categoria_editar:
+    pattern:  /categoria/editar/{id}
+    defaults: { _controller: DashboardBundle:Categoria:edit }
+    requirements:
+        id: \d+
+
+dashboard_categoria_eliminar:
+    pattern:  /categoria/eliminar/{id}
+    defaults: { _controller: DashboardBundle:Categoria:delete }
+    requirements:
+        id: \d+
+
 dashboard_hompage:
     pattern:  /
     defaults: { _controller: DashboardBundle:Default:index }

@@ -1,6 +1,6 @@
 {% extends '::dashboard.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ 'Listado de categorías' | trans }}{% endblock %}
+{% block title %}{{ parent() }} - {{ (obj.id is not null ? 'Editar categoría' : 'Añadir categoría') | trans ~ (obj.id is not null ? ' ' ~ obj.nombre : '') }}{% endblock %}
 {% block plugins_stylesheet %}
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-fileupload/bootstrap-fileupload.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
@@ -18,10 +18,14 @@
     <script>
         jQuery(document).ready(function() {
             Form.init();
+
+            $('.imagen_categoria').eq(0).change(function() {
+                $('#widget_imagen_delete').val($(this).val().trim().length > 0 ? '0' : '1');
+            });
         });
     </script>
 {% endblock %}
-{% block page_title %}{{ 'Categorías' | trans }} <small>{{ 'añadir nuevo' | trans }}</small>{% endblock %}
+{% block page_title %}{{ 'Categorías' | trans }} <small>{{ obj.id is not null ? 'editar' | trans : 'añadir nuevo' | trans }}</small>{% endblock %}
 {% block breadcrumb_list %}
     {{ parent() }}
     <li>
@@ -30,8 +34,8 @@
         <span class="icon-angle-right"></span>
     </li>
     <li>
-        <i class="icon-plus"></i>
-        {{ 'Añadir nuevo' | trans }}
+        <i class="{{ obj.id is not null ? 'icon-edit' | trans : 'icon-plus' | trans }}"></i>
+        {{ obj.id is not null ? 'Editar' | trans : 'Añadir nuevo' | trans }}
     </li>
 {% endblock %}
 
@@ -47,7 +51,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form class="horizontal-form" action="#" method="post">
+            <form class="horizontal-form" action="{{ obj.id is not null ? path('dashboard_categoria_editar', { 'id': obj.id }) : path('dashboard_categoria_nuevo') }}" method="post" {{ form_enctype(form) }}>
                 <h3 class="form-section">{{ 'Añadir nueva categoría' | trans }}</h3>
                 <div class="row-fluid">
                     <div class="span6 ">
@@ -72,9 +76,9 @@
                             <div class="controls">
                                 {% for key,idioma in idiomas %}
                                     {% if key == default_locale %}
-                                        <input type="text" id="" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria validate[required]" placeholder="{{ 'Nombre de la categoría' | trans }}" />
+                                        {{ form_widget(form.nombre, {'attr': {'data-locale': key, 'class': 'm-wrap span12 nombre_categoria validate[required', 'placeholder': 'Nombre de la categoría' | trans}}) }}
                                     {% else %}
-                                        <input type="text" id="" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria" placeholder="{{ 'Nombre de la categoría' | trans }}" style="display: none" />
+                                        <input type="text" name="translate_nombre[{{ key }}]" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria" placeholder="{{ 'Nombre de la categoría' | trans }}" style="display: none" />
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -86,9 +90,9 @@
                             <div class="controls">
                                 {% for key,idioma in idiomas %}
                                     {% if key == default_locale %}
-                                        <textarea id="" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}"></textarea>
+                                        {{ form_widget(form.descripcion, {'attr': {'data-locale': key, 'class': 'm-wrap span12 descripcion_categoria', 'placeholder': 'Descripción de la categoría' | trans, 'rows': '3'}}) }}
                                     {% else %}
-                                        <textarea id="" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}" style="display: none"></textarea>
+                                        <textarea name="translate_descripcion[{{ key }}]" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}" style="display: none"></textarea>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -101,27 +105,30 @@
                                 {{ 'Categoría padre' | trans }}
                             </label>
                             <div class="controls">
-                                <select class="span12 select2" data-placeholder="{{ 'Categoría padre' | trans }}" tabindex="1">
-                                    <option value="" ></option>
-                                </select>
+                                {{ form_widget(form.padre, {'attr': {'class': 'span12 select2', 'placeholder': 'Categoría padre' | trans, 'tabindex': '1'}}) }}
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">{{ 'Imagen de categoría' | trans }}</label>
                             <div class="controls">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <div class="fileupload {{ obj.imagen is null ? 'fileupload-new' : 'fileupload-exists' }}" data-provides="fileupload">
                                     <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
-                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                        {% if obj.imagen is null %}
+                                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" />
+                                        {% endif %}
                                     </div>
                                     <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
-
+                                        {% if obj.imagen is not null %}
+                                            <img src="{{ asset(image_upload_dir | slice(1) ~ 'categoria/' ~ obj.imagen) }}" alt="{{ obj.nombre }}" />
+                                        {% endif %}
                                     </div>
-                                    <span class="help-block">{{ 'Solo se permiten imágenes de hasta 1MB' | trans }}</span>
+                                    <span class="help-block">{{ 'Solo se permiten imágenes de hasta 500Kb' | trans }}</span>
                                     <div>
                                         <span class="btn btn-file">
                                             <span class="fileupload-new mini">{{ 'Seleccionar' | trans }}</span>
                                             <span class="fileupload-exists mini">{{ 'Cambiar' | trans }}</span>
-                                            <input type="file" class="default" />
+                                            {{ form_widget(form.imagen, {'attr': {'class': 'default imagen_categoria'}}) }}
+                                            <input type="hidden" id="widget_imagen_delete" name="imagen_delete" value="0" />
                                         </span>
                                         <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">{{ 'Eliminar' | trans }}</a>
                                     </div>
@@ -131,6 +138,7 @@
                     </div>
                 </div>
                 <!--/row-->
+                {{ form_rest(form) }}
                 <div class="form-actions">
                     <button class="btn blue" type="submit"><i class="icon-ok"></i> Save</button>
                     <button class="btn" type="button">Cancel</button>
