@@ -93,13 +93,10 @@ services:
         tags:
             - { name: twig.extension }            
 
-
+parameters:
     default_locale: "%locale%"
-
     idiomas:
         es: Español
         en: English
-
     image_upload_dir: %kernel.root_dir%/../web/uploads/images/
-
     mail_from: info@thetopvoting.com
