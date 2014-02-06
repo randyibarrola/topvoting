@@ -23,3 +23,7 @@
 .dataTable .filter_column input {
     width: auto;
 }
+
+form .control-group {
+    overflow: hidden !important;
+}

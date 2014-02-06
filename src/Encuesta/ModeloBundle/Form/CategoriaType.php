@@ -16,7 +16,7 @@ class CategoriaType extends AbstractType {
             ))
             ->add('descripcion', 'textarea', array(
                 'label' => false,
-                'required' => false
+                'required' => true
             ))
             ->add('padre', 'entity', array(
                 'label' => false,

@@ -38,14 +38,14 @@
             {% endif %}
         </a>
     </li>
-    <li class="{% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo'] %}active{% endif %}">
+    <li class="{% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar'] %}active{% endif %}">
         <a href="{{ path('dashboard_categoria') }}">
             <i class="icon-tags">
             </i>
             <span class="title">
                 {{ 'Categorías' | trans }}
             </span>
-            {% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo'] %}
+            {% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar'] %}
                 <span class="selected"></span>
             {% endif %}
         </a>

@@ -6,6 +6,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
 {% endblock %}
 {% block plugins_javascript %}
+    <script type="text/javascript" src="{{ asset('plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/jquery-validation/dist/additional-methods.min.js') }}"></script>
+    {% if app.request.locale != 'en' %}
+        <script type="text/javascript" src="{{ asset('plugins/jquery-validation/localization/messages_' ~ app.request.locale ~ '.js') }}"></script>
+    {% endif %}
     <script type="text/javascript" src="{{ asset('plugins/bootstrap-fileupload/bootstrap-fileupload.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
 {% endblock %}
@@ -51,8 +56,16 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form class="horizontal-form" action="{{ obj.id is not null ? path('dashboard_categoria_editar', { 'id': obj.id }) : path('dashboard_categoria_nuevo') }}" method="post" {{ form_enctype(form) }}>
-                <h3 class="form-section">{{ 'Añadir nueva categoría' | trans }}</h3>
+            <form class="horizontal-form form-validate" action="{{ obj.id is not null ? path('dashboard_categoria_editar', { 'id': obj.id }) : path('dashboard_categoria_nuevo') }}" method="post" {{ form_enctype(form) }}>
+
+                <h3 class="form-section">{{ 'Añadir nueva categoría' | trans }}
+                    <div class="pull-right">
+                        <div class="alert-validation alert">
+                            <button class="close" data-dismiss="alert"></button>
+                            <div class="alert-message">{{ 'Existen datos incorrectos en el formulario' | trans }}</div>
+                        </div>
+                    </div>
+                </h3>
                 <div class="row-fluid">
                     <div class="span6 ">
                         <div class="control-group">
@@ -60,7 +73,7 @@
                                 {{ 'Seleccione el idioma' | trans }}
                             </label>
                             <div class="controls">
-                                <select class="span12 select2 select_translate" data-for="nombre_categoria,descripcion_categoria" data-placeholder="{{ 'Seleccione el idioma' | trans }}" tabindex="1">
+                                <select class="span11 select2 select_translate" data-for="nombre_categoria,descripcion_categoria" data-placeholder="{{ 'Seleccione el idioma' | trans }}" tabindex="1">
                                     {% for key, idioma in idiomas %}
                                         <option value="{{key}}" {% if key == default_locale %}selected="selected"{% endif %}>{{idioma}}</option>
                                     {% endfor %}
@@ -76,9 +89,9 @@
                             <div class="controls">
                                 {% for key,idioma in idiomas %}
                                     {% if key == default_locale %}
-                                        {{ form_widget(form.nombre, {'attr': {'data-locale': key, 'class': 'm-wrap span12 nombre_categoria validate[required', 'placeholder': 'Nombre de la categoría' | trans}}) }}
+                                        {{ form_widget(form.nombre, {'attr': {'data-locale': key, 'class': 'm-wrap span11 nombre_categoria validate-icon', 'placeholder': 'Nombre de la categoría' | trans}}) }}
                                     {% else %}
-                                        <input type="text" name="translate_nombre[{{ key }}]" data-locale="{{ key }}" class="m-wrap span12 nombre_categoria" placeholder="{{ 'Nombre de la categoría' | trans }}" style="display: none" value="{{ (key in i18n | keys) and i18n[key]['nombre'] is defined ? i18n[key]['nombre'] : ''}}" />
+                                        <input type="text" name="translate_nombre[{{ key }}]" data-locale="{{ key }}" class="m-wrap span11 nombre_categoria" placeholder="{{ 'Nombre de la categoría' | trans }}" style="display: none" value="{{ (key in i18n | keys) and i18n[key]['nombre'] is defined ? i18n[key]['nombre'] : ''}}" />
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -90,9 +103,9 @@
                             <div class="controls">
                                 {% for key,idioma in idiomas %}
                                     {% if key == default_locale %}
-                                        {{ form_widget(form.descripcion, {'attr': {'data-locale': key, 'class': 'm-wrap span12 descripcion_categoria', 'placeholder': 'Descripción de la categoría' | trans, 'rows': '3'}}) }}
+                                        {{ form_widget(form.descripcion, {'attr': {'data-locale': key, 'class': 'm-wrap span11 descripcion_categoria validate-icon', 'placeholder': 'Descripción de la categoría' | trans, 'rows': '3'}}) }}
                                     {% else %}
-                                        <textarea name="translate_descripcion[{{ key }}]" data-locale="{{ key }}" rows="3" class="m-wrap span12 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}" style="display: none">{{ (key in i18n | keys) and i18n[key]['descripcion'] is defined ? i18n[key]['descripcion'] | trim : ''}}</textarea>
+                                        <textarea name="translate_descripcion[{{ key }}]" data-locale="{{ key }}" rows="3" class="m-wrap span11 descripcion_categoria" placeholder="{{ 'Descripción de la categoría' | trans }}" style="display: none">{{ (key in i18n | keys) and i18n[key]['descripcion'] is defined ? i18n[key]['descripcion'] | trim : ''}}</textarea>
                                     {% endif %}
                                 {% endfor %}
                             </div>
@@ -105,7 +118,7 @@
                                 {{ 'Categoría padre' | trans }}
                             </label>
                             <div class="controls">
-                                {{ form_widget(form.padre, {'attr': {'class': 'span12 select2', 'placeholder': 'Categoría padre' | trans, 'tabindex': '1'}}) }}
+                                {{ form_widget(form.padre, {'attr': {'class': 'span11 select2', 'placeholder': 'Categoría padre' | trans, 'tabindex': '1'}}) }}
                             </div>
                         </div>
                         <div class="control-group">
