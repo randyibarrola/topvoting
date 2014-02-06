@@ -30,7 +30,9 @@ class MessageFactory
    * @var array
    */
   private $from;
-
+  
+  
+  private $translator;
 
   /**
    *
@@ -44,18 +46,21 @@ class MessageFactory
     $this->fileSystem = $container->get('filesystem');
     $this->rootDir = $rootDir;
     $this->from = $from;
+    $this->translator = $container->get('translator');
   }
   
-  public function getMsgCreacionCuenta(Usuario $usuario)
+  public function getMsgCreacionCuenta(Usuario $usuario, $url)
   {    
     
-    $msg = Swift_Message::newInstance('Aviso: Reserva creada')
+    $asunto = $this->translator->trans('Activación de cuenta de usuario');   
+    $msg = Swift_Message::newInstance('[TheTopVoting]: '.$asunto)
       ->setFrom($this->from)
       ->setTo($usuario->getEmail(), $usuario->getNombre());
 
     //El cuerpo en html
     $htmlPart = $this->templateEngine->render('FrontendBundle:Messages:creacionCuenta.html.twig', array(      
-      'usuario' => $usuario
+      'usuario' => $usuario,
+      'url' => $url  
       ));
 
     $msg->addPart($htmlPart, 'text/html');

@@ -10,7 +10,11 @@ frontend_logout:
     
 frontend_registro:
     pattern:  /{culture}/registro
-    defaults: { _controller: FrontendBundle:Usuario:registro , culture: es}    
+    defaults: { _controller: FrontendBundle:Usuario:registro , culture: es}  
+    
+frontend_activacion:
+    pattern:  /{culture}/usuarios/activacion/{codigo}
+    defaults: { _controller: FrontendBundle:Usuario:activacion , culture: es}     
 
 frontend_homepage:
     pattern:  /

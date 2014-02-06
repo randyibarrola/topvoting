@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,7 @@ class UsuarioType extends AbstractType
             ->add('username', 'text', array(
                 'label' => 'Nombre de usuario',
                 'attr' => array(
-                    'class' => 'validate[required]',
+                    'class' => 'validate[required] required',
                     'placeholder' => 'Nombre de usuario',
                     'size'=>40
                 ),
@@ -34,7 +34,7 @@ class UsuarioType extends AbstractType
             ->add('password', 'password', array(
                 'label' => 'Contraseña',
                 'attr' => array(
-                    'class' => 'validate[required]',
+                    'class' => 'validate[required] required',
                     'placeholder' => 'Contraseña',
                     'size'=>40
                 ),
@@ -50,10 +50,7 @@ class UsuarioType extends AbstractType
                     'placeholder' => 'Nombre',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
+                'required' => false               
             ))   
             ->add('apellidos', 'text', array(
                 'label' => 'Apellidos',
@@ -62,23 +59,9 @@ class UsuarioType extends AbstractType
                     'placeholder' => 'Apellidos',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-            ))  
-            ->add('apellidos', 'text', array(
-                'label' => 'Apellidos',
-                'attr' => array(
-                    'class' => 'validate[required]',
-                    'placeholder' => 'Apellidos',
-                    'size'=>40
-                ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-            ))                
+                'required' => false
+
+            ))               
             ->add('telefono', 'text', array(
                 'label' => 'Teléfono',
                 'attr' => array(
@@ -89,10 +72,10 @@ class UsuarioType extends AbstractType
                 'required' => false
                 
             ))
-            ->add('email', 'text', array(
+            ->add('email', 'email', array(
                 'label' => 'Email',
                 'attr' => array(
-                    'class' => 'validate[required, custom[email]]',
+                    'class' => 'validate[required, custom[email]] email',
                     'placeholder' => 'Email',
                     'size'=>40
                 ),

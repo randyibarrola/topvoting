@@ -2,7 +2,7 @@
 
 namespace Encuesta\ModeloBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @DoctrineAssert\UniqueEntity("username")
  */
-class Usuario implements UserInterface, \Serializable
+class Usuario implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
@@ -540,5 +540,21 @@ class Usuario implements UserInterface, \Serializable
     public function getCodigoActivacion()
     {
         return $this->codigo_activacion;
+    }
+
+    public function isAccountNonExpired() {
+        return true;
+    }
+
+    public function isAccountNonLocked() {
+        return true;
+    }
+
+    public function isCredentialsNonExpired() {
+        return true;
+    }
+
+    public function isEnabled() {
+        return $this->activo;
     }
 }
