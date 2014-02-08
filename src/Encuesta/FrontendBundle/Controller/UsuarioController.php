@@ -5,13 +5,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Encuesta\ModeloBundle\Entity\Usuario;
 use Encuesta\ModeloBundle\Form\UsuarioType;
-
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UsuarioController extends Controller
 {
     public function loginAction()
     {
-        $request = $this->getRequest()->get;
+        $request = $this->getRequest();
         $session = $request->getSession();
 
         $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $session->get(SecurityContext::AUTHENTICATION_ERROR));
@@ -72,6 +73,7 @@ class UsuarioController extends Controller
            $usuario = $em->getRepository('ModeloBundle:Usuario')->findOneBy(array('codigo_activacion'=> $codigo, 'activo'=> 0));
            if($usuario){
                $usuario->setActivo(1);
+               $usuario->setCodigoActivacion(null);
                $em->persist($usuario);
                $em->flush();  
                
@@ -85,5 +87,45 @@ class UsuarioController extends Controller
            'resultado' => 'error'
         ));        
 
+    }
+    
+    public function perfilAction()
+    {
+        $usuario = $this->getUser();
+        if($usuario) {
+            $form = $this->createForm(new UsuarioType(true), $usuario);
+            $peticion = $this->getRequest();
+            $em = $this->getDoctrine()->getManager();
+            
+            if($peticion->getMethod() == 'POST'){                 
+                $form->bind($peticion);
+                if($form->isValid()){
+                    $usuario = $form->getData();                     
+                    $extension = $form['imagen']->getData()->guessExtension();
+                    if( in_array( $extension, array('png', 'jpg', 'jpeg', 'gif', 'bmp') ) ) {
+                        if(!is_dir($usuario->getUploadDir()))      
+                                   mkdir($usuario->getUploadDir(), 0777);                       
+                        
+                        $form['imagen']->getData()->move($usuario->getUploadDir(), 'perfil.'.$extension);
+                        $usuario->setImagen('perfil.'.$extension);
+                    }                    
+                    $em->persist($usuario);
+                    $em->flush(); 
+                    
+                    $this->get('session')->getFlashBag()->add('notificacion', 'Perfil Actualizado');
+                }    
+                
+            } 
+                
+            return $this->render('FrontendBundle:Usuario:perfil.html.twig', array(
+                'form' => $form->createView(),
+                'usuario' => $usuario
+            ));                 
+            
+            
+        }
+        
+        throw new AccessDeniedException();
+        
     }
 }

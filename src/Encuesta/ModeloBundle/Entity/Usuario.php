@@ -557,4 +557,16 @@ class Usuario implements AdvancedUserInterface, \Serializable
     public function isEnabled() {
         return $this->activo;
     }
+    
+    public function getUploadDir()
+    {
+        // the absolute directory path where uploaded
+        // image profile should be saved
+        return __DIR__.'/../../../../web/uploads/perfil/'.$this->id;
+    }  
+    
+    public function getImagenPerfil()
+    {
+        return $this->imagen ? '/uploads/perfil/'.$this->id.'/'.$this->imagen : null;
+    }
 }

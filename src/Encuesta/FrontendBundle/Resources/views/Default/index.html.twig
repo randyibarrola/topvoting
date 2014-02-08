@@ -6,8 +6,10 @@ Hello !
     {{ app.user.username }} , {{ app.user.usuarioRolesString}}   
     <ul>
         <li>Votaciones</li>
+        <li><a href="{{ path('frontend_perfil') }}">Mi Cuenta</a></li>
         <li><a href="{{ path('frontend_logout') }}">Salir</a></li>
     </ul>    
 {% else %}
+    <a href="{{ path('frontend_login') }}" >Login</a>
     <a href="{{ path('frontend_registro') }}" >Registro</a>
 {% endif %}

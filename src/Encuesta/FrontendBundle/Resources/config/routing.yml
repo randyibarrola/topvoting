@@ -14,7 +14,11 @@ frontend_registro:
     
 frontend_activacion:
     pattern:  /{culture}/usuarios/activacion/{codigo}
-    defaults: { _controller: FrontendBundle:Usuario:activacion , culture: es}     
+    defaults: { _controller: FrontendBundle:Usuario:activacion , culture: es}   
+    
+frontend_perfil:
+    pattern:  /{culture}/perfil
+    defaults: { _controller: FrontendBundle:Usuario:perfil , culture: es}      
 
 frontend_homepage:
     pattern:  /
