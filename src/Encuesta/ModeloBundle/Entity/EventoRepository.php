@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class EventoRepository extends EntityRepository
 {
+    /*
+     * Retorna todos los eventos activos
+     */
+    public function getEventosActivos()
+    {
+        $em = $this->getEntityManager();
+        //$sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.fecha_fin >= :fecha and e.activo = 1'; 
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.activo = 1'; 
+        $consulta = $em->createQuery($sql);
+	//$consulta->setParameter('fecha', new \DateTime('today'));
+        return $consulta->getResult(); 
+    }
 }

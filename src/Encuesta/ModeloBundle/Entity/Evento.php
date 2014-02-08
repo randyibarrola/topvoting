@@ -70,10 +70,10 @@ class Evento
     private $activo = true;	
    
 
-	/**
+    /**
      * @var string $imagen
      *
-     * @ORM\Column(name="imagen", type="string", length=255) 
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=true) 
      */
     private $imagen;
     
@@ -312,4 +312,16 @@ class Evento
     {
         return $this->creador;
     }
+    
+    public function getUploadDir()
+    {
+        // the absolute directory path where uploaded
+        // image profile should be saved
+        return __DIR__.'/../../../../web/uploads/evento/'.$this->id;
+    }  
+    
+    public function getImagenEvento()
+    {
+        return $this->imagen ? '/uploads/evento/'.$this->id.'/'.$this->imagen : null;
+    }    
 }
