@@ -1,5 +1,5 @@
 <?php
-namespace Administracion\ModeloBundle\Form;
+namespace Encuesta\ModeloBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -8,41 +8,16 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsuarioType extends AbstractType
 {
+    var $datosPerfil;
 
-
-    public function __construct ()
+    public function __construct ($datos_perfil = false)
     {
-       
+        $this->datosPerfil  = $datos_perfil;
     }    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {     
         
-        $builder                    
-            ->add('username', 'text', array(
-                'label' => 'Nombre de usuario',
-                'attr' => array(
-                    'class' => 'validate[required]',
-                    'placeholder' => 'Nombre de usuario',
-                    'size'=>40
-                ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-                )                
-            )   
-            ->add('password', 'password', array(
-                'label' => 'Contraseña',
-                'attr' => array(
-                    'class' => 'validate[required]',
-                    'placeholder' => 'Contraseña',
-                    'size'=>40
-                ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-            ))    
+        $builder            
             ->add('nombre', 'text', array(
                 'label' => 'Nombre',
                 'attr' => array(
@@ -50,10 +25,7 @@ class UsuarioType extends AbstractType
                     'placeholder' => 'Nombre',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
+                'required' => false               
             ))   
             ->add('apellidos', 'text', array(
                 'label' => 'Apellidos',
@@ -62,23 +34,9 @@ class UsuarioType extends AbstractType
                     'placeholder' => 'Apellidos',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-            ))  
-            ->add('apellidos', 'text', array(
-                'label' => 'Apellidos',
-                'attr' => array(
-                    'class' => 'validate[required]',
-                    'placeholder' => 'Apellidos',
-                    'size'=>40
-                ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
-            ))                
+                'required' => false
+
+            ))               
             ->add('telefono', 'text', array(
                 'label' => 'Teléfono',
                 'attr' => array(
@@ -89,10 +47,10 @@ class UsuarioType extends AbstractType
                 'required' => false
                 
             ))
-            ->add('email', 'text', array(
+            ->add('email', 'email', array(
                 'label' => 'Email',
                 'attr' => array(
-                    'class' => 'validate[required, custom[email]]',
+                    'class' => 'validate[required, custom[email]] email',
                     'placeholder' => 'Email',
                     'size'=>40
                 ),
@@ -100,17 +58,60 @@ class UsuarioType extends AbstractType
                 'constraints' => array(
                     new NotBlank()                   
                    ),
-            ))                  
-            ->add('categoria', 'text', array(
-                'label' => 'Categoría',
+            ))                 
+
+            ->add('imagen', 'file', array(
+                'label' => 'Imagen',
                 'attr' => array(
                     'class' => '',
-                    'placeholder' => 'Categoría',
+                    'placeholder' => 'Imagen',
                     'size'=>40
                 ),
-                'required' => false
+                'required' => false,
+                'mapped' => false
                 
-            ));                  
+            ));  
+        
+        //Para el caso de que solo se desee editar el perfil del usuario
+        
+        if(! $this->datosPerfil) {
+            $builder 
+                ->add('username', 'text', array(
+                    'label' => 'Nombre de usuario',
+                    'attr' => array(
+                        'class' => 'validate[required] required',
+                        'placeholder' => 'Nombre de usuario',
+                        'size'=>40
+                    ),
+                    'required' => true,
+                    'constraints' => array(
+                        new NotBlank()                   
+                       ),
+                    )                
+                )   
+                ->add('password', 'password', array(
+                    'label' => 'Contraseña',
+                    'attr' => array(
+                        'class' => 'validate[required] required',
+                        'placeholder' => 'Contraseña',
+                        'size'=>40
+                    ),
+                    'required' => true,
+                    'constraints' => array(
+                        new NotBlank()                   
+                       ),
+                )) 
+                ->add('categoria', 'text', array(
+                    'label' => 'Categoría',
+                    'attr' => array(
+                        'class' => '',
+                        'placeholder' => 'Categoría',
+                        'size'=>40
+                    ),
+                    'required' => false
+
+                )) ;                     
+        }
         
     }
 

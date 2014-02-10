@@ -1,0 +1,15 @@
+{% if resultado == 'ok' %}
+
+Has activado tu cuenta satisfactoriamente
+
+
+{% else %}
+
+Tu cuenta no existe o ya fue activada anteriormente
+
+{% endif %}
+
+
+<br />
+
+<a href="{{ path('frontend_login') }}">Login</a>

@@ -1,0 +1,55 @@
+{% for mensaje in app.session.flashbag.get('notificacion') %}
+    <div class="flash-notice">
+    {{ mensaje }}
+    </div>
+{% endfor %}
+<br/>
+<form class="formulario" action="{{ path('frontend_perfil') }}" method="post" {{
+form_enctype(form) }}>
+    <input type="hidden" name="id" value="{{ usuario.id }}" />
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td width="32%" height="32" align="left" class="tit_negro16">Mi Cuenta</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.email) }}</td>
+        </tr>
+
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Nombre</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.nombre) }}</td>
+        </tr>
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Apellidos</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.apellidos) }}</td>
+        </tr>     
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Telefono</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.telefono) }}</td>
+        </tr> 
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Imagen</td>
+        </tr>
+        {% if usuario.imagenPerfil %}
+        <tr>
+            <td height="30" align="left"><img src={{ usuario.imagenPerfil }} /></td>
+        </tr> 
+        {% endif %}
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.imagen) }}</td>
+        </tr>   
+        <tr>
+            <td height="30" align="left"><input name="" type="submit" value="Actualizar" /></td>
+        </tr>         
+    </table>
+    {{ form_rest(form) }}    
+    {{ form_errors(form) }}
+        
+</form>
+
