@@ -13,6 +13,7 @@ use Encuesta\ModeloBundle\Entity\Categoria;
  *
  * @ORM\Table(name="candidato")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Candidato {
 
@@ -27,6 +28,7 @@ class Candidato {
      * @var string $titulo
      * @Gedmo\Translatable   
      * @ORM\Column(name="titulo", type="string", length=200, unique=true )
+     * @Assert\NotBlank()
      */
     protected $titulo;
 	
@@ -48,7 +50,8 @@ class Candidato {
 	/**
      * @var string
      *
-     * @ORM\Column(name="imagen", type="string", length=255) 
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=true)
+     * @Assert\Image(maxSize="500k")
      */
     private $imagen;	
     
@@ -216,5 +219,24 @@ class Candidato {
     public function getCategoria()
     {
         return $this->categoria;
+    }
+
+    private $filenameForRemove;
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getImagen();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove != null) {
+            unlink(__DIR__.'/../../../../web/uploads/images/candidato/'.$this->filenameForRemove);
+        }
     }
 }

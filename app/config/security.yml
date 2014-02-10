@@ -19,7 +19,7 @@ security:
 #            pattern:  ^/(_(profiler|wdt)|css|images|js)/
 #            security: false
         dashboard:
-            pattern: ^/dashboard
+            pattern: ^/administracion
             provider:  usuarios
             anonymous: ~
             form_login:
@@ -27,7 +27,7 @@ security:
                 check_path: dashboard_login_check
             logout:
                 path: dashboard_logout
-                target: /dashboard
+                target: /administracion
             remember_me:
                 key: encuesta_dashboard
                 lifetime: 3600
@@ -46,7 +46,7 @@ security:
                 lifetime: 3600                
 
     access_control:
+        - { path: ^/administracion/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/administracion, roles: ROLE_ADMIN }
         - { path: ^/, roles: [IS_AUTHENTICATED_ANONYMOUSLY, ROLE_USER] }
-        - { path: ^/dashboard/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/dashboard, roles: ROLE_ADMIN }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

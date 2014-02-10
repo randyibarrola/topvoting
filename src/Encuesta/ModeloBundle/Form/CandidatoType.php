@@ -2,15 +2,16 @@
 
 namespace Encuesta\ModeloBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CategoriaType extends AbstractType {
+class CandidatoType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('nombre', 'text', array(
+            ->add('titulo', 'text', array(
                 'label' => false,
                 'required' => true
             ))
@@ -18,28 +19,33 @@ class CategoriaType extends AbstractType {
                 'label' => false,
                 'required' => false
             ))
-            ->add('padre', 'entity', array(
+            ->add('categoria', 'entity', array(
                 'label' => false,
                 'required' => false,
                 'class' => 'ModeloBundle:Categoria',
                 'property' => 'nombre',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.padre is not null')
+                        ->orderBy('c.nombre', 'ASC');
+                },
             ))
             ->add('imagen', 'file', array(
                 'label' => false,
                 'required' => false,
                 'data_class' => null
             ));
-       
+
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Encuesta\ModeloBundle\Entity\Categoria'
+            'data_class' => 'Encuesta\ModeloBundle\Entity\Candidato'
         ));
     }
 
     public function getName() {
-        return 'encuesta_modelobundle_categoriatype';
+        return 'encuesta_modelobundle_candidatotype';
     }
 
 }

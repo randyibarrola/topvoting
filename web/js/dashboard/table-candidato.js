@@ -1,9 +1,9 @@
-var TableCategoria = function() {
+var TableCandidato = function() {
     var initTable = function() {
-        $('#data-table-categoria').dataTable().columnFilter({
+        $('#data-table-candidato').dataTable().columnFilter({
             sPlaceHolder: "head:after",
             aoColumns: [
-                {type: "text"}, {type: "text"}, {type: "select", values: list_padre}, {type: "select", values: list_traducciones}
+                {type: "text"}, {type: "text"}, {type: "select", values: list_categoria}, {type: "select", values: list_traducciones}
             ]
         });
     };

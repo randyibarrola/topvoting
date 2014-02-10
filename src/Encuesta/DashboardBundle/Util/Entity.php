@@ -16,7 +16,7 @@ class Entity
     {
         $need_flush = false;
         $repository = $this->manager->getRepository('Gedmo\Translatable\Entity\Translation');
-        $translationsDB = $repository->findTranslations($entity);
+        $translationsDB = $this->getEntityTranslations($entity);
 
         foreach($array_translations as $key_translation => $translations) {
             foreach($translations as $locale => $translation) {
@@ -39,5 +39,20 @@ class Entity
         }
 
         return $need_flush;
+    }
+
+    public function getEntityTranslation($entity, $locale)
+    {
+        $translations= $this->getEntityTranslations($entity);
+
+        return isset($translations[$locale]) ? $translations[$locale] : false;
+    }
+
+    public function getEntityTranslations($entity)
+    {
+        $repository = $this->manager->getRepository('Gedmo\Translatable\Entity\Translation');
+        $translations = $repository->findTranslations($entity);
+
+        return $translations;
     }
 }

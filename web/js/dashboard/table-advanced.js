@@ -63,35 +63,112 @@ var TableAdvanced = function () {
         $('.table-advanced').each(function () {
             var tSettings = null;
             var table = $(this);
+            var temp_holder = [];
             var indexThAction = table.find('th.table-actions-cell').eq(0).parents('tr').eq(0).find('th').index(table.find('th.table-actions-cell'));
             if(indexThAction == -1)
                 indexThAction = false;
 
+            table.find('.table-row .btn').tooltip();
+
+            var dialog_delete = $('.confirm_delete[data-for=' + table.attr('id') + ']');
+            if(dialog_delete.length > 0) {
+                dialog_delete = dialog_delete.first();
+                dialog_delete.dialog({
+                    dialogClass: 'ui-dialog-red',
+                    autoOpen: false,
+                    resizable: false,
+                    modal: true,
+                    buttons: [
+                        {
+                            'class' : 'btn red',
+                            "text" : "Eliminar",
+                            click: function() {
+                                var btn = temp_holder['delete_btn'];
+                                if($(btn).hasClass('ajax-btn'))
+                                    defaultDeleteAction(temp_holder['delete_nrow'], btn);
+                                else {
+                                    window.location.href = getBtnHref(btn);
+                                }
+
+                                $(this).dialog( "close" );
+                            }
+                        },
+                        {
+                            'class' : 'btn',
+                            "text" : "Cancelar",
+                            click: function() {
+                                $(this).dialog( "close" );
+                            }
+                        }
+                    ],
+                    beforeClose: function() {
+                        temp_holder['delete_nrow'] = null;
+                        temp_holder['delete_btn'] = null;
+                    }
+                });
+            }
+            else {
+                dialog_delete = false;
+            }
+
+            var getBtnHref = function(btn) {
+                var href = window.location;
+
+                if($(btn.attr('href')))
+                    href = $(btn).attr('href');
+                else if($(btn).attr('data-href'))
+                    href = $(btn).attr('data-href');
+
+                return href;
+            };
+
             var btnDeleteRowAction = function(nRow) {
                 var btn = $(nRow).find('.table-btn-delete-row').eq(0);
                 if(!btn.attr('onClick')) {
-                    btn.off().click(function() {
-                        $(nRow).hide();
-                        $.ajax({
-                            type: "POST",
-                            url: btn.attr('href'),
-                            dataType: "json",
-                            success: function(result) {
-                                if(result.http_code == 200)
-                                {
-                                    oTable.fnDeleteRow(nRow);
-                                }
-                                else {
-                                    $(nRow).show();
-                                }
-//                            AppConsole.show(resultado.message, resultado.message_type, 5000);
-                            },
-                            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                $(nRow).show();
-                            }
-                        });
+                    btn.unbind('click').click(function() {
+                        if(dialog_delete) {
+                            temp_holder['delete_nrow'] = nRow;
+                            temp_holder['delete_btn'] = btn;
+                            dialog_delete.dialog("open");
+                        }
+                        else {
+                            if($(btn).hasClass('ajax-btn'))
+                                defaultDeleteAction(nRow, btn);
+                            else
+                                window.location.href = getBtnHref(btn);
+                        }
 
                         return false;
+                    });
+                }
+            };
+
+            var defaultDeleteAction = function(nRow, btn) {
+                if(nRow != null && btn != null) {
+                    $(nRow).hide('fast');
+                    $.ajax({
+                        type: "POST",
+                        url: btn.attr('href'),
+                        dataType: "json",
+                        success: function(result) {
+                            if(result.http_code == 200)
+                            {
+                                oTable.fnDeleteRow(nRow);
+                            }
+                            else {
+                                $(nRow).show('fast');
+                            }
+                            $.gritter.add({
+                                position: 'top-right',
+                                title: '',
+                                text: result.message,
+                                time: 3000,
+                                class_name: 'gritter-' + result.message_type
+                            });
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            $(nRow).show('fast');
+                        }
                     });
                 }
             };
@@ -100,9 +177,13 @@ var TableAdvanced = function () {
                 "aoColumnDefs": indexThAction ? [{ "aTargets": [ 0 ] }, {"bSortable": false, "aTargets": [ indexThAction ] }] : [{ "aTargets": [ 0 ] }],
                 "fnDrawCallback": function(oSettings) {
                     tSettings = oSettings;
+                    if($.fnDTSpecialDrawCallback)
+                        $.fnDTSpecialDrawCallback(oSettings);
                 },
                 "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                     btnDeleteRowAction(nRow);
+                    if($.fnDTSpecialCreatedRow)
+                        $.fnDTSpecialCreatedRow(nRow, aData, iDataIndex);
                 }
             });
 

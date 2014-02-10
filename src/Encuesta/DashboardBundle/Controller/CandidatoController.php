@@ -1,8 +1,8 @@
 <?php
 namespace Encuesta\DashboardBundle\Controller;
 
-use Encuesta\ModeloBundle\Entity\Categoria;
-use Encuesta\ModeloBundle\Form\CategoriaType;
+use Encuesta\ModeloBundle\Entity\Candidato;
+use Encuesta\ModeloBundle\Form\CandidatoType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -11,14 +11,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class CategoriaController extends Controller
+class CandidatoController extends Controller
 {
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $list = $em->getRepository('ModeloBundle:Categoria')->findAll();
+        $list = $em->getRepository('ModeloBundle:Candidato')->findAll();
 
-        return $this->render('DashboardBundle:Categoria:list.html.twig', array(
+        return $this->render('DashboardBundle:Candidato:list.html.twig', array(
             'list' => $list,
             'idiomas' => $this->container->getParameter('idiomas'),
             'service_entity' => $this->get('dashboard.entity')
@@ -30,14 +30,14 @@ class CategoriaController extends Controller
         $request = $this->getRequest();
         $idiomas = $this->container->getParameter('idiomas');
 
-        $obj = new Categoria();
-        $form = $this->createForm(new CategoriaType(), $obj);
+        $obj = new Candidato();
+        $form = $this->createForm(new CandidatoType(), $obj);
 
         if($request->getMethod() == 'POST') {
             return $this->save($form);
         }
 
-        return $this->render('DashboardBundle:Categoria:form.html.twig', array(
+        return $this->render('DashboardBundle:Candidato:form.html.twig', array(
             'idiomas' => $idiomas,
             'obj' => $obj,
             'form' => $form->createView(),
@@ -51,11 +51,11 @@ class CategoriaController extends Controller
         $em = $this->getDoctrine()->getManager();
         $idiomas = $this->container->getParameter('idiomas');
 
-        $obj = $em->getRepository('ModeloBundle:Categoria')->find($request->get('id'));
+        $obj = $em->getRepository('ModeloBundle:Candidato')->find($request->get('id'));
         if(!$obj)
-            $this->createNotFoundException('No existe la categoría que está intentando editar');
+            $this->createNotFoundException('No existe el candidato que está intentando editar');
 
-        $form = $this->createForm(new CategoriaType(), $obj);
+        $form = $this->createForm(new CandidatoType(), $obj);
 
         if($request->getMethod() == 'POST') {
             $imagen_original = $form->getData()->getImagen();
@@ -70,7 +70,7 @@ class CategoriaController extends Controller
                 $em->flush();
             }
             else if($imagen_original != null) {
-                unlink($this->container->getParameter('image_upload_dir').'categoria/'.$imagen_original);
+                unlink($this->container->getParameter('image_upload_dir').'candidato/'.$imagen_original);
             }
 
             return $response;
@@ -78,7 +78,7 @@ class CategoriaController extends Controller
 
         $i18n = $em->getRepository('Gedmo\Translatable\Entity\Translation')->findTranslations($obj);
 
-        return $this->render('DashboardBundle:Categoria:form.html.twig', array(
+        return $this->render('DashboardBundle:Candidato:form.html.twig', array(
             'idiomas' => $idiomas,
             'obj' => $obj,
             'form' => $form->createView(),
@@ -97,7 +97,7 @@ class CategoriaController extends Controller
             if($form->isValid()) {
                 $data = $form->getData();
 
-                $dir = $this->container->getParameter('image_upload_dir').'categoria/';
+                $dir = $this->container->getParameter('image_upload_dir').'candidato/';
                 $imagen = $this->get('dashboard.file')->uploadFile($data->getImagen(), $dir);
                 $data->setImagen($imagen);
 
@@ -105,7 +105,7 @@ class CategoriaController extends Controller
                 $em->flush();
 
                 $i18n = array(
-                    'nombre' => $request->request->get('translate_nombre', array()),
+                    'titulo' => $request->request->get('translate_titulo', array()),
                     'descripcion' => $request->request->get('translate_descripcion', array()),
                 );
 
@@ -114,7 +114,7 @@ class CategoriaController extends Controller
                 }
 
 
-                $response->setMessage($translator->trans('La categoría se ha guardado satisfactoriamente'));
+                $response->setMessage($translator->trans('El candidato se ha guardado satisfactoriamente'));
             }
             else {
                 $response = $this->get('dashboard.ajaxformresponse');
@@ -141,18 +141,18 @@ class CategoriaController extends Controller
         $translator = $this->get('translator');
 
         try {
-            $obj = $em->getRepository('ModeloBundle:Categoria')->find($this->getRequest()->get('id'));
+            $obj = $em->getRepository('ModeloBundle:Candidato')->find($this->getRequest()->get('id'));
 
             if(!$obj) {
                 $response->setHttpCode(500);
-                $response->setMessage($translator->trans('La categoría que intenta eliminar no existe'));
+                $response->setMessage($translator->trans('El candidato que intenta eliminar no existe'));
             }
             else {
                 $em->remove($obj);
                 $em->flush();
 
-                $response->setMessage($translator->trans('La categoría se ha eliminado satisfactoriamente'));
-                $response->setDataHolder(array('route' => $this->get('router')->generate('dashboard_categoria')));
+                $response->setMessage($translator->trans('El candidato se ha eliminado satisfactoriamente'));
+                $response->setDataHolder(array('route' => $this->get('router')->generate('dashboard_candidato')));
             }
         }
         catch(\Exception $e) {
@@ -168,11 +168,11 @@ class CategoriaController extends Controller
         $request = $this->getRequest();
         $em = $this->getDoctrine()->getManager();
 
-        $obj = $em->getRepository('ModeloBundle:Categoria')->find($request->get('id'));
+        $obj = $em->getRepository('ModeloBundle:Candidato')->find($request->get('id'));
         if(!$obj)
-            $this->createNotFoundException('No existe la categoría que está intentando ver');
+            $this->createNotFoundException('No existe el candidato que está intentando ver');
 
-        return $this->render('DashboardBundle:Categoria:view.html.twig', array(
+        return $this->render('DashboardBundle:Candidato:view.html.twig', array(
             'idiomas' => $this->container->getParameter('idiomas'),
             'obj' => $obj,
             'i18n' => $em->getRepository('Gedmo\Translatable\Entity\Translation')->findTranslations($obj),

@@ -228,7 +228,7 @@ http://www.datatables.net/plug-ins/filtering
 
     function fnCreateSelect(aData) {
         var index = i;
-        var r = '<select class="search_init select_filter"><option value="" class="search_init">' + label + '</option>', j, iLen = aData.length;
+        var r = '<select class="search_init select_filter" tabindex="-1" data-placeholder="'+label+'"><option value="" class="search_init">' + (jQuery().select2 ? '' : label) + '</option>', j, iLen = aData.length;
 
         for (j = 0; j < iLen; j++) {
             r += '<option value="' + aData[j] + '">' + aData[j] + '</option>';
@@ -245,6 +245,11 @@ http://www.datatables.net/plug-ins/filtering
             }
             oTable.fnFilter($(this).val(), index);
         });
+        if(jQuery().select2) {
+            $(select).select2({
+                allowClear: true
+            });
+        }
     }
 
     function _fnRangeLabelPart(iPlace){

@@ -1,6 +1,6 @@
 {% extends '::dashboard.html.twig' %}
 
-{% block title %}{{ parent() }} - {{ 'Listado de categorías' | trans }}{% endblock %}
+{% block title %}{{ parent() }} - {{ 'Listado de candidatos' | trans }}{% endblock %}
 {% block plugins_stylesheet %}
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/data-tables/DT_bootstrap.css') }}" />
@@ -18,23 +18,23 @@
 {% block level_javascript %}
     {{ parent() }}
     <script src="{{ asset('js/dashboard/table-advanced.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/dashboard/table-categoria.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dashboard/table-candidato.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block init_javascript %}
     {{ parent() }}
     <script>
         jQuery(document).ready(function() {
             TableAdvanced.init();
-            TableCategoria.init();
+            TableCandidato.init();
         });
     </script>
 {% endblock %}
-{% block page_title %}{{ 'Categorías' | trans }} <small>{{ 'listado' | trans }}</small>{% endblock %}
+{% block page_title %}{{ 'Candidatos' | trans }} <small>{{ 'listado' | trans }}</small>{% endblock %}
 {% block breadcrumb_list %}
     {{ parent() }}
     <li>
-        <i class="icon-tags"></i>
-        <a href="{{ path('dashboard_categoria') }}">{{ 'Categorías' | trans }}</a>
+        <i class="icon-star"></i>
+        <a href="{{ path('dashboard_candidato') }}">{{ 'Candidatos' | trans }}</a>
         <span class="icon-angle-right"></span>
     </li>
     <li>
@@ -47,12 +47,12 @@
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="icon-tags"></i>{{ 'Listado de categorías' | trans }}</div>
+            <div class="caption"><i class="icon-star"></i>{{ 'Listado de candidatos' | trans }}</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
             </div>
             <div class="actions">
-                <a class="btn purple table-actions-new block-portlet" href="{{ path('dashboard_categoria_nuevo') }}">
+                <a class="btn purple table-actions-new block-portlet" href="{{ path('dashboard_candidato_nuevo') }}">
                     <i class="icon-plus"></i> <span class="hidden-phone">{{ 'Añadir nuevo' | trans }}</span>
                 </a>
                 <div class="btn-group table-actions-columns hidden-480">
@@ -61,46 +61,46 @@
                         <i class="icon-angle-down"></i>
                     </a>
                     <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right table-column-toggler">
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="0" checked=""></span></div>{{ 'Nombre' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="0" checked=""></span></div>{{ 'Título' | trans }}</label>
                         <label><div class="checker"><span class="checked"><input type="checkbox" data-column="1" checked=""></span></div>{{ 'Descripción' | trans }}</label>
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="2" checked=""></span></div>{{ 'Padre' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="2" checked=""></span></div>{{ 'Categoría' | trans }}</label>
                         <label><div class="checker"><span class="checked"><input type="checkbox" data-column="3" checked=""></span></div>{{ 'Traducciones' | trans }}</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="portlet-body flip-scroll">
-            <table class="table table-bordered table-striped table-condensed table-hover table-full-width table-advanced" id="data-table-categoria">
+            <table class="table table-bordered table-striped table-condensed table-hover table-full-width table-advanced" id="data-table-candidato">
                 <thead class="">
                 <tr>
-                    <th>{{ 'Nombre' | trans }}</th>
+                    <th>{{ 'Título' | trans }}</th>
                     <th class="hidden-phone">{{ 'Descripción' | trans }}</th>
-                    <th class="hidden-phone">{{ 'Padre' | trans }}</th>
+                    <th class="hidden-phone">{{ 'Categoría' | trans }}</th>
                     <th class="hidden-phone">{{ 'Traducciones' | trans }}</th>
                     <th class="table-actions-cell"></th>
                 </tr>
                 <tr class="hidden-phone hidden-print">
-                    <th>{{ 'Nombre' | trans }}</th>
+                    <th>{{ 'Título' | trans }}</th>
                     <th>{{ 'Descripción' | trans }}</th>
-                    <th>{{ 'Padre' | trans }}</th>
+                    <th>{{ 'Categoría' | trans }}</th>
                     <th>{{ 'Traducciones' | trans }}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                    {% set list_padre = [] %}
+                    {% set list_categoria = [] %}
                     {% for obj in list %}
-                        {% set padre = obj.padre | default('-') %}
-                        {% if padre not in list_padre %}
-                            {% set list_padre = list_padre | merge([padre]) %}
+                        {% set categoria = obj.categoria | default('-') %}
+                        {% if categoria not in list_categoria %}
+                            {% set list_categoria = list_categoria | merge([categoria]) %}
                         {% endif %}
                         {% set etranslations = service_entity.entityTranslations(obj) %}
                         {% set etrans_locale = etranslations[app.request.locale] | default(false) %}
                         <tr class="table-row">
-                            <td>{{ app.request.locale == default_locale or not etrans_locale ? obj.nombre : etrans_locale.nombre }}</td>
+                            <td>{{ app.request.locale == default_locale or not etrans_locale ? obj.titulo : etrans_locale.titulo }}</td>
                             {% set descripcion = app.request.locale == default_locale or not etrans_locale ? obj.descripcion : etrans_locale.descripcion %}
                             <td class="hidden-phone">{{ descripcion | length > 50 ? descripcion | slice(0, 50) ~ '...' : descripcion }}</td>
-                            <td class="hidden-phone">{{ obj.padre | default('-') }}</td>
+                            <td class="hidden-phone">{{ obj.categoria | default('-') }}</td>
                             {% set eidiomas = [idiomas[default_locale]] %}
                             {% for locale, idioma in idiomas %}
                                 {% if etranslations[locale] is defined %}
@@ -110,19 +110,19 @@
                             <td class="hidden-phone">{{ eidiomas | join(', ') }}</td>
                             <td class="" style="max-width: 160px; width: 160px;">
                                 <div class="hidden-print">
-                                    <a class="btn mini blue icn-only block-portlet" href="{{ path('dashboard_categoria_ver', { 'id': obj.id }) }}" title="{{ 'Ver' | trans }}"><i class="icon-file icon-white"></i></a>
-                                    <a class="btn mini green icn-only block-portlet" href="{{ path('dashboard_categoria_editar', { 'id': obj.id }) }}" title="{{ 'Editar' | trans }}"><i class="icon-edit icon-white"></i></a>
-                                    <a class="btn mini red icn-only table-btn-delete-row ajax-btn" href="{{ path('dashboard_categoria_eliminar', { 'id': obj.id }) }}" title="{{ 'Eliminar' | trans }}"><i class="icon-trash icon-white"></i></a>
+                                    <a class="btn mini blue icn-only" href="{{ path('dashboard_candidato_ver', { 'id': obj.id }) }}" title="{{ 'Ver' | trans }}"><i class="icon-file icon-white"></i></a>
+                                    <a class="btn mini green icn-only block-portlet" href="{{ path('dashboard_candidato_editar', { 'id': obj.id }) }}" title="{{ 'Editar' | trans }}"><i class="icon-edit icon-white"></i></a>
+                                    <a class="btn mini red icn-only table-btn-delete-row ajax-btn" href="{{ path('dashboard_candidato_eliminar', { 'id': obj.id }) }}" title="{{ 'Eliminar' | trans }}"><i class="icon-trash icon-white"></i></a>
                                     <input type="hidden" value="{{ loop.index }}" class="table-row-index" />
                                 </div>
                             </td>
                         </tr>
                     {% endfor %}
-                    {% set list_padre = list_padre | sort %}
+                    {% set list_categoria = list_categoria | sort %}
                     <script type="text/javascript">
-                        var list_padre = [];
-                        {% for p in list_padre %}
-                            list_padre.push('{{ p }}');
+                        var list_categoria = [];
+                        {% for p in list_categoria %}
+                            list_categoria.push('{{ p }}');
                         {% endfor %}
                         var list_traducciones = [];
                         {% for i in idiomas %}

@@ -541,4 +541,9 @@ class Usuario implements UserInterface, \Serializable
     {
         return $this->codigo_activacion;
     }
+
+    public function getNombreCompleto()
+    {
+        return $this->nombre.' '.$this->apellidos;
+    }
 }

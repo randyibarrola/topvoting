@@ -1,0 +1,161 @@
+{% extends '::dashboard.html.twig' %}
+
+{% set etranslations = service_entity.entityTranslations(obj) %}
+{% block title %}{{ parent() }} - {{ 'Ver información de candidato' | trans ~ '. ' ~ (app.request.locale == default_locale or not etrans_locale ? obj.titulo : etrans_locale.titulo) }}{% endblock %}
+{% block plugins_stylesheet %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css') }}"/>
+{% endblock %}
+{% block plugins_javascript %}
+    <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+{% endblock %}
+{% block level_javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/dashboard/view.js') }}"></script>
+{% endblock %}
+{% block init_javascript %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            View.init();
+        });
+    </script>
+{% endblock %}
+{% block page_title %}{{ 'Candidatos' | trans }} <small>{{ 'ver información' | trans }}</small>{% endblock %}
+{% block breadcrumb_list %}
+    {{ parent() }}
+    <li>
+        <i class="icon-star"></i>
+        <a href="{{ path('dashboard_candidato') }}">{{ 'Candidatos' | trans }}</a>
+        <span class="icon-angle-right"></span>
+    </li>
+    <li>
+        <i class="icon-file"></i>
+        {{ 'Ver información' | trans }}
+    </li>
+{% endblock %}
+
+{% block level_content %}
+    <div class="portlet box blue view-container" id="view-candidato">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-star"></i>{{ 'Información de candidato' | trans }}</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+            <div class="actions">
+                <a class="btn blue table-actions-new block-portlet" href="{{ path('dashboard_candidato') }}">
+                    <i class="icon-list"></i> <span class="hidden-phone">{{ 'Regresar al listado' | trans }}</span>
+                </a>
+                <a class="btn blue table-actions-new block-portlet" href="{{ path('dashboard_candidato_editar', { 'id': obj.id }) }}">
+                    <i class="icon-edit"></i> <span class="hidden-phone">{{ 'Editar' | trans }}</span>
+                </a>
+                <a class="btn blue table-actions-new view-btn-delete-object ajax-btn" href="{{ path('dashboard_candidato_eliminar', { 'id': obj.id }) }}">
+                    <i class="icon-trash"></i> <span class="hidden-phone">{{ 'Eliminar' | trans }}</span>
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <div class="form-horizontal form-view">
+                <h3 class="hidden-phone"> {{ 'Ver información de candidato' | trans ~ ' - ' ~ (app.request.locale == default_locale or not etrans_locale ? obj.titulo : etrans_locale.titulo) }} </h3>
+                <!--BEGIN TABS-->
+                <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tib" data-toggle="tab"><i class="icon-info-sign"></i> <span class="hidden-480">{{ 'Información básica' | trans }}</span></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tib">
+                            <h4 class="form-section visible-phone hidden-tablet hidden-desktop">{{ 'Información básica' | trans }}</h4>
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Seleccione el idioma' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <select class="span11 select2 select_translate" data-for="titulo_candidato,descripcion_candidato" data-placeholder="{{ 'Seleccione el idioma' | trans }}" tabindex="1">
+                                                {% set selected_key = app.request.locale %}
+                                                {% for key, idioma in idiomas %}
+                                                    {% if key == default_locale or etranslations[key] is defined %}
+                                                        {% set selected = false %}
+                                                        {% if key == app.request.locale and etranslations[app.request.locale] is defined %}
+                                                            {% set selected = true %}
+                                                            {% set selected_key = app.request.locale %}
+                                                        {% else %}
+                                                            {% if key == default_locale %}
+                                                                {% set selected = true %}
+                                                                {% set selected_key = default_locale %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                        <option value="{{key}}" {% if selected %}selected="selected"{% endif %}>{{idioma}}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                            <span class="help-block" style="display: inline-block;">{{ 'Vea el título y la descripción en diferentes idiomas' | trans }}</span>
+                                        </div>
+                                        <div class="control-group">
+                                            <label for="" class="control-label bold">
+                                                {{ 'Categoría:' | trans }}
+                                            </label>
+                                            <div class="controls">
+                                            <span class="text">
+                                                {% if obj.categoria is not null %}
+                                                    <a class="tooltips block-portlet" href="{{ path('dashboard_categoria_ver', { 'id': obj.categoria.id }) }}" title="{{ 'Ver' | trans ~ ' ' ~ obj.categoria }}">{{ obj.categoria }}</a>
+                                                {% else %}
+                                                    -
+                                                {% endif %}
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Título del candidato:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            {% for key,idioma in idiomas %}
+                                                <span class="text titulo_candidato" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
+                                                        {{ key == default_locale ? obj.titulo | default('-') : i18n[key]['titulo'] | default('-') }}
+                                                    </span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Descripción del candidato:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            {% for key,idioma in idiomas %}
+                                                <span class="text descripcion_candidato" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
+                                                        {{ key == default_locale ? obj.descripcion | default('-') : i18n[key]['descripcion'] | default('-') }}
+                                                    </span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--END TABS-->
+                <div class="form-actions">
+                    <a href="{{ path('dashboard_candidato') }}" class="btn purple-stripe block-portlet"><i class="icon-list"></i> <span class="hidden-phone">{{ 'Regresar al listado' | trans }}</span></a>
+                    <a href="{{ path('dashboard_candidato_editar', { 'id': obj.id }) }}" class="btn green-stripe block-portlet"><i class="icon-edit"></i> <span class="hidden-phone">{{ 'Editar' | trans }}</span></a>
+                    <a href="{{ path('dashboard_candidato_eliminar', { 'id': obj.id }) }}" class="btn red-stripe view-btn-delete-object ajax-btn"><i class="icon-trash"></i> <span class="hidden-phone">{{ 'Eliminar' | trans }}</span></a>
+                </div>
+            </div>
+            <!-- END FORM-->
+        </div>
+    </div>
+    <div class="confirm_delete hide" title="{{ 'Confirmación' | trans }}" data-for="view-candidato">
+        <p><span class="icon icon-warning-sign"></span>
+            {{ 'Está a punto de eliminar este elemento. Se perderán todos sus datos.' | trans }}
+            <br/>
+            {{ '¿Desea continuar?' | trans }}
+        </p>
+    </div>
+{% endblock %}

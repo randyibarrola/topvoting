@@ -24,6 +24,72 @@
     width: auto;
 }
 
+.dataTable .filterColumn .select2-container {
+    width: 100%;
+}
+
+.dataTable .filterColumn .select2-container .select2-choice {
+    height: auto;
+    padding-top: 2px;
+    font-weight: normal;
+}
+
+form .help-block {
+    display: inline-block;
+}
+
 form .control-group {
     overflow: hidden !important;
+}
+
+/***
+Gritter Notifications
+***/
+.gritter-top {
+    background: url(../../plugins/gritter/images/gritter.png) no-repeat left -30px !important;
+}
+.gritter-bottom {
+    background: url(../../plugins/gritter/images/gritter.png) no-repeat left bottom !important;
+}
+.gritter-item {
+    display: block;
+    background: url(../../plugins/gritter/images/gritter.png) no-repeat left -40px !important;
+}
+.gritter-close {
+    background: url(../../plugins/gritter/images/gritter.png) no-repeat left top !important;
+}
+/* for the light (white) version of the gritter notice */
+.gritter-light .gritter-item,
+.gritter-light .gritter-bottom,
+.gritter-light .gritter-top,
+.gritter-light .gritter-close {
+    background-image: url(../../plugins/gritter/images/gritter-light.png) !important;
+}
+/* for the light (green) version of the gritter notice */
+.gritter-green .gritter-item,
+.gritter-green .gritter-top,
+.gritter-green .gritter-bottom,
+.gritter-success .gritter-item,
+.gritter-success .gritter-top,
+.gritter-success .gritter-bottom {
+    background-image: url(../../plugins/gritter/images/gritter-green.png) !important;
+}
+.gritter-green .gritter-close,
+.gritter-success .gritter-close {
+    background: url(../../plugins/gritter/images/gritter-green.png) no-repeat left top !important;
+    height: 25px !important;
+}
+/* for the light (red) version of the gritter notice */
+.gritter-red .gritter-item,
+.gritter-error .gritter-item,
+.gritter-red .gritter-top,
+.gritter-error .gritter-top,
+.gritter-red .gritter-bottom,
+.gritter-error .gritter-bottom {
+    background-image: url(../../plugins/gritter/images/gritter-red.png) !important;
+}
+.gritter-red .gritter-close,
+.gritter-error .gritter-close {
+    background: url(../../plugins/gritter/images/gritter-red.png) no-repeat left top !important;
+    height: 25px !important;
 }

@@ -33,6 +33,38 @@ dashboard_categoria_eliminar:
     requirements:
         id: \d+
 
+dashboard_categoria_ver:
+    pattern:  /categoria/ver/{id}
+    defaults: { _controller: DashboardBundle:Categoria:view }
+    requirements:
+        id: \d+
+
+dashboard_candidato:
+    pattern:  /candidato
+    defaults: { _controller: DashboardBundle:Candidato:list }
+
+dashboard_candidato_nuevo:
+    pattern:  /candidato/nuevo
+    defaults: { _controller: DashboardBundle:Candidato:new }
+
+dashboard_candidato_editar:
+    pattern:  /candidato/editar/{id}
+    defaults: { _controller: DashboardBundle:Candidato:edit }
+    requirements:
+        id: \d+
+
+dashboard_candidato_eliminar:
+    pattern:  /candidato/eliminar/{id}
+    defaults: { _controller: DashboardBundle:Candidato:delete }
+    requirements:
+        id: \d+
+
+dashboard_candidato_ver:
+    pattern:  /candidato/ver/{id}
+    defaults: { _controller: DashboardBundle:Candidato:view }
+    requirements:
+        id: \d+
+
 dashboard_hompage:
     pattern:  /
     defaults: { _controller: DashboardBundle:Default:index }

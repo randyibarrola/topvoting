@@ -38,14 +38,14 @@
             {% endif %}
         </a>
     </li>
-    <li class="{% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar'] %}active{% endif %}">
+    <li class="{% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar', 'dashboard_categoria_ver'] %}active{% endif %}">
         <a href="{{ path('dashboard_categoria') }}">
             <i class="icon-tags">
             </i>
             <span class="title">
                 {{ 'Categorías' | trans }}
             </span>
-            {% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar'] %}
+            {% if route_match in ['dashboard_categoria', 'dashboard_categoria_nuevo', 'dashboard_categoria_editar', 'dashboard_categoria_ver'] %}
                 <span class="selected"></span>
             {% endif %}
         </a>
@@ -59,13 +59,16 @@
             </span>
         </a>
     </li>
-    <li class="last">
-        <a href="{{ path('homepage') }}">
+    <li class="last {% if route_match in ['dashboard_candidato', 'dashboard_candidato_nuevo', 'dashboard_candidato_editar', 'dashboard_candidato_ver'] %}active{% endif %}">
+        <a href="{{ path('dashboard_candidato') }}">
             <i class="icon-star">
             </i>
             <span class="title">
                 {{ 'Candidatos' | trans }}
             </span>
+            {% if route_match in ['dashboard_candidato', 'dashboard_candidato_nuevo', 'dashboard_candidato_editar', 'dashboard_candidato_ver'] %}
+                <span class="selected"></span>
+            {% endif %}
         </a>
     </li>
 </ul>

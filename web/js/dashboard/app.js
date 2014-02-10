@@ -746,6 +746,10 @@ var App = function () {
             handleChoosenSelect(); // handles bootstrap chosen dropdowns     
 
             App.addResponsiveHandler(handleChoosenSelect); // reinitiate chosen dropdown on main content resize. disable this line if you don't really use chosen dropdowns.
+
+            $('.block-portlet').click(function(e) {
+                App.blockUI($(this).parents('.portlet').eq(0));
+            });
         },
 
         fixContentHeight: function () {
