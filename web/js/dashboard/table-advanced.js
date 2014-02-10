@@ -68,7 +68,7 @@ var TableAdvanced = function () {
             if(indexThAction == -1)
                 indexThAction = false;
 
-            table.find('.table-row .btn').tooltip();
+            table.find('.table-row .btn, .table-row .active-toggle-button').tooltip();
 
             var dialog_delete = $('.confirm_delete[data-for=' + table.attr('id') + ']');
             if(dialog_delete.length > 0) {

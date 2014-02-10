@@ -34,6 +34,11 @@
     font-weight: normal;
 }
 
+.dataTable .active-toggle-button {
+    margin-top: 0 !important;
+    vertical-align: middle !important;
+}
+
 form .help-block {
     display: inline-block;
 }

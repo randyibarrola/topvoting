@@ -4,6 +4,8 @@
 {% block plugins_stylesheet %}
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
     <link rel="stylesheet" href="{{ asset('plugins/data-tables/DT_bootstrap.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css') }}" />
 {% endblock %}
 {% block plugins_javascript %}
     <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
@@ -13,16 +15,19 @@
     <script type="text/javascript" src="{{ asset('plugins/data-tables/DT_bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/data-tables/lang/jquery-datatable.' ~ app.request.locale ~ '.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/data-tables/jquery.datatable.filter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js') }}"></script>
 {% endblock %}
 {% block level_javascript %}
     {{ parent() }}
     <script src="{{ asset('js/dashboard/table-advanced.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/dashboard/table-usuario.js') }}" type="text/javascript"></script>
 {% endblock %}
 {% block init_javascript %}
     {{ parent() }}
     <script>
         jQuery(document).ready(function() {
             TableAdvanced.init();
+            TableUsuario.init();
         });
     </script>
 {% endblock %}
@@ -35,206 +40,92 @@
         <span class="icon-angle-right"></span>
     </li>
     <li>
-        <i class="icon-th"></i>
+        <i class="icon-list"></i>
         {{ 'Listado' | trans }}
     </li>
 {% endblock %}
 
 {% block level_content %}
     <!-- BEGIN SAMPLE TABLE PORTLET-->
-    <div class="portlet box green">
+    <div class="portlet box purple">
         <div class="portlet-title">
-            <div class="caption"><i class="icon-group"></i>{{ 'Listado de usuarios' | trans }}</div>
+            <div class="caption"><i class="icon-tags"></i>{{ 'Listado de usuarios' | trans }}</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
             </div>
             <div class="actions">
-                <a class="btn green table-actions-new" href="#">
-                    <i class="icon-plus"></i> <span class="hidden-phone">{{ 'Añadir nuevo' | trans }}</span>
-                </a>
+                {#<a class="btn purple table-actions-new block-portlet" href="{{ path('dashboard_categoria_nuevo') }}">#}
+                    {#<i class="icon-plus"></i> <span class="hidden-phone">{{ 'Añadir nuevo' | trans }}</span>#}
+                {#</a>#}
                 <div class="btn-group table-actions-columns hidden-480">
                     <a data-toggle="dropdown" href="#" class="btn">
                         <i class="icon-columns"></i> <span class="hidden-phone">{{ 'Columnas' | trans }}</span>
                         <i class="icon-angle-down"></i>
                     </a>
                     <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right table-column-toggler">
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="0" checked=""></span></div>Code</label>
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="1" checked=""></span></div>Company</label>
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="2" checked=""></span></div>Price</label>
-                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="3" checked=""></span></div>Change</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="0" checked=""></span></div>{{ 'Nombre' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="1" checked=""></span></div>{{ 'Usuario' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="2" checked=""></span></div>{{ 'Correo electrónico' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="3" checked=""></span></div>{{ 'Código de activación' | trans }}</label>
+                        <label><div class="checker"><span class="checked"><input type="checkbox" data-column="4" checked=""></span></div>{{ 'Roles' | trans }}</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="portlet-body flip-scroll">
-            {#<div class="clearfix">#}
-                {#<div class="btn-group pull-right">#}
-                    {#<button data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-wrench hide visible-phone"></i><span class="hidden-phone">{{ 'Herramientas' | trans }}</span> <i class="icon-angle-down"></i>#}
-                    {#</button>#}
-                    {#<ul class="dropdown-menu pull-right">#}
-                        {#<li><a href="#"><i class="icon-print"></i> {{ 'Imprimir' | trans }}</a></li>#}
-                        {#<li><a href="#"><i class="icon-save"></i> {{ 'Guardar como PDF' | trans }}</a></li>#}
-                        {#<li><a href="#"><i class="icon-download"></i> {{ 'Exportar a Excel' | trans }}</a></li>#}
-                    {#</ul>#}
-                {#</div>#}
-            {#</div>#}
             <table class="table table-bordered table-striped table-condensed table-hover table-full-width table-advanced" id="data-table-usuario">
                 <thead class="">
                 <tr>
-                    <th>Code</th>
-                    <th class="hidden-480">Company</th>
-                    <th class="hidden-480">Price</th>
-                    <th class="hidden-480">Change</th>
+                    <th>{{ 'Nombre' | trans }}</th>
+                    <th class="hidden-phone">{{ 'Usuario' | trans }}</th>
+                    <th>{{ 'Correo electrónico' | trans }}</th>
+                    <th class="hidden-phone">{{ 'Código de activación' | trans }}</th>
+                    <th class="hidden-phone">{{ 'Roles' | trans }}</th>
                     <th class="table-actions-cell"></th>
+                </tr>
+                <tr class="hidden-phone hidden-print">
+                    <th>{{ 'Nombre' | trans }}</th>
+                    <th>{{ 'Usuario' | trans }}</th>
+                    <th>{{ 'Correo electrónico' | trans }}</th>
+                    <th>{{ 'Código de activación' | trans }}</th>
+                    <th>{{ 'Roles' | trans }}</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>AAC</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn mini blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn mini green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn mini red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AAD</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AAX</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ABC</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ABP</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ABY</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ACR</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ADU</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AGG</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AGK</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>AGO</td>
-                    <td class="hidden-480">AUSTRALIAN AGRICULTURAL COMPANY LIMITED.</td>
-                    <td class="hidden-480">$1.38</td>
-                    <td class="hidden-480">-0.01</td>
-                    <td class="">
-                        <div class="hidden-print">
-                            <a class="btn blue icn-only" href="#"><i class="icon-file icon-white"></i></a>
-                            <a class="btn green icn-only" href="#"><i class="icon-edit icon-white"></i></a>
-                            <a class="btn red icn-only" href="#"><i class="icon-trash icon-white"></i></a>
-                        </div>
-                    </td>
-                </tr>
+                {% for obj in list %}
+                    <tr class="table-row">
+                        <td>{{ obj.nombreCompleto }}</td>
+                        <td class="hidden-phone">{{ obj.username }}</td>
+                        <td>{{ obj.email }}</td>
+                        <td class="hidden-phone">{{ obj.codigoActivacion | default('-') }}</td>
+                        <td class="hidden-phone">{{ obj.roles | join(', ') }}</td>
+                        <td class="" style="min-width: 160px;">
+                            <div class="hidden-print">
+                                <a class="active-toggle-button" title="{{ 'Activar/Desactivar' | trans }}">
+                                    <input type="checkbox" class="toggle" {% if obj.activo %}checked="checked"{% endif %} />
+                                </a>
+                                {#<a class="btn mini green icn-only block-portlet" href="#" title="{{ 'Activar' | trans }}"><i class="icon-check icon-white"></i></a>#}
+                                <a class="btn mini blue icn-only block-portlet" href="#" title="{{ 'Ver' | trans }}"><i class="icon-file icon-white"></i></a>
+                                <a class="btn mini green icn-only block-portlet" href="#" title="{{ 'Editar' | trans }}"><i class="icon-edit icon-white"></i></a>
+                                <a class="btn mini red icn-only table-btn-delete-row ajax-btn" href="#" title="{{ 'Eliminar' | trans }}"><i class="icon-trash icon-white"></i></a>
+                                <input type="hidden" value="{{ loop.index }}" class="table-row-index" />
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
     <!-- END SAMPLE TABLE PORTLET-->
+    <!-- DIALOGS -->
+    <div class="confirm_delete hide" title="{{ 'Confirmación' | trans }}" data-for="data-table-usuario">
+        <p><span class="icon icon-warning-sign"></span>
+            {{ 'Está a punto de eliminar un elemento del listado.' | trans }}
+            <br/>
+            {{ '¿Desea continuar?' | trans }}
+        </p>
+    </div>
+    <!-- END DIALOGS -->
 {% endblock %}
