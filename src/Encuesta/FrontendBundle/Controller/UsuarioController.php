@@ -104,10 +104,11 @@ class UsuarioController extends Controller
                     $extension = $form['imagen']->getData()->guessExtension();
                     if( in_array( $extension, array('png', 'jpg', 'jpeg', 'gif', 'bmp') ) ) {
                         if(!is_dir($usuario->getUploadDir()))      
-                                   mkdir($usuario->getUploadDir(), 0777);                       
+                                   mkdir($usuario->getUploadDir(), 0777);  
                         
-                        $form['imagen']->getData()->move($usuario->getUploadDir(), 'perfil.'.$extension);
-                        $usuario->setImagen('perfil.'.$extension);
+                        $nombre = md5(time());
+                        $form['imagen']->getData()->move($usuario->getUploadDir(), $nombre.'.'.$extension);
+                        $usuario->setImagen($nombre.$extension);
                     }                    
                     $em->persist($usuario);
                     $em->flush(); 

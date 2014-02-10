@@ -5,7 +5,7 @@ Hello !
 {% if app.user %}
     {{ app.user.username }} , {{ app.user.usuarioRolesString}}   
     <ul>
-        <li>Votaciones</li>
+        <li><a href="{{ path('frontend_votaciones') }}">Votaciones</a></li>
         <li><a href="{{ path('frontend_perfil') }}">Mi Cuenta</a></li>
         <li><a href="{{ path('frontend_logout') }}">Salir</a></li>
     </ul>    
