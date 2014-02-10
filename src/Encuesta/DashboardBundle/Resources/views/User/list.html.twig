@@ -102,13 +102,15 @@
                         <td class="hidden-phone">{{ obj.roles | join(', ') }}</td>
                         <td class="" style="min-width: 160px;">
                             <div class="hidden-print">
-                                <a class="active-toggle-button" title="{{ 'Activar/Desactivar' | trans }}">
+                                {% if obj.id != app.user.id %}
+                                <a href="{{ path('dashboard_usuario_cambiar_estado', { 'id': obj.id }) }}" class="active-toggle-button" title="{{ 'Activar/Desactivar' | trans }}">
                                     <input type="checkbox" class="toggle" {% if obj.activo %}checked="checked"{% endif %} />
                                 </a>
-                                {#<a class="btn mini green icn-only block-portlet" href="#" title="{{ 'Activar' | trans }}"><i class="icon-check icon-white"></i></a>#}
+                                {% endif %}
                                 <a class="btn mini blue icn-only block-portlet" href="#" title="{{ 'Ver' | trans }}"><i class="icon-file icon-white"></i></a>
-                                <a class="btn mini green icn-only block-portlet" href="#" title="{{ 'Editar' | trans }}"><i class="icon-edit icon-white"></i></a>
+                                {% if obj.id != app.user.id %}
                                 <a class="btn mini red icn-only table-btn-delete-row ajax-btn" href="#" title="{{ 'Eliminar' | trans }}"><i class="icon-trash icon-white"></i></a>
+                                {% endif %}
                                 <input type="hidden" value="{{ loop.index }}" class="table-row-index" />
                             </div>
                         </td>

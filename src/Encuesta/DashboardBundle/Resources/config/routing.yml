@@ -13,6 +13,12 @@ dashboard_usuario:
     pattern:  /usuario
     defaults: { _controller: DashboardBundle:User:list }
 
+dashboard_usuario_cambiar_estado:
+    pattern:  /usuario/cambiar-estado/{id}
+    defaults: { _controller: DashboardBundle:User:changeState }
+    requirements:
+        id: \d+
+
 dashboard_categoria:
     pattern:  /categoria
     defaults: { _controller: DashboardBundle:Categoria:list }

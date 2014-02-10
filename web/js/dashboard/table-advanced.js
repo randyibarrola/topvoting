@@ -173,6 +173,61 @@ var TableAdvanced = function () {
                 }
             };
 
+            var btnActiveRowAction = function(nRow) {
+                var btn = $(nRow).find('.active-toggle-button').eq(0);
+                if(!btn.attr('onClick')) {
+                    var error = false;
+                    btn.click(function() {
+                        return false;
+                    });
+                    $(btn).toggleButtons({
+                        width: 50,
+                        height: 20,
+                        label: {
+                            enabled: "<i class='icon-ok-circle'></i>",
+                            disabled: "<i class='icon-remove-circle'></i>"
+                        },
+                        style: {
+                            enabled: "success",
+                            disabled: "warning"
+                        },
+                        transitionspeed: 0.1,
+                        onChange: function() {
+                            if(!error) {
+                                var input = btn.find('input:checkbox:eq(0)');
+                                $.ajax({
+                                    type: "POST",
+                                    url: btn.attr('href'),
+                                    dataType: "json",
+                                    success: function(result) {
+                                        if(result.http_code == 500)
+                                        {
+                                            error = true;
+                                            btn.find('.labelLeft:eq(0)').trigger('click');
+                                        }
+
+                                        $.gritter.add({
+                                            position: 'top-right',
+                                            title: '',
+                                            text: result.message,
+                                            time: 3000,
+                                            class_name: 'gritter-' + result.message_type
+                                        });
+                                    },
+                                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                                        error = true;
+                                        btn.find('.labelLeft:eq(0)').trigger('click');
+                                    }
+                                });
+                            }
+                            else {
+                                error = false;
+                            }
+                        }
+                    });
+                }
+            };
+
             var oTable = table.dataTable({
                 "aoColumnDefs": indexThAction ? [{ "aTargets": [ 0 ] }, {"bSortable": false, "aTargets": [ indexThAction ] }] : [{ "aTargets": [ 0 ] }],
                 "fnDrawCallback": function(oSettings) {
@@ -182,6 +237,7 @@ var TableAdvanced = function () {
                 },
                 "fnCreatedRow": function( nRow, aData, iDataIndex ) {
                     btnDeleteRowAction(nRow);
+                    btnActiveRowAction(nRow);
                     if($.fnDTSpecialCreatedRow)
                         $.fnDTSpecialCreatedRow(nRow, aData, iDataIndex);
                 }
