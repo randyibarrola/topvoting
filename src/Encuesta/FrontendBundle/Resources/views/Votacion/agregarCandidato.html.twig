@@ -1,14 +1,23 @@
+Estado de la votacion
+<br>
+<br>
+<b>{{ evento.activo ? 'Publico' : 'No Publico' }}</b>
+<br>
+<br>
 Candidatos Actuales
 <br>
-
-
+<ul>
+{% for candidato in evento.candidatos %}
+    <li>{{ candidato.titulo }}</li>
+{% endfor %}
+</ul>
 <br>
 
 Agregar Candidato al evento: {{ evento.titulo }}
 
 <h2>Nuevo candidato</h2>
-<form class="formulario" action="{{ path('frontend_votaciones') }}" method="post" {{ form_enctype(form) }}>
-
+<form class="formulario" action="{{ path('frontend_agregar_candidato') }}" method="post" {{ form_enctype(form) }}>
+    <input type="hidden" name="id" value="{{ evento.id }}" />
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Titulo</td>
@@ -39,7 +48,7 @@ Agregar Candidato al evento: {{ evento.titulo }}
             <td><br></td>
         </tr>
         <tr>
-            <td height="30" align="left"><input name="" type="submit" value="Crear Votacion" /></td>
+            <td height="30" align="left"><input name="" type="submit" value="Agregar candidato a votacion" /></td>
         </tr>         
     </table>
     {{ form_widget(form._token) }}    

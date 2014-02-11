@@ -289,8 +289,20 @@ class Candidato {
     {
         $eventos = array();
         foreach($this->candidato_eventos as $evento)
-            $eventos[] = $evento;
+            $eventos[] = $evento->getEvento();
         
         return $eventos;
-    }    
+    }
+    
+    public function getUploadDir()
+    {
+        // the absolute directory path where uploaded
+        // image profile should be saved
+        return __DIR__.'/../../../../web/uploads/candidato/'.$this->id;
+    }  
+    
+    public function getImagenEvento()
+    {
+        return $this->imagen ? '/uploads/candidato/'.$this->id.'/'.$this->imagen : null;
+    }      
 }

@@ -67,7 +67,7 @@ class Evento
      *
      * @ORM\Column(name="activo", type="boolean")
      */
-    private $activo = true;	
+    private $activo = false;	
    
 
     /**
@@ -375,7 +375,7 @@ class Evento
     {
         $candidatos = array();
         foreach($this->evento_candidatos as $candidato)
-            $candidatos[] = $candidato;
+            $candidatos[] = $candidato->getCandidato();
         
         return $candidatos;
     }
