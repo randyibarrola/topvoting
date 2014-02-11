@@ -15,7 +15,7 @@ class EventoRepository extends EntityRepository
     /*
      * Retorna todos los eventos activos, si se le indica usuario, retorna solamente los creados por ese usuario
      */
-    public function getEventosActivos($usuario)
+    public function getEventosActivos($usuario = null)
     {
         $em = $this->getEntityManager();
         //$sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.fecha_fin >= :fecha and e.activo = 1'; 

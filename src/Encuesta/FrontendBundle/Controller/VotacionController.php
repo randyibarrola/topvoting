@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Encuesta\ModeloBundle\Form\EventoType;
 use Encuesta\ModeloBundle\Entity\Evento;
 use Encuesta\ModeloBundle\Entity\Candidato;
+use Encuesta\ModeloBundle\Form\CandidatoType;
 
 class VotacionController extends Controller
 {
@@ -47,7 +48,8 @@ class VotacionController extends Controller
         $misEventos = $em->getRepository('ModeloBundle:Evento')->getEventosActivos($this->getUser());
         return $this->render('FrontendBundle:Votacion:votaciones.html.twig', array(
             'form' => $form->createView(),
-            'eventos' => $todosEventos            
+            'eventos' => $todosEventos,
+            'misEventos' => $misEventos
         ));         
         
     }
@@ -59,9 +61,12 @@ class VotacionController extends Controller
         $evento = $id ? $em->getRepository('ModeloBundle:Evento')->find($id)  : null;
         if($evento) {
             
+            $candidatos = $evento->getCandidatos();
             $candidato = new Candidato();
+            $form = $this->createForm(new CandidatoType(), $candidato);
             return $this->render('FrontendBundle:Votacion:agregarCandidato.html.twig', array(
-                'evento' => $evento
+                'evento' => $evento,
+                'form' => $form->createView()
             ));
         }
         

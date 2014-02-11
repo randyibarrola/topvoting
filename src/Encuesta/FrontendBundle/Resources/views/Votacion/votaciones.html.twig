@@ -45,6 +45,13 @@
         
 </form>
 <br />
+<h3>Mis Votaciones</h3>
+<ul>
+    {% for evento in misEventos %}
+        <a href="{{ path('frontend_agregar_candidato', { 'id':evento.id}) }}"><li>{{ evento.titulo }}</li></a>
+    {% endfor %}
+</ul> 
+<br>
 <h3>Votaciones Disponibles</h3>
 <ul>
     {% for evento in eventos %}

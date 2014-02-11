@@ -45,9 +45,14 @@ class Candidato {
      **/
     private $categoria;  
 	
-
-	
-	/**
+    /**
+    * @var ArrayCollection $candidato_eventos
+    *
+    * @ORM\OneToMany(targetEntity="EventoCandidato", mappedBy="candidato")
+    */
+     protected $candidato_eventos;     
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="imagen", type="string", length=255, nullable=true)
@@ -239,4 +244,53 @@ class Candidato {
             unlink(__DIR__.'/../../../../web/uploads/images/candidato/'.$this->filenameForRemove);
         }
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->candidato_eventos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add candidato_eventos
+     *
+     * @param \Encuesta\ModeloBundle\Entity\EventoCandidato $candidatoEventos
+     * @return Candidato
+     */
+    public function addCandidatoEvento(\Encuesta\ModeloBundle\Entity\EventoCandidato $candidatoEventos)
+    {
+        $this->candidato_eventos[] = $candidatoEventos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove candidato_eventos
+     *
+     * @param \Encuesta\ModeloBundle\Entity\EventoCandidato $candidatoEventos
+     */
+    public function removeCandidatoEvento(\Encuesta\ModeloBundle\Entity\EventoCandidato $candidatoEventos)
+    {
+        $this->candidato_eventos->removeElement($candidatoEventos);
+    }
+
+    /**
+     * Get candidato_eventos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCandidatoEventos()
+    {
+        return $this->candidato_eventos;
+    }
+    
+    public function getEventos()
+    {
+        $eventos = array();
+        foreach($this->candidato_eventos as $evento)
+            $eventos[] = $evento;
+        
+        return $eventos;
+    }    
 }
