@@ -602,9 +602,4 @@ class Usuario implements AdvancedUserInterface, \Serializable
                 @rmdir($this->imageDir);
         }
     }
-
-    public function __toString()
-    {
-        return $this->getNombreCompleto();
-    }
 }
