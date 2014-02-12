@@ -70,7 +70,9 @@ class CandidatoController extends Controller
                 $em->flush();
             }
             else if($imagen_original != null) {
-                unlink($this->container->getParameter('image_upload_dir').'candidato/'.$imagen_original);
+                unlink($this->container->getParameter('upload_dir').'candidato/'.$obj->getId().'/'.$imagen_original);
+                if(is_dir($this->container->getParameter('upload_dir').'candidato/'.$obj->getId()))
+                    @rmdir($this->container->getParameter('upload_dir').'candidato/'.$obj->getId());
             }
 
             return $response;
@@ -97,7 +99,12 @@ class CandidatoController extends Controller
             if($form->isValid()) {
                 $data = $form->getData();
 
-                $dir = $this->container->getParameter('image_upload_dir').'candidato/';
+                if($data->getId() == null) {
+                    $em->persist($data);
+                    $em->flush();
+                }
+
+                $dir = $this->container->getParameter('upload_dir').'candidato/'.$data->getId().'/';
                 $imagen = $this->get('dashboard.file')->uploadFile($data->getImagen(), $dir);
                 $data->setImagen($imagen);
 

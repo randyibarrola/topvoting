@@ -13,6 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="evento")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Encuesta\ModeloBundle\Entity\EventoRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Evento 
 {
@@ -311,5 +312,28 @@ class Evento
     public function getCreador()
     {
         return $this->creador;
+    }
+
+    private $filenameForRemove;
+    private $imageDir;
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getImagen();
+        $this->imageDir = __DIR__.'/../../../../web/uploads/evento/'.$this->getId();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove != null) {
+            unlink($this->imageDir.'/'.$this->filenameForRemove);
+            if(is_dir($this->imageDir))
+                @rmdir($this->imageDir);
+        }
     }
 }

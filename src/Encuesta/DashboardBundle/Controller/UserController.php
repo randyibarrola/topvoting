@@ -28,7 +28,8 @@ class UserController extends Controller
         $list = $em->getRepository('ModeloBundle:Usuario')->findAll();
 
         return $this->render('DashboardBundle:User:list.html.twig', array(
-            'list' => $list
+            'list' => $list,
+            'nombre_rol' => $this->container->getParameter('nombre_rol')
         ));
     }
 
@@ -63,5 +64,56 @@ class UserController extends Controller
         $sResponse->headers->set('Content-Type', 'application/json; charset=utf-8');
 
         return $sResponse;
+    }
+
+    public function viewAction()
+    {
+        $request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        $obj = $em->getRepository('ModeloBundle:Usuario')->find($request->get('id'));
+        if(!$obj)
+            $this->createNotFoundException('No existe el usuario que está intentando ver');
+
+        return $this->render('DashboardBundle:User:view.html.twig', array(
+            'obj' => $obj,
+            'nombre_rol' => $this->container->getParameter('nombre_rol', array())
+        ));
+    }
+
+    public function deleteAction()
+    {
+        $response = $this->get('dashboard.ajaxresponse');
+        $em = $this->getDoctrine()->getManager();
+        $translator = $this->get('translator');
+
+        try {
+            $id = $this->getRequest()->get('id');
+            if($id == $this->getUser()->getId()) {
+                $response->setHttpCode(500);
+                $response->setMessage($translator->trans('No se puede eliminar el usuario que está logueado en la aplicación'));
+            }
+            else {
+                $obj = $em->getRepository('ModeloBundle:Usuario')->find($id);
+
+                if(!$obj) {
+                    $response->setHttpCode(500);
+                    $response->setMessage($translator->trans('El que intenta eliminar no existe'));
+                }
+                else {
+                    $em->remove($obj);
+                    $em->flush();
+
+                    $response->setMessage($translator->trans('El se ha eliminado satisfactoriamente'));
+                    $response->setDataHolder(array('route' => $this->get('router')->generate('dashboard_usuario')));
+                }
+            }
+        }
+        catch(\Exception $e) {
+            $response->setHttpCode(500);
+            $response->setMessage($translator->trans('Lo sentimos, ha ocurrido un error'));
+        }
+
+        return new Response(json_encode($response->response()));
     }
 }

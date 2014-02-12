@@ -28,6 +28,9 @@ class File
                     break;
             }
 
+            if(!is_dir($dir))
+                mkdir($dir);
+
             $file->move($dir, $file_name);
         }
 

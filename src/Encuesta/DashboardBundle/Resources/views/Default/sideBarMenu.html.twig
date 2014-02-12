@@ -26,14 +26,14 @@
             </span>
         </a>
     </li>
-    <li class="{% if route_match in ['dashboard_usuario'] %}active{% endif %}">
+    <li class="{% if route_match in ['dashboard_usuario', 'dashboard_usuario_ver'] %}active{% endif %}">
         <a href="{{ path('dashboard_usuario') }}">
             <i class="icon-group">
             </i>
             <span class="title">
                 {{ 'Usuarios' | trans }}
             </span>
-            {% if route_match in ['dashboard_usuario'] %}
+            {% if route_match in ['dashboard_usuario', 'dashboard_usuario_ver'] %}
                 <span class="selected"></span>
             {% endif %}
         </a>
@@ -50,13 +50,16 @@
             {% endif %}
         </a>
     </li>
-    <li class="">
-        <a href="{{ path('homepage') }}">
+    <li class="{% if route_match in ['dashboard_evento', 'dashboard_evento_ver'] %}active{% endif %}">
+        <a href="{{ path('dashboard_evento') }}">
             <i class="icon-file-text">
             </i>
             <span class="title">
                 {{ 'Eventos' | trans }}
             </span>
+            {% if route_match in ['dashboard_evento', 'dashboard_evento_ver'] %}
+                <span class="selected"></span>
+            {% endif %}
         </a>
     </li>
     <li class="last {% if route_match in ['dashboard_candidato', 'dashboard_candidato_nuevo', 'dashboard_candidato_editar', 'dashboard_candidato_ver'] %}active{% endif %}">

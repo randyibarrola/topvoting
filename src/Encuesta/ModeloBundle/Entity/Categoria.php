@@ -269,12 +269,14 @@ class Categoria {
     }
 
     private $filenameForRemove;
+    private $imageDir;
     /**
      * @ORM\PreRemove()
      */
     public function storeFilenameForRemove()
     {
         $this->filenameForRemove = $this->getImagen();
+        $this->imageDir = __DIR__.'/../../../../web/uploads/categoria/'.$this->getId();
     }
 
     /**
@@ -283,7 +285,9 @@ class Categoria {
     public function removeUpload()
     {
         if ($this->filenameForRemove != null) {
-            unlink(__DIR__.'/../../../../web/uploads/images/categoria/'.$this->filenameForRemove);
+            unlink($this->imageDir.'/'.$this->filenameForRemove);
+            if(is_dir($this->imageDir))
+                @rmdir($this->imageDir);
         }
     }
 }

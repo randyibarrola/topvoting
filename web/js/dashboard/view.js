@@ -131,9 +131,10 @@ var View = function () {
 
     return {
         init: function () {
-            $('.select2').select2({
-                allowClear: true
-            });
+            if(jQuery().select2)
+                $('.select2').select2({
+                    allowClear: true
+                });
 
             chooseLanguage();
             initView();

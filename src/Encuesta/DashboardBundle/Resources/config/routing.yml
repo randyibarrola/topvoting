@@ -19,6 +19,40 @@ dashboard_usuario_cambiar_estado:
     requirements:
         id: \d+
 
+dashboard_usuario_ver:
+    pattern:  /usuario/ver/{id}
+    defaults: { _controller: DashboardBundle:User:view }
+    requirements:
+        id: \d+
+
+dashboard_usuario_eliminar:
+    pattern:  /usuario/eliminar/{id}
+    defaults: { _controller: DashboardBundle:User:delete }
+    requirements:
+        id: \d+
+
+dashboard_evento:
+    pattern:  /evento
+    defaults: { _controller: DashboardBundle:Evento:list }
+
+dashboard_evento_cambiar_estado:
+    pattern:  /evento/cambiar-estado/{id}
+    defaults: { _controller: DashboardBundle:Evento:changeState }
+    requirements:
+        id: \d+
+
+dashboard_evento_ver:
+    pattern:  /evento/ver/{id}
+    defaults: { _controller: DashboardBundle:Evento:view }
+    requirements:
+        id: \d+
+
+dashboard_evento_eliminar:
+    pattern:  /evento/eliminar/{id}
+    defaults: { _controller: DashboardBundle:Evento:delete }
+    requirements:
+        id: \d+
+
 dashboard_categoria:
     pattern:  /categoria
     defaults: { _controller: DashboardBundle:Categoria:list }

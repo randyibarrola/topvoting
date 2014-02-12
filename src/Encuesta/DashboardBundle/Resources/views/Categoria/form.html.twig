@@ -8,6 +8,7 @@
 {% block plugins_javascript %}
     <script type="text/javascript" src="{{ asset('plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('plugins/jquery-validation/dist/additional-methods.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/jquery-validation/lib/jquery.form.js') }}"></script>
     {% if app.request.locale != 'en' %}
         <script type="text/javascript" src="{{ asset('plugins/jquery-validation/localization/messages_' ~ app.request.locale ~ '.js') }}"></script>
     {% endif %}
@@ -59,7 +60,7 @@
             </div>
         </div>
         <div class="portlet-body form">
-            <form class="horizontal-form form-validate ajax-form" action="{{ obj.id is not null ? path('dashboard_categoria_editar', { 'id': obj.id }) : path('dashboard_categoria_nuevo') }}" method="post" {{ form_enctype(form) }}>
+            <form class="horizontal-form form-validate ajax-form {% if obj.id is null %}form_new{% endif %}" action="{{ obj.id is not null ? path('dashboard_categoria_editar', { 'id': obj.id }) : path('dashboard_categoria_nuevo') }}" method="post" {{ form_enctype(form) }}>
                 <div class="span6 pull-right">
                     <div class="alert-validation alert hide">
                         <div class="alert-message">{{ 'Existen datos incorrectos en el formulario' | trans }}</div>
@@ -131,8 +132,8 @@
                                         {% endif %}
                                     </div>
                                     <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;">
-                                        {% if obj.imagen is not null %}
-                                            <img src="{{ asset(image_upload_dir | slice(1) ~ 'categoria/' ~ obj.imagen) }}" alt="{{ obj.nombre }}" />
+                                        {% if obj.id is not null and obj.imagen is not null %}
+                                            <img src="{{ asset(upload_dir | slice(1) ~ 'categoria/' ~ obj.id ~ '/' ~ obj.imagen) }}" alt="{{ obj.nombre }}" />
                                         {% endif %}
                                     </div>
                                     <span class="help-block" style="display: block;">{{ 'Solo se permiten imágenes de hasta 500Kb' | trans }}</span>

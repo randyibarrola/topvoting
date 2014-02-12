@@ -1,0 +1,221 @@
+{% extends '::dashboard.html.twig' %}
+
+{% set eventos = obj.eventos %}
+{% block title %}{{ parent() }} - {{ 'Ver información de usuario' | trans ~ '. ' ~ obj.nombreCompleto }}{% endblock %}
+{% block plugins_stylesheet %}
+    {% if eventos | length > 0 %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/select2/select2_metro.css') }}" />
+        <link rel="stylesheet" href="{{ asset('plugins/data-tables/DT_bootstrap.css') }}" />
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css') }}"/>
+{% endblock %}
+{% block plugins_javascript %}
+    {% if eventos | length > 0 %}
+        <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/data-tables/jquery.dataTables.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/data-tables/DT_bootstrap.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/data-tables/lang/jquery-datatable.' ~ app.request.locale ~ '.js') }}"></script>
+    {% endif %}
+{% endblock %}
+{% block level_javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/dashboard/view.js') }}"></script>
+    {% if eventos | length > 0 %}
+        <script src="{{ asset('js/dashboard/table-advanced.js') }}" type="text/javascript"></script>
+    {% endif %}
+{% endblock %}
+{% block init_javascript %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            View.init();
+            {% if eventos | length > 0 %}
+                TableAdvanced.init();
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+{% block page_title %}{{ 'Usuarios' | trans }} <small>{{ 'ver información' | trans }}</small>{% endblock %}
+{% block breadcrumb_list %}
+    {{ parent() }}
+    <li>
+        <i class="icon-group"></i>
+        <a href="{{ path('dashboard_usuario') }}">{{ 'Usuarios' | trans }}</a>
+        <span class="icon-angle-right"></span>
+    </li>
+    <li>
+        <i class="icon-file"></i>
+        {{ 'Ver información' | trans }}
+    </li>
+{% endblock %}
+
+{% block level_content %}
+    <div class="portlet box blue view-container" id="view-usuario">
+        <div class="portlet-title">
+            <div class="caption"><i class="icon-group"></i>{{ 'Información de usuario' | trans }}</div>
+            <div class="tools">
+                <a href="javascript:;" class="collapse"></a>
+            </div>
+            <div class="actions">
+                <a class="btn blue table-actions-new block-portlet" href="{{ path('dashboard_usuario') }}">
+                    <i class="icon-list"></i> <span class="hidden-phone">{{ 'Regresar al listado' | trans }}</span>
+                </a>
+                {% if obj.id != app.user.id %}
+                <a class="btn blue table-actions-new view-btn-delete-object ajax-btn" href="{{ path('dashboard_usuario_eliminar', { 'id': obj.id }) }}">
+                    <i class="icon-trash"></i> <span class="hidden-phone">{{ 'Eliminar' | trans }}</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="portlet-body form">
+            <!-- BEGIN FORM-->
+            <div class="form-horizontal form-view">
+                <h3 class="hidden-phone"> {{ 'Ver información de usuario' | trans ~ ' - ' ~ obj.nombreCompleto }} </h3>
+                <!--BEGIN TABS-->
+                <div class="tabbable tabbable-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tib" data-toggle="tab"><i class="icon-info-sign"></i> <span class="hidden-480">{{ 'Información básica' | trans }}</span></a></li>
+                        {% if eventos | length > 0 %}
+                            <li><a href="#te" data-toggle="tab"><i class="icon-file-text"></i> <span class="hidden-480">{{ 'Eventos' | trans }}</span></a></li>
+                        {% endif %}
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tib">
+                            <h4 class="form-section visible-phone hidden-tablet hidden-desktop">{{ 'Información básica' | trans }}</h4>
+                            <div class="row-fluid">
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Nombre:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.nombre | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Apellidos:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.apellidos | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Nombre de usuario:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.username | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Correo electrónico:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.email | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Teléfono:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.telefono | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="span6 ">
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Roles:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            {% set roles = [] %}
+                                            {% for r in obj.roles %}
+                                                {% set roles = nombre_rol[r] is defined ? (roles | merge([nombre_rol[r]])) : roles %}
+                                            {% endfor %}
+                                            <span class="text">{{ roles | join(', ') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Estado:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">
+                                                {% if obj.activo %}
+                                                    {{ 'Activo' | trans }}
+                                                {% else %}
+                                                    {{ 'No activo' | trans ~ (obj.codigoActivacion ? '. ' ~ 'Pendiente de activación' | trans : '') }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Categoría de usuario:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <span class="text">{{ obj.categoria | default('-') }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Imagen del perfil:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            <div class="text">
+                                                <div class="thumbnail" style="width: 200px; height: 150px;">
+                                                    {% if obj.imagen is null %}
+                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text={{ 'sin+imagen' | trans }}" alt="" />
+                                                    {% else %}
+                                                        <img src="{{ asset(upload_dir | slice(1) ~ '../perfil/' ~ obj.id ~ '/' ~ obj.imagen) }}" alt="{{ obj.nombreCompleto }}" style="height: 150px;" />
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                        </div>
+                        {% if eventos | length > 0 %}
+                        <div class="tab-pane" id="te">
+                            <h4 class="form-section visible-phone hidden-tablet hidden-desktop">{{ 'Eventos' | trans }}</h4>
+
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <!--END TABS-->
+                <div class="form-actions">
+                    <a href="{{ path('dashboard_usuario') }}" class="btn purple-stripe block-portlet"><i class="icon-list"></i> <span class="hidden-phone">{{ 'Regresar al listado' | trans }}</span></a>
+                    {% if obj.id != app.user.id %}
+                    <a href="{{ path('dashboard_usuario_eliminar', { 'id': obj.id }) }}" class="btn red-stripe view-btn-delete-object ajax-btn"><i class="icon-trash"></i> <span class="hidden-phone">{{ 'Eliminar' | trans }}</span></a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- END FORM-->
+        </div>
+    </div>
+    {% if eventos | length > 0 %}
+    <div class="confirm_delete hide" title="{{ 'Confirmación' | trans }}" data-for="data-table-eventos">
+        <p><span class="icon icon-warning-sign"></span>
+            {{ 'Está a punto de eliminar un elemento del listado.' | trans }}
+            <br/>
+            {{ '¿Desea continuar?' | trans }}
+        </p>
+    </div>
+    {% endif %}
+    {% if obj.id != app.user.id %}
+    <div class="confirm_delete hide" title="{{ 'Confirmación' | trans }}" data-for="view-usuario">
+        <p><span class="icon icon-warning-sign"></span>
+            {{ 'Está a punto de eliminar este elemento. Se perderán todos sus datos.' | trans }}
+            <br/>
+            {{ '¿Desea continuar?' | trans }}
+        </p>
+    </div>
+    {% endif %}
+{% endblock %}

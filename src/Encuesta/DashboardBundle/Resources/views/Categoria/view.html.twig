@@ -111,29 +111,29 @@
                                             </select>
                                             <span class="help-block" style="display: inline-block;">{{ 'Vea el nombre y la descripción en diferentes idiomas' | trans }}</span>
                                         </div>
-                                        <div class="control-group">
-                                            <label for="" class="control-label bold">
-                                                {{ 'Nombre de la categoría:' | trans }}
-                                            </label>
-                                            <div class="controls">
-                                                {% for key,idioma in idiomas %}
-                                                    <span class="text nombre_categoria" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
-                                            {{ key == default_locale ? obj.nombre | default('-') : i18n[key]['nombre'] | default('-') }}
-                                        </span>
-                                                {% endfor %}
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Nombre de la categoría:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            {% for key,idioma in idiomas %}
+                                                <span class="text nombre_categoria" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
+                                                    {{ key == default_locale ? obj.nombre | default('-') : i18n[key]['nombre'] | default('-') }}
+                                                </span>
+                                            {% endfor %}
                                         </div>
-                                        <div class="control-group">
-                                            <label for="" class="control-label bold">
-                                                {{ 'Descripción de la categoría:' | trans }}
-                                            </label>
-                                            <div class="controls">
-                                                {% for key,idioma in idiomas %}
-                                                    <span class="text descripcion_categoria" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
-                                                        {{ key == default_locale ? obj.descripcion | default('-') : i18n[key]['descripcion'] | default('-') }}
-                                                    </span>
-                                                {% endfor %}
-                                            </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label for="" class="control-label bold">
+                                            {{ 'Descripción de la categoría:' | trans }}
+                                        </label>
+                                        <div class="controls">
+                                            {% for key,idioma in idiomas %}
+                                                <span class="text descripcion_categoria" data-locale="{{ key }}" {% if selected_key != key %}style="display: none;"{% endif %}>
+                                                    {{ key == default_locale ? obj.descripcion | default('-') : i18n[key]['descripcion'] | default('-') }}
+                                                </span>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +163,7 @@
                                                     {% if obj.imagen is null %}
                                                         <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text={{ 'sin+imagen' | trans }}" alt="" />
                                                     {% else %}
-                                                        <img src="{{ asset(image_upload_dir | slice(1) ~ 'categoria/' ~ obj.imagen) }}" alt="{{ obj.nombre }}" style="height: 150px;" />
+                                                        <img src="{{ asset(upload_dir | slice(1) ~ 'categoria/' ~ obj.id ~ '/' ~ obj.imagen) }}" alt="{{ obj.nombre }}" style="height: 150px;" />
                                                     {% endif %}
                                                 </div>
                                             </div>

@@ -68,6 +68,7 @@
     {% block init_javascript %}
         <script>
             jQuery(document).ready(function() {
+                App.locale = '{{ app.request.locale }}';
                 App.init();
             });
         </script>

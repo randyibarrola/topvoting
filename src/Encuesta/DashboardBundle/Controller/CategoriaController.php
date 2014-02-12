@@ -70,7 +70,9 @@ class CategoriaController extends Controller
                 $em->flush();
             }
             else if($imagen_original != null) {
-                unlink($this->container->getParameter('image_upload_dir').'categoria/'.$imagen_original);
+                unlink($this->container->getParameter('upload_dir').'categoria/'.$obj->getId().'/'.$imagen_original);
+                if(is_dir($this->container->getParameter('upload_dir').'categoria/'.$obj->getId()))
+                    @rmdir($this->container->getParameter('upload_dir').'categoria/'.$obj->getId());
             }
 
             return $response;
@@ -97,7 +99,12 @@ class CategoriaController extends Controller
             if($form->isValid()) {
                 $data = $form->getData();
 
-                $dir = $this->container->getParameter('image_upload_dir').'categoria/';
+                if($data->getId() == null) {
+                    $em->persist($data);
+                    $em->flush();
+                }
+
+                $dir = $this->container->getParameter('upload_dir').'categoria/'.$data->getId().'/';
                 $imagen = $this->get('dashboard.file')->uploadFile($data->getImagen(), $dir);
                 $data->setImagen($imagen);
 

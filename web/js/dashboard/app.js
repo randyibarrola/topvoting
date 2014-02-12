@@ -713,9 +713,15 @@ var App = function () {
     //* END:CORE HANDLERS *//
 
     return {
+        dateFormat: "dd/mm/yyyy",
+        locale: 'es',
 
         //main function to initiate template pages
         init: function () {
+            if(jQuery().datepicker) {
+                jQuery().datepicker.defaults.format = App.dateFormat;
+                jQuery().datepicker.defaults.language = App.locale;
+            }
 
             //IMPORTANT!!!: Do not modify the core handlers call order.
 

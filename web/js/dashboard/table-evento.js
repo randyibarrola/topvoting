@@ -1,9 +1,9 @@
-var TableUsuario = function() {
+var TableEvento = function() {
     var initTable = function() {
-        $('#data-table-usuario').dataTable().columnFilter({
+        $('#data-table-evento').dataTable().columnFilter({
             sPlaceHolder: "head:after",
             aoColumns: [
-                {type: "text"}, {type: "text"}, {type: "text"}, {type: "text"}, {type: "select", values: list_roles}
+                {type: "text"}, {type: "text"}, {type: "text"}, {type: "number"}, {type: "date"}, {type: "select", values: list_traducciones}
             ]
         });
     };

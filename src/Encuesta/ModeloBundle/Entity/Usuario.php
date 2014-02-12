@@ -14,6 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="usuario")
  * @ORM\Entity
  * @DoctrineAssert\UniqueEntity("username")
+ * @ORM\HasLifecycleCallbacks
  */
 class Usuario implements AdvancedUserInterface, \Serializable
 {
@@ -573,5 +574,33 @@ class Usuario implements AdvancedUserInterface, \Serializable
 	public function getNombreCompleto()
     {
         return $this->nombre.' '.$this->apellidos;
+    }
+
+    private $filenameForRemove;
+    private $imageDir;
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->filenameForRemove = $this->getImagen();
+        $this->imageDir = __DIR__.'/../../../../web/uploads/perfil/'.$this->getId();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($this->filenameForRemove != null) {
+            unlink($this->imageDir.'/'.$this->filenameForRemove);
+            if(is_dir($this->imageDir))
+                @rmdir($this->imageDir);
+        }
+    }
+
+    public function __toString()
+    {
+        return $this->getNombreCompleto();
     }
 }

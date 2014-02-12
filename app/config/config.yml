@@ -39,7 +39,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         default_locale: "%locale%"
-        image_upload_dir: "/uploads/images/"
+        upload_dir: "/uploads/"
 
 # Assetic Configuration
 assetic:
@@ -98,5 +98,9 @@ parameters:
     idiomas:
         es: Español
         en: English
-    image_upload_dir: %kernel.root_dir%/../web/uploads/images/
+    upload_dir: %kernel.root_dir%/../web/uploads/
     mail_from: info@thetopvoting.com
+    nombre_rol:
+        ROLE_USER: Usuario
+        ROLE_ADMIN: Administrador
+        ROLE_SUPER_ADMIN: Super administrador
