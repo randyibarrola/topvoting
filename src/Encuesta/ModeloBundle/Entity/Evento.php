@@ -13,7 +13,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="evento")
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="Encuesta\ModeloBundle\Entity\EventoRepository")
- * @ORM\HasLifecycleCallbacks
  */
 class Evento 
 {
@@ -68,13 +67,13 @@ class Evento
      *
      * @ORM\Column(name="activo", type="boolean")
      */
-    private $activo = true;	
+    private $activo = false;	
    
 
-	/**
+    /**
      * @var string $imagen
      *
-     * @ORM\Column(name="imagen", type="string", length=255) 
+     * @ORM\Column(name="imagen", type="string", length=255, nullable=true) 
      */
     private $imagen;
     
@@ -93,8 +92,14 @@ class Evento
    * @ORM\Column(type="datetime", nullable=true)
    */
   private $updated_at;  
-
-
+  
+  
+   /**
+   * @var ArrayCollection $evento_candidatos
+   *
+   * @ORM\OneToMany(targetEntity="EventoCandidato", mappedBy="evento")
+   */
+    protected $evento_candidatos; 
    
 
     /**
@@ -312,6 +317,67 @@ class Evento
     public function getCreador()
     {
         return $this->creador;
+    }
+    
+    public function getUploadDir()
+    {
+        // the absolute directory path where uploaded
+        // image profile should be saved
+        return __DIR__.'/../../../../web/uploads/evento/'.$this->id;
+    }  
+    
+    public function getImagenEvento()
+    {
+        return $this->imagen ? '/uploads/evento/'.$this->id.'/'.$this->imagen : null;
+    }    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->evento_candidatos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add evento_candidatos
+     *
+     * @param \Encuesta\ModeloBundle\Entity\EventoCandidato $eventoCandidatos
+     * @return Evento
+     */
+    public function addEventoCandidato(\Encuesta\ModeloBundle\Entity\EventoCandidato $eventoCandidatos)
+    {
+        $this->evento_candidatos[] = $eventoCandidatos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove evento_candidatos
+     *
+     * @param \Encuesta\ModeloBundle\Entity\EventoCandidato $eventoCandidatos
+     */
+    public function removeEventoCandidato(\Encuesta\ModeloBundle\Entity\EventoCandidato $eventoCandidatos)
+    {
+        $this->evento_candidatos->removeElement($eventoCandidatos);
+    }
+
+    /**
+     * Get evento_candidatos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventoCandidatos()
+    {
+        return $this->evento_candidatos;
+    }
+    
+    public function getCandidatos()
+    {
+        $candidatos = array();
+        foreach($this->evento_candidatos as $candidato)
+            $candidatos[] = $candidato->getCandidato();
+        
+        return $candidatos;
     }
 
     private $filenameForRemove;

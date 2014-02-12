@@ -4,10 +4,12 @@ namespace Encuesta\ModeloBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 
 class EventoType extends AbstractType
-{
+{     
+ 
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
@@ -18,15 +20,14 @@ class EventoType extends AbstractType
                     'class' => '',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
+                'required' => false, 
+                
+                
               ))                 
             ->add('titulo', 'text', array(
                 'label' => 'Título',
                 'attr' => array(
-                    'class' => 'validate[required]',
+                    'class' => '',
                     'size'=>40
                 ),
                 'required' => true,
@@ -37,24 +38,20 @@ class EventoType extends AbstractType
             ->add('imagen', 'file', array(
                 'label' => 'Imagen',
                 'attr' => array(
-                    'class' => 'validate[required]',
+                    'class' => '',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
+                'required' => false
+                
               ))                 
             ->add('fecha_fin', 'datetime', array(
                 'label' => 'Fecha Fin',
                 'attr' => array(
-                    'class' => 'validate[required]',
+                    'class' => '',
                     'size'=>40
                 ),
-                'required' => true,
-                'constraints' => array(
-                    new NotBlank()                   
-                   ),
+                'required' => false,
+                
               ))                 
             ->add('numero_votaciones', 'integer', array(
                 'label' => 'Número Votaciones',

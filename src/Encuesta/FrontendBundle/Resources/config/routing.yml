@@ -20,6 +20,14 @@ frontend_perfil:
     pattern:  /{culture}/perfil
     defaults: { _controller: FrontendBundle:Usuario:perfil , culture: es}      
 
+frontend_votaciones:
+    pattern:  /{culture}/votaciones
+    defaults: { _controller: FrontendBundle:Votacion:votaciones , culture: es}
+    
+frontend_agregar_candidato:
+    pattern:  /{culture}/votaciones/agregar/candidato
+    defaults: { _controller: FrontendBundle:Votacion:agregarCandidato , culture: es}     
+
 frontend_homepage:
     pattern:  /
     defaults: { _controller: FrontendBundle:Default:index, culture: es }

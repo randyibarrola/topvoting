@@ -1,0 +1,60 @@
+<h2>Nueva Votacion</h2>
+<form class="formulario" action="{{ path('frontend_votaciones') }}" method="post" {{ form_enctype(form) }}>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+       
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.creador) }}</td>
+        </tr>
+
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Titulo</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.titulo) }}</td>
+        </tr>  
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Descripcion</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.descripcion) }}</td>
+        </tr>         
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Imagen</td>
+        </tr>
+        <tr>
+            <td height="30" align="left">{{ form_widget(form.imagen) }}</td>
+        </tr> 
+        <tr>
+            <td height="30" align="left" valign="bottom" class="txt_negro12_bold">Imagen</td>
+        </tr>
+        {#{% if usuario.imagenPerfil %}
+        <tr>
+            <td height="30" align="left"><img src={{ usuario.imagenPerfil }} /></td>
+        </tr> 
+        {% endif %}#}
+        <tr>
+            <td><br></td>
+        </tr>
+        <tr>
+            <td height="30" align="left"><input name="" type="submit" value="Crear Votacion" /></td>
+        </tr>         
+    </table>
+    {{ form_widget(form._token) }}    
+    {{ form_errors(form) }}
+        
+</form>
+<br />
+<h3>Mis Votaciones</h3>
+<ul>
+    {% for evento in misEventos %}
+        <a href="{{ path('frontend_agregar_candidato', { 'id':evento.id}) }}"><li>{{ evento.titulo }}</li></a>
+    {% endfor %}
+</ul> 
+<br>
+<h3>Votaciones Disponibles</h3>
+<ul>
+    {% for evento in eventos %}
+        <li>{{ evento.titulo }}</li>
+    {% endfor %}
+</ul> 

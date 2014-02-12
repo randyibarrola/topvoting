@@ -570,7 +570,11 @@ class Usuario implements AdvancedUserInterface, \Serializable
     {
         return $this->imagen ? '/uploads/perfil/'.$this->id.'/'.$this->imagen : null;
     }
-
+    
+    public function __toString()
+    {
+        return $this->nombre. ' '.$this->apellidos;
+    }
 	public function getNombreCompleto()
     {
         return $this->nombre.' '.$this->apellidos;
