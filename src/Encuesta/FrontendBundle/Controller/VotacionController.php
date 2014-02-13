@@ -27,6 +27,12 @@ class VotacionController extends Controller
             $form->bind($peticion);
             if($form->isValid()){
                 $evento = $form->getData();   
+                
+                $evento->setCreador($this->getUser());
+                $evento->setActivo(false);
+                $em->persist($evento);
+                $em->flush(); 
+                
                 if($form['imagen']->getData()){
                 $extension = $form['imagen']->getData()->guessExtension();
                     if( in_array( $extension, array('png', 'jpg', 'jpeg', 'gif', 'bmp') ) ) {
@@ -38,10 +44,9 @@ class VotacionController extends Controller
                         $evento->setImagen($nombre.$extension);
                     }   
                 }
-                $evento->setCreador($this->getUser());
-                $evento->setActivo(false);
+                
                 $em->persist($evento);
-                $em->flush();    
+                $em->flush(); 
                 
                 return $this->redirect($this->generateUrl('frontend_agregar_candidato', array('id'=>$evento->getId())));
                 
@@ -106,6 +111,9 @@ class VotacionController extends Controller
                     $voto->setPuntos($puntuacion);
                     $em->persist($voto);
                     
+                    $cantidad = $evento->getNumeroVotaciones();
+                    $evento->setNumeroVotaciones($cantidad+1);
+                    
                     $em->flush(); 
                     
                     $form = $this->createForm(new CandidatoType(), new Candidato());
@@ -142,6 +150,21 @@ class VotacionController extends Controller
         }
         
         return new Response( json_encode(array('resultado' => 'error') ));  
+    }
+    
+    public function eventoAction()
+    {
+        $em = $this->getDoctrine()->getManager(); 
+        $id = $this->getRequest()->get('id');
+        $evento = $id ? $em->getRepository('ModeloBundle:Evento')->find($id) : null;
+        if($evento) {
+            return $this->render('FrontendBundle:Votacion:evento.html.twig', array(
+                'evento' => $evento               
+               
+            ));            
+        }   
+        
+        throw $this->createNotFoundException();
     }
 }
 

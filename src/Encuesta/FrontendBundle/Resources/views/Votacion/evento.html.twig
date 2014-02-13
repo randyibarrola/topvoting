@@ -1,0 +1,37 @@
+<a href="{{ path('frontend_homepage') }}">Inicio</a>
+
+<br>
+<br>
+
+DETALLES EVENTO  {{ evento.titulo }}
+
+<br>
+<br>
+Descripcion : {{ evento.descripcion }}
+
+<br>
+<br>
+
+
+<form action="" method="post" class="formulario">
+<ul>
+    {% for candidato in evento.candidatos  %}
+        <li>
+            <table width="600">
+                <tr>
+                    <td width="50"><input name="candidato[]" type="checkbox" value="{{ candidato.id }}" /></td>
+                    <td>{{ candidato.titulo }}</td>
+                </tr>
+            </table>
+        </li>
+    {% endfor %}
+</ul>
+<br>
+{% if app.user %}
+<input type="submit" id="votar" value="Votar">
+{% else %}
+<a href="{{ path('frontend_login') }}">Votar</a>
+{% endif %}
+</form>
+
+

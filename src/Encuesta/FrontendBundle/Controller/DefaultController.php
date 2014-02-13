@@ -8,6 +8,8 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('FrontendBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $votados = $em->getRepository('ModeloBundle:Evento')->getEventosMasVotados();
+        return $this->render('FrontendBundle:Default:index.html.twig', array('votados'=> $votados));
     }
 }

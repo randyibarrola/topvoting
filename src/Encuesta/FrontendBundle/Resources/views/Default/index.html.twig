@@ -13,3 +13,27 @@ Hello !
     <a href="{{ path('frontend_login') }}" >Login</a>
     <a href="{{ path('frontend_registro') }}" >Registro</a>
 {% endif %}
+    
+ <br />
+ <br />
+ 
+ <h3>Eventos Mas Votados</h3>
+ 
+ <br />
+ <br />
+ 
+ <ul>
+ {% for evento in votados %}
+         <li>
+            <table width="1000" >
+                <tr>
+                    <td width="20%"><img src="{{ evento.imagenEvento }}" /></td>
+                    <td width="20%">{{ evento.titulo }}</td>
+                    <td width="20%" align="center">{{ evento.creador.nombre }}</td>
+                    <td width="20%">{{ evento.createdAt | date('d/m/Y H:i') }}</td>  
+                    <td><a href="{{ path('frontend_evento', {'id':evento.id}) }}">Ver/Votar</a></td>
+                </tr>
+            </table>        
+        </li>
+ {% endfor %}
+ </ul>

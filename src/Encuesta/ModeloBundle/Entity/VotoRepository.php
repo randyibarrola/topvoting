@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class VotoRepository extends EntityRepository
 {
+    /*
+     * Determina si un usuario ya voto por un candidato y evento determinado, retorna true en caso de existir, falso si no existe
+     */
+    public function ExisteVoto($evento, $candidato, $usuario)
+    {
+        $em = $this->getEntityManager();
+        $voto = $em->getRepository('ModeloBundle:Voto')->findOneBy(array('evento'=>$evento, 'candidato'=>$candidato, 'usuario'=>$usuario));
+        return $voto ? true : false;
+    }
 }

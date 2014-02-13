@@ -40,6 +40,12 @@ class Evento
      * @ORM\Column(name="titulo", type="string", length=255, nullable=true)
      */
     private $titulo;
+    
+    /**
+     * @var string   
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;    
 
     /**
      * @var text $descripcion
@@ -412,5 +418,28 @@ class Evento
         if(array_key_exists($cantidad, $puntuacion))
             return $puntuacion[$cantidad];
         return 1;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Evento
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
