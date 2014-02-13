@@ -26,7 +26,11 @@ frontend_votaciones:
     
 frontend_agregar_candidato:
     pattern:  /{culture}/votaciones/agregar/candidato
-    defaults: { _controller: FrontendBundle:Votacion:agregarCandidato , culture: es}     
+    defaults: { _controller: FrontendBundle:Votacion:agregarCandidato , culture: es}  
+    
+frontend_cambiar_estado_evento:
+    pattern:  /{culture}/evento/cambiar/estado
+    defaults: { _controller: FrontendBundle:Votacion:modificarEstadoVotacion , culture: es}     
 
 frontend_homepage:
     pattern:  /

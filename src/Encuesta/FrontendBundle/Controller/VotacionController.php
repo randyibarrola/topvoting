@@ -8,8 +8,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Encuesta\ModeloBundle\Form\EventoType;
 use Encuesta\ModeloBundle\Entity\Evento;
 use Encuesta\ModeloBundle\Entity\Candidato;
+use Encuesta\ModeloBundle\Entity\Voto;
 use Encuesta\ModeloBundle\Entity\EventoCandidato;
 use Encuesta\ModeloBundle\Form\CandidatoType;
+use Symfony\Component\HttpFoundation\Response;
 
 class VotacionController extends Controller
 {
@@ -91,6 +93,19 @@ class VotacionController extends Controller
                     $eventoCandidato->setCandidato($candidato);
                     $em->persist($eventoCandidato);
                     
+                    $evento->addEventoCandidato($eventoCandidato);
+                    $candidato->addCandidatoEvento($eventoCandidato);                    
+                    
+                    $puntuaciones = $this->container->getParameter('puntuacion_candidato');
+                    $puntuacion = $evento->getPuntuacionNuevoCandidato($puntuaciones);
+                    
+                    $voto = new Voto();
+                    $voto->setEvento($evento);
+                    $voto->setCandidato($candidato);
+                    $voto->setUsuario($this->getUser());
+                    $voto->setPuntos($puntuacion);
+                    $em->persist($voto);
+                    
                     $em->flush(); 
                     
                     $form = $this->createForm(new CandidatoType(), new Candidato());
@@ -109,7 +124,24 @@ class VotacionController extends Controller
     
     public function modificarEstadoVotacionAction()
     {
+        $em = $this->getDoctrine()->getManager();    
+        $estado = $this->getRequest()->get('estado');
+        $id = $this->getRequest()->get('id');
+        $evento = $id ? $em->getRepository('ModeloBundle:Evento')->find($id) : null;
+        if($evento) {
+            $evento->setActivo($estado);
+            $em->persist($evento);
+            $em->flush();
+            
+            return new Response( json_encode(array(
+                'resultado' => 'ok', 
+                'estado' => $evento->getActivo() ? 0 : 1,
+                'texto' => $evento->getActivo() ? 'Publico' : 'No Publico'                
+                )
+            ));  
+        }
         
+        return new Response( json_encode(array('resultado' => 'error') ));  
     }
 }
 

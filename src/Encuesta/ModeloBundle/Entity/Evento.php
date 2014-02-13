@@ -376,7 +376,7 @@ class Evento
         $candidatos = array();
         foreach($this->evento_candidatos as $candidato)
             $candidatos[] = $candidato->getCandidato();
-        
+
         return $candidatos;
     }
 
@@ -401,5 +401,16 @@ class Evento
             if(is_dir($this->imageDir))
                 @rmdir($this->imageDir);
         }
+    }
+    
+    /*
+     * $puntuacion es un array de puntuaciones que esta en el config.yml
+     */
+    public function getPuntuacionNuevoCandidato($puntuacion)
+    {
+        $cantidad  = count($this->getEventoCandidatos());
+        if(array_key_exists($cantidad, $puntuacion))
+            return $puntuacion[$cantidad];
+        return 1;
     }
 }
