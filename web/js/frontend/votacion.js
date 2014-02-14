@@ -18,28 +18,28 @@ $(document).ready(function() {
 
               }
           });        
-    });     
+    });  
+    
+    $('.votar').click(function(e) {
+        e.preventDefault();
+        formulario = $('.formulario');
+        url = $(this).data('url');
+        $.ajax({
+            type: "POST",
+            url:  formulario.attr('action'),
+            async: true,
+            dataType: 'json',   
+            data: formulario.serialize(),
+            success: function( data ) {
+                  if(data.resultado === 'ok'){
+                     formulario.html('Su Voto se efectuo satisfactoriamente');               
+                  }
+              },
+              error: function(error){
+
+              }
+          });        
+    });      
     
 });
 
-
-
-    $('#clearTitulo').click(function() {
-        $('#buscarcliente').hide();  
-        $(this).css('display', 'none');
-        $('#buscador').val('');
-    });    
-function tiempo() {
-       $.ajax({
-      type: "GET",
-      url:  urlTiempo,
-      async: true,
-      dataType: 'json',          
-      success: function( data ) {
-            redirigir();
-        },
-        error: function(error){
-
-        }
-    }); 
-}

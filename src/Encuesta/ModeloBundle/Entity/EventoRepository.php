@@ -43,7 +43,18 @@ class EventoRepository extends EntityRepository
         $consulta->setMaxResults($cantidad);       
 
         return $consulta->getResult(); 
-    }    
+    }  
+    
+    
+    /*
+     * Determina si un usuario ya voto por un evento determinado, retorna true en caso de existir, falso si no existe
+     */
+    public function ExisteVotoUsuario($evento, $usuario)
+    {
+        $em = $this->getEntityManager();
+        $voto = $em->getRepository('ModeloBundle:Voto')->findOneBy(array('evento'=>$evento, 'usuario'=>$usuario));
+        return $voto ? true : false;
+    }      
     
     
 }

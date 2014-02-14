@@ -45,7 +45,13 @@ class Evento
      * @var string   
      * @ORM\Column(name="slug", type="string", length=255, nullable=true)
      */
-    private $slug;    
+    private $slug;   
+    
+    /**
+     * @var string   
+     * @ORM\Column(name="idioma", type="string", length=10, nullable=true)
+     */
+    private $idioma;     
 
     /**
      * @var text $descripcion
@@ -75,6 +81,13 @@ class Evento
      */
     private $activo = false;	
    
+    
+    /**
+     * @var boolean $activo
+     *
+     * @ORM\Column(name="destacado", type="boolean")
+     */
+    private $destacado = false;	    
 
     /**
      * @var string $imagen
@@ -441,5 +454,51 @@ class Evento
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set idioma
+     *
+     * @param string $idioma
+     * @return Evento
+     */
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    
+        return $this;
+    }
+
+    /**
+     * Get idioma
+     *
+     * @return string 
+     */
+    public function getIdioma()
+    {
+        return $this->idioma;
+    }
+
+    /**
+     * Set destacado
+     *
+     * @param boolean $destacado
+     * @return Evento
+     */
+    public function setDestacado($destacado)
+    {
+        $this->destacado = $destacado;
+    
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return boolean 
+     */
+    public function getDestacado()
+    {
+        return $this->destacado;
     }
 }

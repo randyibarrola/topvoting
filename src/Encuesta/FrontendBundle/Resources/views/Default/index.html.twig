@@ -1,4 +1,6 @@
-Hello !
+{% extends '::base-frontend.html.twig' %}
+{% block body %}
+
 
 <br />
 
@@ -15,6 +17,16 @@ Hello !
 {% endif %}
     
  <br />
+ <br />
+ 
+ <h3>Categorías</h3>
+ <br />
+  <ul>
+{% for categoria in categorias %}
+    <li>{{ categoria.nombre }}</li>
+{% endfor %} 
+ </ul>
+<br />
  <br />
  
  <h3>Eventos Mas Votados</h3>
@@ -37,3 +49,4 @@ Hello !
         </li>
  {% endfor %}
  </ul>
+ {% endblock %}

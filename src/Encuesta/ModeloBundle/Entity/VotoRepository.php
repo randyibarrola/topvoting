@@ -20,5 +20,6 @@ class VotoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $voto = $em->getRepository('ModeloBundle:Voto')->findOneBy(array('evento'=>$evento, 'candidato'=>$candidato, 'usuario'=>$usuario));
         return $voto ? true : false;
-    }
+    }    
+  
 }

@@ -10,6 +10,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $votados = $em->getRepository('ModeloBundle:Evento')->getEventosMasVotados();
-        return $this->render('FrontendBundle:Default:index.html.twig', array('votados'=> $votados));
+        $categorias = $em->getRepository('ModeloBundle:Categoria')->getCategoriasPadres();
+        return $this->render('FrontendBundle:Default:index.html.twig', array('votados'=> $votados, 'categorias'=>$categorias));
     }
 }

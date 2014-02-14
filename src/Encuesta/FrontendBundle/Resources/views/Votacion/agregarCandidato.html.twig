@@ -1,8 +1,5 @@
-<script src="{{ asset('js/frontend/jquery-1.9.0.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('js/frontend/votacion.js') }}" type="text/javascript"></script>
-<script>
-
-</script>
+{% extends '::base-frontend.html.twig' %}
+{% block body %}
 
 Estado de la votacion
 <br>
@@ -63,3 +60,5 @@ Agregar Candidato al evento: {{ evento.titulo }}
     {{ form_errors(form) }}
         
 </form>
+
+{% endblock %}

@@ -30,6 +30,7 @@ class VotacionController extends Controller
                 
                 $evento->setCreador($this->getUser());
                 $evento->setActivo(false);
+                $evento->setIdioma($peticion->getLocale());
                 $em->persist($evento);
                 $em->flush(); 
                 
@@ -88,9 +89,10 @@ class VotacionController extends Controller
 
                             $nombre = md5(time());
                             $form['imagen']->getData()->move($candidato->getUploadDir(), $nombre.'.'.$extension);
-                            $candidato->setImagen($nombre.$extension);
+                            $candidato->setImagen($nombre.'.'.$extension);
                         }
                     } 
+                    $candidato->setIdioma($peticion->getLocale());
                     $em->persist($candidato);
                     
                     $eventoCandidato = new EventoCandidato();
@@ -130,6 +132,15 @@ class VotacionController extends Controller
                 
     }
     
+    public function verificarNombreEventoAction()
+    {
+        $em = $this->getDoctrine()->getManager();      
+        $nombre = $this->getRequest()->get('nombre');
+        $evento = $em->getRepository('ModeloBundle:Evento')->findOneBy(array('nombre'=>$nombre)) ;        
+        
+        return new Response( json_encode(array('resultado' => $evento ? true : false) ));  
+    }    
+    
     public function modificarEstadoVotacionAction()
     {
         $em = $this->getDoctrine()->getManager();    
@@ -158,13 +169,51 @@ class VotacionController extends Controller
         $id = $this->getRequest()->get('id');
         $evento = $id ? $em->getRepository('ModeloBundle:Evento')->find($id) : null;
         if($evento) {
+            
+            $voto = $em->getRepository('ModeloBundle:Evento')->ExisteVotoUsuario($evento, $this->getUser());
+            
             return $this->render('FrontendBundle:Votacion:evento.html.twig', array(
-                'evento' => $evento               
+                'evento' => $evento,
+                'voto' => $voto
                
             ));            
         }   
         
         throw $this->createNotFoundException();
     }
+    
+    public function votarAction()
+    {
+        $em = $this->getDoctrine()->getManager();  
+        if($this->getRequest()->getMethod() == "POST" && $this->getUser()) {            
+            $id = $this->getRequest()->get('id');
+            $candidatos = $this->getRequest()->get('candidato');
+            $evento = $id ? $em->getRepository('ModeloBundle:Evento')->find($id) : null;
+            if($evento) {
+                $cantidad = $evento->getNumeroVotaciones();
+                if(count($candidatos) > 0)
+                    $cantidad ++;
+                foreach($candidatos as $id){
+                    $candidato = $em->getRepository('ModeloBundle:Candidato')->find($id);
+                    if($candidato){
+                        $voto = new Voto();
+                        $voto->setEvento($evento);
+                        $voto->setCandidato($candidato);
+                        $voto->setUsuario($this->getUser());
+                        $voto->setPuntos(1);
+                        $em->persist($voto);
+                    }
+                }
+                
+                $evento->setNumeroVotaciones($cantidad);
+                $em->persist($evento); 
+                $em->flush();
+               
+                return new Response( json_encode(array('resultado' => 'ok') ));  
+            }
+        }
+        
+        return new Response( json_encode(array('resultado' => 'error') ));  
+    }    
 }
 

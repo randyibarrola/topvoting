@@ -31,6 +31,12 @@ class Candidato {
      * @Assert\NotBlank()
      */
     protected $titulo;
+    
+    /**
+     * @var string $idioma  
+     * @ORM\Column(name="idioma", type="string", length=10, nullable=true )
+     */
+    protected $idioma;    
 	
     /**
      * @var text $descripcion
@@ -309,4 +315,27 @@ class Candidato {
     {
         return $this->imagen ? '/uploads/candidato/'.$this->id.'/'.$this->imagen : null;
     }      
+
+    /**
+     * Set idioma
+     *
+     * @param string $idioma
+     * @return Candidato
+     */
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    
+        return $this;
+    }
+
+    /**
+     * Get idioma
+     *
+     * @return string 
+     */
+    public function getIdioma()
+    {
+        return $this->idioma;
+    }
 }
