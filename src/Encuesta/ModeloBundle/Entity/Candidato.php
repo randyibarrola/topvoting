@@ -13,7 +13,7 @@ use Encuesta\ModeloBundle\Entity\Categoria;
  *
  * @ORM\Table(name="candidato")
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Encuesta\ModeloBundle\Entity\CandidatoRepository")
  */
 class Candidato {
 

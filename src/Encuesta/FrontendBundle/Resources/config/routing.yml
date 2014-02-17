@@ -39,6 +39,14 @@ frontend_evento_votar:
 frontend_evento:
     pattern:  /{_locale}/evento
     defaults: { _controller: FrontendBundle:Votacion:evento , _locale: es} 
+    
+frontend_validar_evento:
+    pattern:  /{_locale}/evento/validar/titulo
+    defaults: { _controller: FrontendBundle:Votacion:validarTituloEvento , _locale: es}  
+    
+frontend_candidatos_titulo:
+    pattern:  /{_locale}/candidato/titulo
+    defaults: { _controller: FrontendBundle:Votacion:candidatosPorTitulo , _locale: es}    
 
 frontend_homepage:
     pattern:  /{_locale}

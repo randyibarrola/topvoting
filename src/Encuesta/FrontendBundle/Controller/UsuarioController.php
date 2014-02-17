@@ -32,12 +32,13 @@ class UsuarioController extends Controller
             $form->bind($peticion);
             if($form->isValid()){
                 
+                $usuario = $form->getData();
                 $em = $this->getDoctrine()->getManager();
                 $factory = $this->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($usuario);
                 $salt = md5(time());
                 $usuario->setSalt($salt);            
-                $password = $encoder->encodePassword($peticion->get('password'),$salt );
+                $password = $encoder->encodePassword($usuario->getPassword(),$salt );
                 $usuario->setPassword($password);
                 $usuario->setActivo(false);
                 $usuario->setCodigoActivacion(md5(time()));
@@ -108,7 +109,7 @@ class UsuarioController extends Controller
                         
                         $nombre = md5(time());
                         $form['imagen']->getData()->move($usuario->getUploadDir(), $nombre.'.'.$extension);
-                        $usuario->setImagen($nombre.$extension);
+                        $usuario->setImagen($nombre.'.'.$extension);
                     }                    
                     $em->persist($usuario);
                     $em->flush(); 

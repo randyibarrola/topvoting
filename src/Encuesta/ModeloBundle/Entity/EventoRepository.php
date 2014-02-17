@@ -55,7 +55,21 @@ class EventoRepository extends EntityRepository
         $em = $this->getEntityManager();
         $voto = $em->getRepository('ModeloBundle:Voto')->findOneBy(array('evento'=>$evento, 'usuario'=>$usuario));
         return $voto ? true : false;
-    }      
+    }  
     
+    /*
+     * Determina si el titulo de un evento ya existe o no
+     */
+    public function ExisteTituloEvento($titulo)
+    {
+        $em = $this->getEntityManager();
+        //$sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.fecha_fin >= :fecha and e.activo = 1'; 
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.titulo like :titulo'; 
+        $consulta = $em->createQuery($sql);        
+        $consulta->setParameter('titulo',$titulo);        
+        $resultado = $consulta->getResult(); 
+        
+        return count($resultado) > 0;
+    } 
     
 }
