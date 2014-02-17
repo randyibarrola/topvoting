@@ -68,4 +68,37 @@ class EventoController extends Controller
             'service_entity' => $this->get('dashboard.entity')
         ));
     }
+
+    public function changeStateAction()
+    {
+        $translator = $this->get('translator');
+        $em = $this->getDoctrine()->getManager();
+        $peticion = $this->getRequest();
+
+        $response = $this->get('dashboard.ajaxresponse');
+        try {
+            $obj = $em->getRepository('ModeloBundle:Evento')->find($peticion->get('id'));
+
+            if(!$obj) {
+                $response->setHttpCode(500);
+                $response->setMessage($translator->trans('Está intentando modificar un evento que no existe'));
+            }
+            else {
+                $obj->setActivo(!$obj->getActivo());
+                $em->persist($obj);
+                $em->flush();
+
+                $response->setMessage($translator->trans('Se ha modificado el estado del evento correctamente'));
+            }
+        }
+        catch(\Exception $e) {
+            $response->setHttpCode(500);
+            $response->setMessage($translator->trans('Lo sentimos, hubo un error'));
+        }
+
+        $sResponse = new Response(json_encode($response->response()));
+        $sResponse->headers->set('Content-Type', 'application/json; charset=utf-8');
+
+        return $sResponse;
+    }
 }

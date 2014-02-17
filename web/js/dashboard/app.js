@@ -718,7 +718,7 @@ var App = function () {
 
         //main function to initiate template pages
         init: function () {
-            if(jQuery().datepicker) {
+            if(jQuery().datepicker.defaults) {
                 jQuery().datepicker.defaults.format = App.dateFormat;
                 jQuery().datepicker.defaults.language = App.locale;
             }

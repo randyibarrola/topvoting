@@ -40,7 +40,7 @@
 {% block breadcrumb_list %}
     {{ parent() }}
     <li>
-        <i class="icon-tags"></i>
+        <i class="icon-sitemap"></i>
         <a href="{{ path('dashboard_categoria') }}">{{ 'Categorías' | trans }}</a>
         <span class="icon-angle-right"></span>
     </li>
@@ -53,7 +53,7 @@
 {% block level_content %}
     <div class="portlet box blue view-container" id="view-categoria">
         <div class="portlet-title">
-            <div class="caption"><i class="icon-tags"></i>{{ 'Información de categoría' | trans }}</div>
+            <div class="caption"><i class="icon-sitemap"></i>{{ 'Información de categoría' | trans }}</div>
             <div class="tools">
                 <a href="javascript:;" class="collapse"></a>
             </div>
@@ -78,7 +78,7 @@
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tib" data-toggle="tab"><i class="icon-info-sign"></i> <span class="hidden-480">{{ 'Información básica' | trans }}</span></a></li>
                         {% if subcategorias | length > 0 %}
-                            <li><a href="#tsc" data-toggle="tab"><i class="icon-tags"></i> <span class="hidden-480">{{ 'Subcategorías' | trans }}</span></a></li>
+                            <li><a href="#tsc" data-toggle="tab"><i class="icon-sitemap"></i> <span class="hidden-480">{{ 'Subcategorías' | trans }}</span></a></li>
                         {% endif %}
                     </ul>
                     <div class="tab-content">

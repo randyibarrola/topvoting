@@ -2,6 +2,7 @@
 
 namespace Encuesta\ModeloBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -23,6 +24,10 @@ class CategoriaType extends AbstractType {
                 'required' => false,
                 'class' => 'ModeloBundle:Categoria',
                 'property' => 'nombre',
+                'query_builder' => function(EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                }
             ))
             ->add('imagen', 'file', array(
                 'label' => false,

@@ -26,9 +26,9 @@ class CandidatoType extends AbstractType {
                 'property' => 'nombre',
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('c')
-                        ->where('c.padre is not null')
                         ->orderBy('c.nombre', 'ASC');
                 },
+                'group_by' => 'c.padre'
             ))
             ->add('imagen', 'file', array(
                 'label' => false,

@@ -2,5 +2,90 @@
 
 {% block page_title %}{{ 'Panel de control' | trans }} <small>{{ 'estadísticas' | trans }}</small>{% endblock %}
 
-{% block breadcrumb %}
+{% block breadcrumb_list %}
+    <li>
+        <i class="icon-home"></i>
+        {{ 'Inicio' | trans }}
+    </li>
+{% endblock %}
+
+{% block level_content %}
+    <div id="dashboard">
+        <!-- BEGIN DASHBOARD STATS -->
+        <div class="row-fluid">
+            <div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+                <div class="dashboard-stat blue">
+                    <div class="visual">
+                        <i class="icon-group"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            {{ stats.usuarios }}
+                        </div>
+                        <div class="desc">
+                            {{ 'Usuarios' | trans }}
+                        </div>
+                    </div>
+                    <a class="more" href="{{ path('dashboard_usuario') }}">
+                        {{ 'Gestionar' | trans }} <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+                <div class="dashboard-stat green">
+                    <div class="visual">
+                        <i class="icon-sitemap"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            {{ stats.categorias }}
+                        </div>
+                        <div class="desc">
+                            {{ 'Categorías' | trans }}
+                        </div>
+                    </div>
+                    <a class="more" href="{{ path('dashboard_categoria') }}">
+                        {{ 'Gestionar' | trans }} <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="span3 responsive" data-tablet="span6  fix-offset" data-desktop="span3">
+                <div class="dashboard-stat purple">
+                    <div class="visual">
+                        <i class="icon-file-text"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            {{ stats.eventos }}
+                        </div>
+                        <div class="desc">
+                            {{ 'Eventos' | trans }}
+                        </div>
+                    </div>
+                    <a class="more" href="{{ path('dashboard_evento') }}">
+                        {{ 'Gestionar' | trans }} <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="span3 responsive" data-tablet="span6" data-desktop="span3">
+                <div class="dashboard-stat yellow">
+                    <div class="visual">
+                        <i class="icon-star"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            {{ stats.candidatos }}
+                        </div>
+                        <div class="desc">
+                            {{ 'Candidatos' | trans }}
+                        </div>
+                    </div>
+                    <a class="more" href="{{ path('dashboard_candidato') }}">
+                        {{ 'Gestionar' | trans }} <i class="m-icon-swapright m-icon-white"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- END DASHBOARD STATS -->
+    </div>
 {% endblock %}

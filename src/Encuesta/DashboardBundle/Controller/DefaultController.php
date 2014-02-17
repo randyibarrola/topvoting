@@ -9,7 +9,23 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('DashboardBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $usuarios = $em->getRepository('ModeloBundle:Usuario')->findAll();
+        $categorias = $em->getRepository('ModeloBundle:Categoria')->findAll();
+        $eventos = $em->getRepository('ModeloBundle:Evento')->findAll();
+        $candidatos = $em->getRepository('ModeloBundle:Candidato')->findAll();
+
+        $stats = array(
+            'usuarios' => count($usuarios),
+            'categorias' => count($categorias),
+            'eventos' => count($eventos),
+            'candidatos' => count($candidatos)
+        );
+
+        return $this->render('DashboardBundle:Default:index.html.twig', array(
+            'stats' => $stats
+        ));
     }
 
     public function sideBarMenuAction()

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/data-tables/DT_bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-datepicker/css/datepicker.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css') }}" />
 {% endblock %}
 {% block plugins_javascript %}
     <script type="text/javascript" src="{{ asset('plugins/select2/select2.min.js') }}"></script>
@@ -19,6 +20,7 @@
         <script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
     {% endif %}
     <script type="text/javascript" src="{{ asset('plugins/data-tables/jquery.datatable.filter.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js') }}"></script>
 {% endblock %}
 {% block level_javascript %}
     {{ parent() }}
@@ -111,7 +113,7 @@
                                 {% endif %}
                             </td>
                             <td class="hidden-phone">{{ obj.numeroVotaciones }}</td>
-                            <td class="hidden-phone">{{ obj.fechaFin | date('d/m/Y') }}</td>
+                            <td class="hidden-phone">{{ obj.fechaFin | date(date_format.php | default('d/m/Y')) }}</td>
                             {% set eidiomas = [idiomas[default_locale]] %}
                             {% for locale, idioma in idiomas %}
                                 {% if etranslations[locale] is defined %}
@@ -121,6 +123,9 @@
                             <td class="hidden-phone">{{ eidiomas | join(', ') }}</td>
                             <td class="" style="max-width: 160px; width: 160px;">
                                 <div class="hidden-print">
+                                    <a href="{{ path('dashboard_evento_cambiar_estado', { 'id': obj.id }) }}" class="active-toggle-button" title="{{ 'Activar/Desactivar' | trans }}">
+                                        <input type="checkbox" class="toggle" {% if obj.activo %}checked="checked"{% endif %} />
+                                    </a>
                                     <a class="btn mini blue icn-only block-portlet" href="{{ path('dashboard_evento_ver', { 'id': obj.id }) }}" title="{{ 'Ver' | trans }}"><i class="icon-file icon-white"></i></a>
                                     <a class="btn mini red icn-only table-btn-delete-row ajax-btn" href="{{ path('dashboard_evento_eliminar', { 'id': obj.id }) }}" title="{{ 'Eliminar' | trans }}"><i class="icon-trash icon-white"></i></a>
                                     <input type="hidden" value="{{ loop.index }}" class="table-row-index" />

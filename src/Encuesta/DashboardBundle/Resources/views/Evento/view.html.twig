@@ -148,7 +148,7 @@
                                         </label>
                                         <div class="controls">
                                             <span class="text">
-                                                {{ obj.fechaFin | date('d/m/Y') }}
+                                                {{ obj.fechaFin | date(date_format.php | default('d/m/Y')) }}
                                             </span>
                                         </div>
                                     </div>
