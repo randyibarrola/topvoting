@@ -31,5 +31,30 @@ class EventoRepository extends EntityRepository
         return $consulta->getResult(); 
     }
     
+    /*
+     * Retorna los eventos publicados con mas votaciones, la cantidad se especifica como parametro, por defecto, 8
+     */
+    public function getEventosMasVotados($cantidad = 8)
+    {
+        $em = $this->getEntityManager();
+        //$sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.fecha_fin >= :fecha and e.activo = 1'; 
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.activo = 1 ORDER BY e.numero_votaciones DESC';  
+        $consulta = $em->createQuery($sql);
+        $consulta->setMaxResults($cantidad);       
+
+        return $consulta->getResult(); 
+    }  
+    
+    
+    /*
+     * Determina si un usuario ya voto por un evento determinado, retorna true en caso de existir, falso si no existe
+     */
+    public function ExisteVotoUsuario($evento, $usuario)
+    {
+        $em = $this->getEntityManager();
+        $voto = $em->getRepository('ModeloBundle:Voto')->findOneBy(array('evento'=>$evento, 'usuario'=>$usuario));
+        return $voto ? true : false;
+    }      
+    
     
 }

@@ -40,6 +40,18 @@ class Evento
      * @ORM\Column(name="titulo", type="string", length=255, nullable=true)
      */
     private $titulo;
+    
+    /**
+     * @var string   
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;   
+    
+    /**
+     * @var string   
+     * @ORM\Column(name="idioma", type="string", length=10, nullable=true)
+     */
+    private $idioma;     
 
     /**
      * @var text $descripcion
@@ -69,6 +81,13 @@ class Evento
      */
     private $activo = false;	
    
+    
+    /**
+     * @var boolean $activo
+     *
+     * @ORM\Column(name="destacado", type="boolean")
+     */
+    private $destacado = false;	    
 
     /**
      * @var string $imagen
@@ -376,7 +395,7 @@ class Evento
         $candidatos = array();
         foreach($this->evento_candidatos as $candidato)
             $candidatos[] = $candidato->getCandidato();
-        
+
         return $candidatos;
     }
 
@@ -401,5 +420,85 @@ class Evento
             if(is_dir($this->imageDir))
                 @rmdir($this->imageDir);
         }
+    }
+    
+    /*
+     * $puntuacion es un array de puntuaciones que esta en el config.yml
+     */
+    public function getPuntuacionNuevoCandidato($puntuacion)
+    {
+        $cantidad  = count($this->getEventoCandidatos());
+        if(array_key_exists($cantidad, $puntuacion))
+            return $puntuacion[$cantidad];
+        return 1;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Evento
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set idioma
+     *
+     * @param string $idioma
+     * @return Evento
+     */
+    public function setIdioma($idioma)
+    {
+        $this->idioma = $idioma;
+    
+        return $this;
+    }
+
+    /**
+     * Get idioma
+     *
+     * @return string 
+     */
+    public function getIdioma()
+    {
+        return $this->idioma;
+    }
+
+    /**
+     * Set destacado
+     *
+     * @param boolean $destacado
+     * @return Evento
+     */
+    public function setDestacado($destacado)
+    {
+        $this->destacado = $destacado;
+    
+        return $this;
+    }
+
+    /**
+     * Get destacado
+     *
+     * @return boolean 
+     */
+    public function getDestacado()
+    {
+        return $this->destacado;
     }
 }

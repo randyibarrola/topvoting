@@ -91,12 +91,7 @@ services:
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
-            - { name: twig.extension }
-    twig.extension.locale:
-        class: Encuesta\DashboardBundle\Twig\Extension\LocaleExtension
-        tags:
-            - { name: twig.extension }
-        arguments: [@service_container]
+            - { name: twig.extension }            
 
 parameters:
     default_locale: "%locale%"
@@ -109,10 +104,19 @@ parameters:
         ROLE_USER: Usuario
         ROLE_ADMIN: Administrador
         ROLE_SUPER_ADMIN: Super administrador
+    puntuacion_candidato:
+        1: 25
+        2: 20
+        3: 15
+        4: 10
+        5: 5
+        6: 4
+        7: 3
+        8: 2
     date_format:
         en:
             php: m-d-Y
             js: mm-dd-yyyy
         es:
             php: d/m/Y
-            js: dd/mm/yyyy
+            js: dd/mm/yyyy        

@@ -1,7 +1,12 @@
+{% extends '::base-frontend.html.twig' %}
+{% block body %}
+
 Estado de la votacion
 <br>
 <br>
-<b>{{ evento.activo ? 'Publico' : 'No Publico' }}</b>
+<b id="estado" data-estado="{{ evento.activo ? '0' : '1' }}">{{ evento.activo ? 'Publico' : 'No Publico' }}</b>
+<br>
+<input data-url="{{ path('frontend_cambiar_estado_evento', {'id':evento.id } ) }}" type="button" class="cambiar_estado" value="Cambiar Estado" />
 <br>
 <br>
 Candidatos Actuales
@@ -55,3 +60,5 @@ Agregar Candidato al evento: {{ evento.titulo }}
     {{ form_errors(form) }}
         
 </form>
+
+{% endblock %}

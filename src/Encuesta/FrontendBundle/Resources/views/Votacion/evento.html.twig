@@ -1,0 +1,47 @@
+{% extends '::base-frontend.html.twig' %}
+{% block body %}
+
+<a href="{{ path('frontend_homepage') }}">Inicio</a>
+
+<br>
+<br>
+
+DETALLES EVENTO  {{ evento.titulo }}
+
+<br>
+<br>
+Descripcion : {{ evento.descripcion }}
+
+<br>
+<br>
+
+{% if not voto %}
+<form action="{{ path('frontend_evento_votar') }}" method="post" class="formulario">
+    <input type="hidden" name="id" value="{{ evento.id }}"/>
+    <ul>
+        {% for candidato in evento.candidatos  %}
+            <li>
+                <table width="600">
+                    <tr>
+                        <td width="50"><input name="candidato[]" type="checkbox" value="{{ candidato.id }}" /></td>
+                        <td>{{ candidato.titulo }}</td>
+                    </tr>
+                </table>
+            </li>
+        {% endfor %}
+    </ul>
+<br>
+{% if app.user %}
+<input type="submit" class="votar" id="votar" value="Votar">
+{% else %}
+<a href="{{ path('frontend_login') }}">Votar</a>
+{% endif %}
+</form>
+
+{% else %}
+
+YA UD REALIZO UNA VOTACION PARA ESTE EVENTO
+
+{% endif %}
+
+{% endblock %}
