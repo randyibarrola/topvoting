@@ -20,7 +20,8 @@
         "jms/di-extra-bundle": "1.3.*",
         "gedmo/doctrine-extensions": "dev-master",
         "knplabs/knp-paginator-bundle": "dev-master",
-        "gregwar/captcha-bundle": "dev-master"
+        "gregwar/captcha-bundle": "dev-master",
+        "friendsofsymfony/facebook-bundle": "1.3.*"
     },
     "scripts": {
         "post-install-cmd": [
