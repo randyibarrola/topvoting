@@ -91,7 +91,12 @@ services:
     twig.extension.intl:
         class: Twig_Extensions_Extension_Intl
         tags:
-            - { name: twig.extension }            
+            - { name: twig.extension }
+    twig.extension.locale:
+        class: Encuesta\DashboardBundle\Twig\Extension\LocaleExtension
+        tags:
+            - { name: twig.extension }
+        arguments: [@service_container]
 
 parameters:
     default_locale: "%locale%"
