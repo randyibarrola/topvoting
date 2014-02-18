@@ -215,5 +215,23 @@ class VotacionController extends Controller
         
         return new Response( json_encode(array('resultado' => 'error') ));  
     }    
+    
+    public function validarTituloEventoAction()
+    {
+        $em = $this->getDoctrine()->getManager();  
+        $titulo = $this->getRequest()->get('titulo');
+        $resultado = $em->getRepository('Modelo:Evento')->ExisteTituloEvento($titulo);        
+        
+        return new Response( json_encode(array('resultado' => $resultado ? 'ok' : 'error' ) ));  
+    }    
+    
+    public function candidatosPorTituloAction()
+    {
+        $em = $this->getDoctrine()->getManager();  
+        $titulo = $this->getRequest()->get('titulo');
+        $resultado = $em->getRepository('Modelo:Candidato')->getCandidatosPorTitulo($titulo);  
+        
+        return new Response( json_encode(array('resultado' => $resultado  ) ));  
+    }    
 }
 

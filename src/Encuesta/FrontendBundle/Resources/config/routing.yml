@@ -1,6 +1,6 @@
 frontend_login:
-    pattern:  /{culture}/login
-    defaults: { _controller: FrontendBundle:Usuario:login, culture: es}
+    pattern:  /{_locale}/login
+    defaults: { _controller: FrontendBundle:Usuario:login, _locale: es}
 
 frontend_login_check:
     pattern:  /login_check
@@ -9,37 +9,45 @@ frontend_logout:
     pattern:  /logout
     
 frontend_registro:
-    pattern:  /{culture}/registro
-    defaults: { _controller: FrontendBundle:Usuario:registro , culture: es}  
+    pattern:  /{_locale}/registro
+    defaults: { _controller: FrontendBundle:Usuario:registro , _locale: es}  
     
 frontend_activacion:
-    pattern:  /{culture}/usuarios/activacion/{codigo}
-    defaults: { _controller: FrontendBundle:Usuario:activacion , culture: es}   
+    pattern:  /{_locale}/usuarios/activacion/{codigo}
+    defaults: { _controller: FrontendBundle:Usuario:activacion , _locale: es}   
     
 frontend_perfil:
-    pattern:  /{culture}/perfil
-    defaults: { _controller: FrontendBundle:Usuario:perfil , culture: es}      
+    pattern:  /{_locale}/perfil
+    defaults: { _controller: FrontendBundle:Usuario:perfil , _locale: es}      
 
 frontend_votaciones:
-    pattern:  /{culture}/votaciones
-    defaults: { _controller: FrontendBundle:Votacion:votaciones , culture: es}
+    pattern:  /{_locale}/votaciones
+    defaults: { _controller: FrontendBundle:Votacion:votaciones , _locale: es}
     
 frontend_agregar_candidato:
-    pattern:  /{culture}/votaciones/agregar/candidato
-    defaults: { _controller: FrontendBundle:Votacion:agregarCandidato , culture: es}  
+    pattern:  /{_locale}/votaciones/agregar/candidato
+    defaults: { _controller: FrontendBundle:Votacion:agregarCandidato , _locale: es}  
     
 frontend_cambiar_estado_evento:
-    pattern:  /{culture}/evento/cambiar/estado
-    defaults: { _controller: FrontendBundle:Votacion:modificarEstadoVotacion , culture: es}    
+    pattern:  /{_locale}/evento/cambiar/estado
+    defaults: { _controller: FrontendBundle:Votacion:modificarEstadoVotacion , _locale: es}    
     
 frontend_evento_votar:
-    pattern:  /{culture}/evento/votar
-    defaults: { _controller: FrontendBundle:Votacion:votar , culture: es}       
+    pattern:  /{_locale}/evento/votar
+    defaults: { _controller: FrontendBundle:Votacion:votar , _locale: es}       
     
 frontend_evento:
-    pattern:  /{culture}/evento
-    defaults: { _controller: FrontendBundle:Votacion:evento , culture: es} 
+    pattern:  /{_locale}/evento
+    defaults: { _controller: FrontendBundle:Votacion:evento , _locale: es} 
+    
+frontend_validar_evento:
+    pattern:  /{_locale}/evento/validar/titulo
+    defaults: { _controller: FrontendBundle:Votacion:validarTituloEvento , _locale: es}  
+    
+frontend_candidatos_titulo:
+    pattern:  /{_locale}/candidato/titulo
+    defaults: { _controller: FrontendBundle:Votacion:candidatosPorTitulo , _locale: es}    
 
 frontend_homepage:
-    pattern:  /
-    defaults: { _controller: FrontendBundle:Default:index, culture: es }
+    pattern:  /{_locale}
+    defaults: { _controller: FrontendBundle:Default:index, _locale: es }
