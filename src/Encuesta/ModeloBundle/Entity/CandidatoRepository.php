@@ -18,7 +18,7 @@ class CandidatoRepository extends EntityRepository
     public function getCandidatosPorTitulo($titulo)
     {
         $em = $this->getEntityManager();        
-        $sql = 'SELECT c FROM ModeloBundle:Candidato c WHERE ctitulo like :titulo'; 
+        $sql = 'SELECT c.id, c.titulo FROM ModeloBundle:Candidato c WHERE ctitulo like :titulo'; 
         $consulta = $em->createQuery($sql);        
         $consulta->setParameter('titulo','%'.$titulo.'%');         
         
