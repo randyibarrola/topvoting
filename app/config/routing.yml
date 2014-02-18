@@ -6,6 +6,16 @@ frontend:
     resource: "@FrontendBundle/Resources/config/routing.yml"
     prefix:   /    
 
+#RUTAS DEL FOS FACEBOOK BUNDLE
+_security_check:
+      pattern:  /login_check
+      
+_security_logout:
+      pattern:  /logout
+      
+fos_facebook_channel:
+      resource: "@FOSFacebookBundle/Resources/config/routing.xml"
+      
 homepage:
     pattern:  /
     defaults: { _controller: FrontendBundle:Default:index, name: '' }

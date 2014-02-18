@@ -31,6 +31,14 @@ gregwar_captcha:
     max_front_lines: 0
     charset: 123456789
     background_color: [255, 255, 255]
+    
+# FOS FACEBOOK BUNDLE #
+fos_facebook:
+    alias:  facebook
+    app_id: 123456879
+    secret: s3cr3t
+    cookie: true
+    permissions: [email, user_birthday, user_location]
 
 
 # Twig Configuration
