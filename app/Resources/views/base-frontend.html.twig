@@ -23,6 +23,7 @@
     <link rel="shortcut icon" href="favicon.ico" />
   </head>
   <body class="{% block body_class %}page-header-fixed page-sidebar-fixed{% endblock %}">
+     {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }} 
     {% block body %}{% endblock %}
 
     <!-- BEGIN CORE PLUGINS -->
