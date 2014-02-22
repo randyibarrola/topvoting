@@ -130,4 +130,9 @@ class UsuarioController extends Controller
         throw new AccessDeniedException();
         
     }
+    
+    public function loginFacebookAction()
+    {
+        var_dump($this->getRequest());die;
+    }
 }

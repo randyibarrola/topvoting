@@ -1,6 +1,10 @@
 frontend_login:
     pattern:  /{_locale}/login
     defaults: { _controller: FrontendBundle:Usuario:login, _locale: es}
+    
+frontend_login_facebook:
+    pattern:  /login_facebook   
+    defaults: { _controller: FrontendBundle:Usuario:loginFacebook }      
 
 frontend_login_check:
     pattern:  /login_check

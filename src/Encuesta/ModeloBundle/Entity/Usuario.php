@@ -110,14 +110,22 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="codigo_activacion", type="string", length=255, unique=true, nullable=true)
      */
-    private $codigo_activacion;      
+    private $codigo_activacion;  
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="red_social", type="boolean")
+     */
+    private $red_social = false;    
     
   /**
    * @var datetime $created_at
    *
    * @Gedmo\Timestampable(on="create")
    * @ORM\Column(type="datetime", nullable=true)
-   */
+   */   
+    
   private $created_at;
 
   /**
@@ -601,5 +609,28 @@ class Usuario implements AdvancedUserInterface, \Serializable
             if(is_dir($this->imageDir))
                 @rmdir($this->imageDir);
         }
+    }
+
+    /**
+     * Set red_social
+     *
+     * @param boolean $redSocial
+     * @return Usuario
+     */
+    public function setRedSocial($redSocial)
+    {
+        $this->red_social = $redSocial;
+    
+        return $this;
+    }
+
+    /**
+     * Get red_social
+     *
+     * @return boolean 
+     */
+    public function getRedSocial()
+    {
+        return $this->red_social;
     }
 }
