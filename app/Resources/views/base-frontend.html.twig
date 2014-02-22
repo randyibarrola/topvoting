@@ -14,7 +14,24 @@
     {% block base_javascript %}
         <script src="{{ asset('js/frontend/jquery-1.9.0.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/frontend/votacion.js') }}" type="text/javascript"></script>
-        <script>
+              
+    {% endblock %}        
+    {% block level_meta %}{% endblock %}
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    {% block base_stylesheet %}
+        
+    {% endblock %}
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    {% block plugins_stylesheet %}{% endblock %}
+    {% block level_stylesheet %}{% endblock %}
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="favicon.ico" />
+  </head>
+  <body class="{% block body_class %}page-header-fixed page-sidebar-fixed{% endblock %}">
+    {% block facebook %}
+          <div id="fb-root"></div>
+          <script>
           var urlLoginFacebook = '{{ path('frontend_login_facebook') }}';  
           window.fbAsyncInit = function() {
           FB.init({
@@ -91,23 +108,7 @@
               console.log('Good to see you, ' + response.name + '.');
             });
           }
-        </script>        
-    {% endblock %}        
-    {% block level_meta %}{% endblock %}
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    {% block base_stylesheet %}
-        
-    {% endblock %}
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL STYLES -->
-    {% block plugins_stylesheet %}{% endblock %}
-    {% block level_stylesheet %}{% endblock %}
-    <!-- END PAGE LEVEL STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
-  </head>
-  <body class="{% block body_class %}page-header-fixed page-sidebar-fixed{% endblock %}">
-    {% block facebook %}
-          <div id="fb-root"></div>
+        </script>  
     {% endblock %}  
     {% block body %}{% endblock %}
 
