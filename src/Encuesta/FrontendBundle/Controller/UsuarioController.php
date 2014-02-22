@@ -7,6 +7,8 @@ use Encuesta\ModeloBundle\Entity\Usuario;
 use Encuesta\ModeloBundle\Form\UsuarioType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class UsuarioController extends Controller
 {
@@ -133,8 +135,46 @@ class UsuarioController extends Controller
     
     public function loginFacebookAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $peticion = $this->getRequest();
         $nombre = $peticion->get('nombre');
-        var_dump($nombre);die;
+        $apellido = $peticion->get('apellido');
+        $username = $peticion->get('username');
+        $email = $peticion->get('email');
+        
+        if(!$this->getUser()) {
+            $usuario = $em->getRepository('ModeloBundle:Usuario')->findOneBy(array('username'=> $username));
+            if(! $usuario) {            
+
+                $usuario = new Usuario();
+                $usuario->setUsername($username);
+                $usuario->setNombre($nombre);
+                $usuario->setApellidos($apellido);
+                $usuario->setEmail($email);
+                $usuario->setPassword(md5(time()));
+                $usuario->setSalt(md5(time()));
+                $usuario->setActivo(1);
+                $usuario->setRedSocial(1);
+                $em->persist($usuario);
+                $em->flush();
+            }
+
+            //logueando manualmente 
+
+            $logintoken = new UsernamePasswordToken($usuario, $usuario->getPassword(), 'frontend', array('ROLE_USER'));
+            $this->get('security.context')->setToken($logintoken);
+
+            $event = new InteractiveLoginEvent($peticion, $logintoken);
+            $this->get("event_dispatcher")->dispatch("security.interactive_login", $event);   
+
+
+            //redireccionando a homepage
+
+            return $this->redirect($this->generateUrl('frontend_homepage')) ;  
+            
+        }
+        
+        return new Response( json_encode(array('resultado' => 'ok'  ) ));  
+        
     }
 }

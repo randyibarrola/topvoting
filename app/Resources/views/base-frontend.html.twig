@@ -58,11 +58,10 @@
                     url:  urlLoginFacebook,
                     async: true,
                     dataType: 'json',  
-                    data: {'username': response.username, 'nombre':response.name, 'apellidos':response.last_name, 'email':response.email},
+                    data: {'username': response.username, 'nombre':response.first_name, 'apellidos':response.last_name, 'email':response.email},
                     success: function( data ) {
                           if(data.resultado === 'ok'){
-                              $('#estado').data('estado', data.estado);
-                              $('#estado').text(data.texto);
+
                           }
                       },
                       error: function(error){
