@@ -60,8 +60,8 @@
                     dataType: 'json',  
                     data: {'username': response.username, 'nombre':response.first_name, 'apellidos':response.last_name, 'email':response.email},
                     success: function( data ) {
-                          if(data.resultado === 'ok'){
-
+                          if(data.resultado === 'recargar'){
+                              location.href="";
                           }
                       },
                       error: function(error){

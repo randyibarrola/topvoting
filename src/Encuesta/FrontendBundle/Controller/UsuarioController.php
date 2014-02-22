@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\HttpFoundation\Response;
 
 class UsuarioController extends Controller
 {
@@ -141,9 +142,10 @@ class UsuarioController extends Controller
         $apellido = $peticion->get('apellido');
         $username = $peticion->get('username');
         $email = $peticion->get('email');
+        $usuario = $em->getRepository('ModeloBundle:Usuario')->findOneBy(array('username'=> $username));
         
         if(!$this->getUser()) {
-            $usuario = $em->getRepository('ModeloBundle:Usuario')->findOneBy(array('username'=> $username));
+            
             if(! $usuario) {            
 
                 $usuario = new Usuario();
@@ -170,7 +172,7 @@ class UsuarioController extends Controller
 
             //redireccionando a homepage
 
-            return $this->redirect($this->generateUrl('frontend_homepage')) ;  
+            return new Response( json_encode(array('resultado' => 'recargar'  ) ));  
             
         }
         
