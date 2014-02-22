@@ -133,6 +133,8 @@ class UsuarioController extends Controller
     
     public function loginFacebookAction()
     {
-        var_dump($this->getRequest());die;
+        $peticion = $this->getRequest();
+        $nombre = $peticion->get('nombre');
+        var_dump($nombre);die;
     }
 }
