@@ -4,7 +4,7 @@
 <!--[if !IE]><!--> <html lang="es"> <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
-    <title>{% block title %}{{ 'TheTopVoting.com' | trans }} Topvoting{% endblock %}</title>
+    <title>{% block title %}{{ 'TheTopVoting.com' | trans }} TheTopVotings{% endblock %}</title>
     {% block base_meta %}
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta content="" name="description" />
@@ -19,7 +19,7 @@
     {% block level_meta %}{% endblock %}
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {% block base_stylesheet %}
-        
+        <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css"/>
     {% endblock %}
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->

@@ -1,0 +1,983 @@
+@font-face {
+ font-family: fuente;
+ src: url(fonts/YanoneKaffeesatzTTF/YanoneKaffeesatz-Regular.ttf); 
+ font-weight: weight; 
+ font-style: style;
+}
+
+@font-face {
+ font-family: fuenteIE;
+ src: url(fonts/YanoneKaffeesatzOTF/YanoneKaffeesatz-Regular.otf);
+ font-weight: weight; 
+ font-style: style;
+}
+
+body{
+     margin:0; 
+	 color:#FFF;
+	 background:#E3E5E4;
+	 font-family:fuente, fuenteIE;
+}
+
+#cuerpo {	
+	margin: auto;
+	height: auto;
+	width: 980px;	
+}
+
+.header{
+	width:980px;
+	height:310px;
+	background:url(/images/banner_top.jpg) no-repeat;
+}
+
+#slogan{
+	margin-left:125px;
+	width:450px;
+	height:32px;
+	font-size:36px;
+	letter-spacing:-1pt;
+	line-height:31%;
+	text-align:left;
+	float:left;	
+	color:#000;
+	margin-top:15px;
+}
+
+#login{
+	*margin-left:570px;
+	width:60px;
+	height:32px;
+	background:url(/images/entrar.png) no-repeat;
+	padding-left:30px;
+	float:left;	
+	margin-top:10px;
+	font-size:17px;
+}
+
+#login a{
+	text-decoration:none;
+	color:#FFF;
+}
+#login a:hover{
+	text-decoration:underline;
+	color:#FFF;
+}
+
+#regist{
+	width:60px;
+	height:32px;
+	background:url(/images/regist.png) no-repeat;
+	padding-left:30px;
+	float:left;
+	margin-top:10px;
+	font-size:17px;		
+}
+
+#regist a{
+	text-decoration:none;
+	color:#FFF;
+}
+#regist a:hover{
+	text-decoration:underline;
+	color:#FFF;
+}
+
+.limpia_float{
+	clear:both;	
+}
+
+.logo a{
+	width:290px;
+	height:80px;
+	background:url(/images/logo.jpg) no-repeat;
+	margin-left:25px;
+	display:block;
+	
+}
+
+#buscador{
+	width:460px;
+	height:35px;
+	margin-left:145px;
+}
+
+#area_busc{
+	width:425px;
+	height:35px;
+	float:left;
+}
+
+.buscarR{
+	background-color:rgb(227,227,227);
+	border:none;
+	width:420px;
+	height:35px;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	-moz-box-shadow:inset 4px 4px 4px rgba(0,0,0,0.65);
+	-webkit-box-shadow:inset 4px 4px 4px rgba(0,0,0,0.65);
+	box-shadow:inset 4px 4px 4px rgba(0,0,0,0.65);
+	font-family:fuente, fuenteIE;	
+	font-size:24px;
+	letter-spacing:-1pt;
+	color:rgba(0,0,0,0.52);
+	padding-left:7px;
+}
+#area_busc{
+	vertical-align:top;
+	
+}
+
+#area_busc select{	
+	border:none;
+	width:155px;
+	height:35px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	
+	font-family:fuente, fuenteIE;	
+	font-size:24px;
+	letter-spacing:-1pt;
+	color:rgba(0,0,0,0.52);
+	padding-left:7px;
+	/*background:url(/images/flecha_list.jpg) no-repeat right #FBFBFB;	
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	 -webkit-appearance: none;
+	 appearance: none;*/
+	 float:left;
+	 
+}
+
+
+.buscarV {
+	border:none;
+	width:230px;
+	height:34px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	background:#FFFFFF;
+	
+	font-family:fuente, fuenteIE;	
+	font-size:24px;
+	letter-spacing:-1pt;
+	color:rgba(0,0,0,0.52);
+	padding-left:7px;
+	float:left;
+	margin-left:5px;
+}
+
+
+#lupa{
+	width:30px;
+	height:35px;
+	background:url(/images/lupa.png) no-repeat;
+	float:left;
+}
+
+#voting{
+	width:121px;
+	height:142px;
+	background:url(/images/voting.png) no-repeat;
+	float:left;
+	margin:-130px 0 0 770px;
+}
+
+#crea{
+	width:121px;
+	height:142px;	
+	font-size:24px;
+	letter-spacing:-1pt;
+	line-height:191%;
+	text-align:center;
+	color:#000;
+	margin-top:110px;
+}
+
+#zona_promo{
+	width:980px;
+	height:320px;
+	margin-top:-115px;
+}
+
+#img_negocio{
+	width:335px;
+	height:260px;
+	background-color:rgba(227,227,227,0.65);	
+	border-color:rgba(13,14,14,0.65);
+	border-width:4px;
+	border-style:solid;
+	-moz-border-radius:12px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	-moz-box-shadow:inset 3px 3px 4px 0px rgba(34,33,32,0.38);
+	-webkit-box-shadow:inset 3px 3px 4px 0px rgba(34,33,32,0.38);
+	box-shadow:inset 3px 3px 4px 0px rgba(34,33,32,0.38);
+	margin-left:45px;
+	float:left;
+}
+
+#promocion{
+	width:400px;
+	height:160px;
+	margin-left:175px;
+	float:left;
+	color:#000;
+	font-size:35px;
+	letter-spacing:-1pt;
+	line-height:97%;
+	text-align:left;
+	padding-top:20px;
+}
+
+#promocion b{
+	line-height:180%;
+}
+
+a #vota{
+	width:85px;
+	height:78px;
+	background:url(/images/vota.png) top no-repeat;
+	margin-left:75px;
+	float:left;
+	display:block;
+}
+
+a:hover #vota{
+	background:url(/images/vota.png) bottom no-repeat;
+	display:block;
+}
+
+#tvota{
+	font-size:36px;
+	color:#000;
+	text-align:center;
+	margin-top:78px;
+}
+
+a #creaV{
+	width:95px;
+	height:78px;
+	background:url(/images/creaV.png) top no-repeat;
+	margin-left:75px;
+	float:left;
+}
+
+a:hover #creaV{
+	background:url(/images/creaV.png) bottom no-repeat;
+	display:block;
+}
+
+#tcreaV{
+	font-size:22px;
+	color:#000;
+	text-align:center;
+	margin-top:78px;
+}
+
+a #comparteV{
+	width:85px;
+	height:78px;
+	background:url(/images/comparteV.png) top no-repeat;
+	margin-left:75px;
+	float:left;
+}
+
+a:hover #comparteV{
+	background:url(/images/comparteV.png) bottom no-repeat;
+	display:block;
+}
+
+#contenido{
+	width:960px;	
+	margin-left: 15px;	
+	float:left;
+}
+
+#pestannas{
+	width:960px;
+	height:36px;
+	text-align:center;
+	font-size:21px;
+	color:#000;
+	line-height:167%;
+	text-shadow:3px 3px 4px rgba(34,33,32,0.41);
+-ms-filter:"progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6922.600841ede11a20.91ce39b456b420.3d6787ce95fa,Positive = true)";zoom:1;
+filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6922.600841ede11a20.91ce39b456b420.3d6787ce95fa,Positive = true);
+	
+}
+
+#pestannas a{
+	text-decoration:none;	
+}
+
+#pest_home{
+	width:163px;
+	height:36px;
+	background:url(/images/pest_home.png) no-repeat;
+	position:relative;
+	z-index:20;
+	margin-left:30px;
+}
+
+#pest_masV{
+	width:163px;
+	height:36px;
+	margin-top:-36px;
+	background:url(/images/pest_masV.png) no-repeat;
+	position:relative;
+	z-index:19;	
+	margin-left:160px;
+	color:#FFF;
+}
+
+#pest_loultimo{
+	width:163px;
+	height:36px;
+	margin-top:-36px;
+	background:url(/images/pest_loultimo.png) no-repeat;
+	position:relative;
+	z-index:18;	
+	margin-left:285px;
+	color:#FFD400;
+}
+
+#pest_categ{
+	width:288px;
+	height:36px;
+	margin-top:-36px;
+	background:url(/images/pest_categ.png) no-repeat;
+	position:relative;
+	z-index:17;	
+	margin-left:410px;
+	color:#000
+}
+
+.barra_pest{
+	width:960px;
+	height:13px;
+}
+
+#barra_home{
+	background:url(/images/barra_home.png) no-repeat;
+}
+
+#barra_masV{
+	background:url(/images/barra_masV.png) no-repeat;
+}
+
+#barra_loultimo{
+	background:url(/images/barra_loultimo.png) no-repeat;
+}
+
+#barra_categ{
+	background:url(/images/barra_categ.png) no-repeat;
+}
+
+
+#cuerpo_cont{
+	width:960px;
+	height:400px;
+	margin-top:30px;
+	padding-left:10px;
+}
+
+.caja{
+	width:225px;
+	height:325px;
+	background:#010101;
+	float:left;
+	margin-left:6px;
+}
+
+.foto_votacion{
+	width:195px;
+	height:238px;
+	background:#fff;
+	margin:15px 0 0 15px;
+}
+
+.descrip{
+	width:225px;
+	height:35px;
+	text-align:center;
+	margin-top:80px;
+	color:#000;
+	font-size:21px;
+}
+
+#design{
+	width:200px;
+	margin:-25px 0 0 835px;
+	float:left;	
+	color:rgb(3,4,3);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=-3);	
+	
+}
+/*   variante con imagen   *//*
+#design{
+	width:8px;
+	height:360px;
+	float:left;	
+	background:url(/images/design.png) bottom no-repeat;
+	margin-left:10px;
+}*/
+
+
+
+
+
+/************* Home 2 ************************************************/
+
+#img_neg{
+	width:410px;
+	height:400px;
+	background:url(/images/img_neg.png);
+	margin-left:10px;
+	float:left;
+}
+
+#promocion2{
+	width:380px;
+	height:160px;
+	margin-left:175px;
+	float:left;
+	color:#000;
+	font-size:35px;
+	letter-spacing:-1pt;
+	line-height:97%;
+	text-align:left;
+	margin-top:-40px;
+}
+
+#promocion2 b{
+	line-height:180%;
+	font-size:39px;
+	width:580px;
+	margin-left:-95px;
+}
+
+#interrog{
+	width:125px;
+	height:142px;
+	background:url(/images/interrog.png) no-repeat;
+	float:left;
+	margin:-60px 0 0 820px;
+}
+
+#registra_tienda a{
+	width:452px;
+	height:75px;
+	background:url(/images/registra_tienda.png) top no-repeat;
+	float:left;
+	margin-left:70px;
+	display:block;
+}
+
+#registra_tienda a:hover{
+	width:452px;
+	height:75px;
+	background:url(/images/registra_tienda.png) bottom no-repeat;
+	float:left;
+	margin-left:70px;
+	display:block;
+}
+
+.iconos_promo{
+	width:95px;
+	height:160px;
+	margin:25px 0 0 75px;
+	float:left;
+	
+	font-size:25px;
+	line-height:103%;
+	font-weight:bold;
+	color:rgb(39,40,41);
+	text-align:center;
+}
+
+.coviertete{
+	background:url(/images/coviertete.png) bottom no-repeat;
+}
+
+.fideliza{
+	background:url(/images/fideliza.png) bottom no-repeat;
+}
+
+.consigue{
+	background:url(/images/consigue.png) bottom no-repeat;
+}
+
+
+/************* Fin Home 2 *********************************************/
+
+
+
+
+
+
+
+/************* Pagina Votar *********************************************/
+
+#voting3{
+	width:121px;
+	height:142px;
+	background:url(/images/voting.png) no-repeat;
+	float:left;
+	margin:-75px 0 0 650px;
+	
+	font-size:24px;
+	letter-spacing:-1pt;
+	line-height:191%;
+	text-align:center;
+	color:#000;
+}
+
+#tit_votacion{
+	width:280px;
+	height:270px;
+	background:url(/images/tit_votacion.png) no-repeat;
+	margin-left:50px;
+	float:left;
+}
+
+#zona_promo3{
+	width:980px;
+	height:320px;
+	margin-top:-90px;
+	float:left;
+}
+
+#votacion{
+	width:960px;	
+	margin-left: 15px;	
+	float:left;	
+	*background:#F00;
+	height:150px;
+}
+
+#barra_votacion{
+	width:960px;
+	height:50px;
+	background:url(/images/barra_votacion.png) no-repeat;
+	margin-top:-70px;	
+}
+
+#votos{
+	width:100px;
+	height:90px;	
+	padding-top:15px;
+	background:url(/images/votos.png) no-repeat;	
+	margin:-80px 0 0 125px;
+	text-align:center;
+	font-size:37px;
+	color:#000;	
+	float:left;
+}
+
+#vot{
+	font-size:24px;
+	text-align:center;
+	color:#000;
+	font-variant:normal;	
+}
+
+#creado{
+	width:100px;
+	height:50px;
+	font-size:26px;
+	color:#000;
+	font-weight:normal;
+	margin-left:20px;
+	float:left;	
+}
+#hace{
+	width:100px;
+	font-size:20px;
+	color:#000;
+	font-weight:100;
+	margin-top:-5px;
+}
+
+#face{
+	width:40px;
+	height:40px;
+	margin:7px 0 0 140px;
+	background:url(/images/f.png) no-repeat;
+	float:left;
+	z-index:22;
+}
+
+#tweet{
+	width:40px;
+	height:40px;
+	margin:7px 0 0 15px;
+	background:url(/images/tweet.png) no-repeat;
+	float:left;
+	z-index:22;
+}
+
+#g{
+	width:40px;
+	height:40px;
+	margin:7px 0 0 15px;
+	background:url(/images/g.png) no-repeat;
+	float:left;
+	z-index:22;
+}
+
+#compratir_v{
+	width:200px;
+	height:40px;
+	margin:10px 0 0 15px;
+	font-size:24px;
+	color:#000;
+	float:left;
+}
+
+#annadir_cand a{
+	width:130px;
+	height:124px;
+	background:url(/images/annadir_cand.png) top no-repeat;
+	margin:10px 0 0 25px;
+	display:block;
+}
+
+#annadir_cand a:hover{
+	background:url(/images/annadir_cand.png) bottom no-repeat;
+	display:block;
+} 
+#annad{
+	width:50px;
+	font-size:18px;
+	line-height:72%;
+	color:#000;
+	text-align:center;
+	margin:-40px 0 0 65px;
+} 
+#descrip_vota{
+	width:740px;
+	height:112px;	
+	padding-left: 20px;
+	background:url(/images/descrip_vota.png) no-repeat;
+	margin:-112px 0 0 210px;
+	font-size: 24px;
+	color: #000;
+	padding:10px 10px 10px 20px;
+}
+
+#votaciones{
+	width:950px;
+	height:420px;	
+}
+
+#candidatos{
+	width:710px;
+	height:420px;		
+	float:left;	
+}
+
+#publicidad_vota{
+	width:240px;
+	height:420px;	
+	float:left;	
+	background:#666;
+}
+
+#candid{
+	width:700px;
+	height:65px;
+	border-top:solid 6px #000000;	
+	*float:left;	
+}
+
+#nombre_cand{
+	width:460px;
+	font-size:30px;
+	padding:15px 0 0 20px;
+	color:#000;	
+	float:left;
+}
+
+#puntos{
+	width:80px;
+	font-size:30px;
+	text-align:center;
+	color:#000;	
+	float:left;
+	font-weight:bold;	
+	margin-top:5px;
+}
+
+#punt{
+	font-size:18px;
+	color:#000;
+	font-weight:100;
+	margin-top:-7px;
+}
+
+#bot_votar a{
+	width:50px;
+	height:47px;
+	margin-top:10px;
+	font-size:30px;
+	background:url(/images/bola_votar.png) top left no-repeat;
+	padding-left: 55px;
+	color:#000;	
+	float:left;
+	display:block;
+	text-decoration:none;
+}
+
+#bot_votar a:hover{
+	background:url(/images/bola_votar.png) bottom left no-repeat;
+	display:block;
+	color:#C5B04E;
+}
+
+#design2{
+	width:200px;
+	margin:-45px 0 0 865px;
+	float:left;	
+	color:rgb(3,4,3);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=-3);	
+}
+
+
+/************* Fin Pagina Votar *********************************************/
+
+
+
+
+/************* Pagina Registro ************************************************/
+
+
+.header_reg{
+	width:965px;
+	height:300px;
+	background:url(/images/header_registro.jpg) no-repeat;
+}
+
+
+#zona_registro{
+	width:925px;
+	height:760px;
+	border:solid 20px #000000;
+}
+
+#zona_registro label{
+	font-size:24px;
+	letter-spacing:-1pt;
+	line-height:150%;
+	color:rgb(1,1,1);
+	text-align:left;
+}
+
+.campo_text{
+	width:340px;
+	height:34px;
+	border-color:rgb(219,219,219);
+	border-width:1px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border-style:solid;
+	padding-left:10px;
+	
+	font-family:fuente, fuenteIE;	
+	font-size:24px;
+	letter-spacing:-1pt;
+	color:rgba(0,0,0,0.52);
+
+}
+
+.cod_postal {
+	width:160px;
+}
+
+#zona_registro_b1{
+	width:915px;
+	height:750px;
+	border:solid 5px #fff;
+}
+
+#zona_registro_b2{
+	width:905px;
+	height:740px;
+	border:solid 5px #E5C21F;
+	background:#FFF;
+}
+
+#crea_cuenta{
+	width:450px;
+	height:740px;
+	float:left;
+	margin-left:45px;
+}
+
+#crea_cuenta p{
+	font-size:32px;
+	line-height:113%;
+	color:rgb(1,1,1);
+	text-align:left;
+}
+
+#iniciar{
+	width:360px;
+	height:740px;
+	float:left;
+}
+
+#iniciar p{
+	font-size:30px;
+	letter-spacing:-1pt;
+	line-height:120%;
+	color:rgb(1,1,1);
+}
+
+#design4{
+	width:200px;
+	margin:-35px 0 0 845px;
+	float:left;	
+	color:rgb(3,4,3);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=-3);	
+}
+
+#btn_reg{
+	width:205px;
+	height:60px;
+	font-size:24px;
+	line-height:180%;
+	color:rgb(5,2,2);
+	text-align:left;
+	padding-left:15px;
+	margin-left:60px;	
+	background:url(/images/btn_reg.png) no-repeat;
+	cursor:pointer;
+	border:none;
+	letter-spacing:-0.5pt;
+	margin-top:30px;
+}
+
+#btn_entrar{
+	width:145px;
+	height:60px;
+	font-size:24px;
+	line-height:180%;
+	color:rgb(5,2,2);
+	text-align:left;
+	padding-left:15px;
+	margin-left:190px;	
+	background:url(/images/btn_entrar.png) no-repeat;
+	cursor:pointer;
+	border:none;
+	letter-spacing:-0.5pt;
+}
+
+#cod_post{
+	width:160px;
+	float:left;
+}
+#sel_pais{
+	width:160px;
+	float:left;
+	margin-left:30px;
+}
+
+#sel_pais select{
+	height:38px;
+	border: solid 1px #97A836;
+}
+
+#sel_pais label{
+	color: #97A836;
+}
+
+#chec_aceptar{
+	color: #E5C11F;
+	font-size:24px;
+	letter-spacing:0pt;	
+	text-align:left;
+	margin-top:25px;
+}
+#chec_aceptar input{
+	float:left;
+}
+
+#chec_acepto{
+	float:left;
+	margin:-5px 0 0 5px;
+}
+#chec_aceptar b{
+	color: #000;
+}
+
+
+#chec_record{
+	color: #000;
+	font-size:24px;
+	letter-spacing:0pt;	
+	text-align:left;
+	margin-top:25px;
+}
+#chec_record input{
+	float:left;
+}
+
+#olvid{
+	width:100px;
+	font-size:18px;
+	letter-spacing:0pt;
+	line-height:78%;
+	text-align:right;
+	margin:5px 0 0 15px;
+}
+
+#olvid a{	
+	color:rgb(229,193,31);
+	text-decoration:none;
+}
+
+#olvid a:hover{	
+	color:rgb(229,193,31);
+	text-decoration:underline;
+}
+
+/************* Fin Pagina Registro *********************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
