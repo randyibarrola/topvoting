@@ -15,19 +15,12 @@
                 <div id="zona_registro_b1">
                     <div id="zona_registro_b2">
                         <div id="crea_cuenta" style="width: auto !important;">
-                            {% if resultado == 'ok' %}
-                                <p>{{ 'Has activado tu cuenta satisfactoriamente'| trans }}</p>
-                                <p><a href="{{ path('frontend_login') }}">{{ 'Entrar' | trans }}</a></p>
-                            {% else %}
-                                <p>{{ 'Tu cuenta no existe o ya fue activada anteriormente'| trans }}</p>
-                            {% endif %}
+                            <p> {{ 'Muchas gracias por tu registro en TheTopVoting.com, ahora debes confirmar tu cuenta para ello sigue el link que hemos enviado a tu casilla de correo electrónico.' }}</p>
                         </div>
                     </div>
-                </div>
-                
+                </div>                            
             </div>
                 
         </div><!-- fin de cuerpo -->
 
 {% endblock %}
-

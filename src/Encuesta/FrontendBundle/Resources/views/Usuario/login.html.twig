@@ -14,37 +14,40 @@
             <div id="zona_registro">
                 <div id="zona_registro_b1">
                     <div id="zona_registro_b2">
-                        
+                        <form method="post" action="{{ path('frontend_registro_alta') }}" class="formulario" id="formularioRegistro">
                         <div id="crea_cuenta">
                             <p>{{ 'Crea tu cuenta'|trans }}</p>
 
-                            <label>{{ 'Nombre de usuario' | trans }}:</label></br>                            
-                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[username]" type="text" title="{{ 'Nombre de usuario' | trans }}" />
+                            <label>{{ 'Nombre de usuario' | trans }}:</label></br>
+                            {{ form_widget(form.username, { 'attr': {'title': 'Nombre de usuario' | trans} }) }}   
+                            
                             </br></br>
                             <label>{{ 'Correo electrónico' | trans }}:</label></br>
-                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[email]" type="text" title="{{ 'Correo electrónico' | trans }}" />
+                            {{ form_widget(form.email, { 'attr': {'title': 'Correo electrónico' | trans} }) }}   
+                            
                             </br></br>
                             <label>{{ 'Contraseña' | trans }}:</label></br>
-                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[password]" type="password" title="{{ 'Contraseña' | trans }}" />
-                            </br></br>
+                            {{ form_widget(form.password, { 'attr': {'title': 'Contraseña' | trans} }) }}   
+                                                        </br></br>
                             <div id="cod_post">
                                 <label >{{ 'Código postal' | trans }}:</label></br>
-                                <input class="campo_text cod_postal" name="encuesta_modelobundle_registrousuariotype[codigo_postal]" type="text" title="{{ 'Código postal' | trans }}" />
+                                {{ form_widget(form.codigo_postal, { 'attr': {'title': 'Código postal' | trans} }) }}                                 
                             </div>
                             <div id="sel_pais">
                                 <label >{{ 'Selecciona tu país' | trans }}:</label></br>
-                                <select class="campo_text cod_postal"/></select> 
+                                {{ form_widget(form.pais, { 'attr': {'class': 'campo_text cod_postal validate[required]'} }) }}                                
                             </div>   
                             <div class="limpia_float"></div>
                             <div id="chec_aceptar">
-                                <input  name="" type="checkbox" value="" /> 
+                                {{ form_widget(form.acepta_termino) }}           
                                 <div id="chec_acepto"><b>{{ 'Sí, acepto'|trans }}</b> {{ 'las condiciones legales y políticas de </br>   
                                     privacidad'}}</div>
                             </div>
 
-                            <input id="btn_reg" name="" type="button" value="Registrarse"/>
+                            <input id="btn_reg" name="" type="submit" value="Registrarse"/>
                         </div>
-
+                        {{ form_rest(form) }}
+                        </form>
 
                         <form class="formulario" id="formularioLogin" action="{{ path('frontend_login_check') }}" method="post">
                         <div id="iniciar">

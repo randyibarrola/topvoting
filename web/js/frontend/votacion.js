@@ -29,6 +29,17 @@ $(document).ready(function() {
           });        
     }); 
     
+    $('#btn_reg').click(function(e) {
+        e.preventDefault();
+        
+        if($('#formularioRegistro').validationEngine('validate') === true){
+           
+            $('#formularioRegistro').submit();
+                
+        }
+        
+    }); 
+    
     $('#btn_entrar').click(function(e) {
         e.preventDefault();
         

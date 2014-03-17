@@ -14,7 +14,11 @@ frontend_logout:
     
 frontend_registro:
     pattern:  /{_locale}/registro
-    defaults: { _controller: FrontendBundle:Usuario:registro , _locale: es}  
+    defaults: { _controller: FrontendBundle:Usuario:login , _locale: es}  
+    
+frontend_registro_alta:
+    pattern:  /{_locale}/alta/registro
+    defaults: { _controller: FrontendBundle:Usuario:registro , _locale: es}      
     
 frontend_activacion:
     pattern:  /{_locale}/usuarios/activacion/{codigo}

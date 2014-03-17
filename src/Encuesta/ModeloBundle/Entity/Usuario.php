@@ -124,7 +124,14 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="codigo_postal", type="string", nullable=true, length=15)
      */
-    private $codigo_postal;      
+    private $codigo_postal;   
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pais", type="string", nullable=true, length=15)
+     */
+    private $pais;     
     
   /**
    * @var datetime $created_at
@@ -662,5 +669,28 @@ class Usuario implements AdvancedUserInterface, \Serializable
     public function getCodigoPostal()
     {
         return $this->codigo_postal;
+    }
+
+    /**
+     * Set pais
+     *
+     * @param string $pais
+     * @return Usuario
+     */
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+    
+        return $this;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return string 
+     */
+    public function getPais()
+    {
+        return $this->pais;
     }
 }

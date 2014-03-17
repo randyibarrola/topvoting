@@ -38,7 +38,7 @@ class UsuarioController extends Controller
     {
         $peticion = $this->getRequest();
         $usuario = new Usuario();
-        $form = $this->createForm(new UsuarioType(), $usuario);
+        $form = $this->createForm(new RegistroUsuarioType(), $usuario);
         
         if($peticion->getMethod() == "POST") {
             $form->bind($peticion);
@@ -67,15 +67,17 @@ class UsuarioController extends Controller
                 $msgCliente = $this->container->get('topvoting.mailer')->getMsgCreacionCuenta($usuario, $url);            
                 $mailer->send($msgCliente);
 
-                return $this->render('FrontendBundle:Usuario:registro.html.twig', array(
+                return $this->render('FrontendBundle:Usuario:registroTerminado.html.twig', array(
                     'procesado' => true
                 ));
             }
             
         }
-        return $this->render('FrontendBundle:Usuario:registro.html.twig', array(
-            'form' => $form->createView()
-        ));        
+        
+        return $this->render('FrontendBundle:Usuario:login.html.twig', array(
+                    
+                )); 
+    
     }
     
     public function activacionAction()
