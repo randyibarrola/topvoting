@@ -65,7 +65,7 @@ body{
 }
 
 #regist{
-	width:60px;
+	width:100px;
 	height:32px;
 	background:url(/images/regist.png) no-repeat;
 	padding-left:30px;
@@ -315,6 +315,10 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	text-decoration:none;	
 }
 
+.pest_activa{
+	z-index:50 !important;
+}
+
 #pest_home{
 	width:163px;
 	height:36px;
@@ -322,6 +326,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	position:relative;
 	z-index:20;
 	margin-left:30px;
+	color:#000;
 }
 
 #pest_masV{
@@ -362,20 +367,12 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	height:13px;
 }
 
-#barra_home{
+.cambiar_pestana {
+    cursor: pointer;
+}
+
+.barra_pest{
 	background:url(/images/barra_home.png) no-repeat;
-}
-
-#barra_masV{
-	background:url(/images/barra_masV.png) no-repeat;
-}
-
-#barra_loultimo{
-	background:url(/images/barra_loultimo.png) no-repeat;
-}
-
-#barra_categ{
-	background:url(/images/barra_categ.png) no-repeat;
 }
 
 

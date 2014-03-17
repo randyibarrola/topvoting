@@ -117,7 +117,14 @@ class Usuario implements AdvancedUserInterface, \Serializable
      *
      * @ORM\Column(name="red_social", type="boolean")
      */
-    private $red_social = false;    
+    private $red_social = false;  
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_postal", type="string", nullable=true, length=15)
+     */
+    private $codigo_postal;      
     
   /**
    * @var datetime $created_at
@@ -632,5 +639,28 @@ class Usuario implements AdvancedUserInterface, \Serializable
     public function getRedSocial()
     {
         return $this->red_social;
+    }
+
+    /**
+     * Set codigo_postal
+     *
+     * @param string $codigoPostal
+     * @return Usuario
+     */
+    public function setCodigoPostal($codigoPostal)
+    {
+        $this->codigo_postal = $codigoPostal;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigo_postal
+     *
+     * @return string 
+     */
+    public function getCodigoPostal()
+    {
+        return $this->codigo_postal;
     }
 }

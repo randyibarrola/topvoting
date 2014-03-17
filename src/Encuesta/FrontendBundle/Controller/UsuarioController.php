@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Encuesta\ModeloBundle\Entity\Usuario;
 use Encuesta\ModeloBundle\Form\UsuarioType;
+use Encuesta\ModeloBundle\Form\RegistroUsuarioType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -15,14 +16,22 @@ class UsuarioController extends Controller
 {
     public function loginAction()
     {
+        if($this->getUser())
+            return $this->redirect ($this->generateUrl ('frontend_homepage'));
+        
         $request = $this->getRequest();
         $session = $request->getSession();
+        
+        $usuario = new Usuario();
+        $form = $this->createForm(new RegistroUsuarioType(), $usuario);        
 
         $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $session->get(SecurityContext::AUTHENTICATION_ERROR));
 
         return $this->render('FrontendBundle:Usuario:login.html.twig', array(
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error' => $error ));
+            'error' => $error,
+            'form' => $form->createView()
+            ));
     }
     
     public function registroAction()

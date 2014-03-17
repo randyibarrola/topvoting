@@ -38,15 +38,16 @@ security:
             form_login:
                 login_path: frontend_login
                 check_path: frontend_login_check
+                default_target_path: frontend_homepage
             logout:
                 path: frontend_logout
                 target: /
             remember_me:
                 key: encuesta_frontend
                 lifetime: 3600
-            fos_facebook:
-                app_url: "http://apps.facebook.com/appName/"
-                server_url: "http://localhost/facebookApp/"    
+            #fos_facebook:
+                #app_url: "http://apps.facebook.com/appName/"
+                #server_url: "http://localhost/facebookApp/"    
 
     access_control:
         - { path: ^/administracion/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

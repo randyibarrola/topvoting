@@ -33,12 +33,12 @@ gregwar_captcha:
     background_color: [255, 255, 255]
     
 # FOS FACEBOOK BUNDLE #
-fos_facebook:
-    alias:  facebook
-    app_id: 1393595740906458 
-    secret: 90b0521709e204a70504aaa92bdd3459
-    cookie: true
-    permissions: [email, user_birthday, user_location]
+#fos_facebook:
+    #alias:  facebook
+    #app_id: 1393595740906458 
+    #secret: 90b0521709e204a70504aaa92bdd3459
+    #cookie: true
+    #permissions: [email, user_birthday, user_location]
 
 
 # Twig Configuration

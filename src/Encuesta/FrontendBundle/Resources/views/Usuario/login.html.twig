@@ -1,64 +1,73 @@
 {% extends '::base-frontend.html.twig' %}
-
+{% block level_javascript %}
+    <script src="{{ asset('js/frontend/jquery/jquery.validate.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/frontend/jquery/jquery.validate-es.js') }}" type="text/javascript"></script>  
+{% endblock %}
+{% block level_stylesheet  %}    
+    <link href="{{ asset('css/frontend/jquery/jquery.validate.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
 {% block body %}
 
         <div id="cuerpo">
 
-            <div class="header_reg"></div>
+            <a title="TheTopVoting.com" href="{{ path('frontend_homepage') }}"><div class="header_reg"></div></a>
             <div id="zona_registro">
                 <div id="zona_registro_b1">
                     <div id="zona_registro_b2">
                         
                         <div id="crea_cuenta">
-                            <p>Crea tu cuenta</p>
+                            <p>{{ 'Crea tu cuenta'|trans }}</p>
 
-                            <label>Nombre de usuario:</label></br>
-                            <input class="campo_text" name="" type="text" title="Nombre de usuario" />
+                            <label>{{ 'Nombre de usuario' | trans }}:</label></br>                            
+                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[username]" type="text" title="{{ 'Nombre de usuario' | trans }}" />
                             </br></br>
-                            <label>Correo electrónico:</label></br>
-                            <input class="campo_text" name="" type="text" title="Correo electrónico" />
+                            <label>{{ 'Correo electrónico' | trans }}:</label></br>
+                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[email]" type="text" title="{{ 'Correo electrónico' | trans }}" />
                             </br></br>
-                            <label>Contraseña:</label></br>
-                            <input class="campo_text" name="" type="password" title="Contraseña" />
+                            <label>{{ 'Contraseña' | trans }}:</label></br>
+                            <input class="campo_text" name="encuesta_modelobundle_registrousuariotype[password]" type="password" title="{{ 'Contraseña' | trans }}" />
                             </br></br>
                             <div id="cod_post">
-                                <label >Código postal:</label></br>
-                                <input class="campo_text cod_postal" name="" type="text" title="Código postal" />
+                                <label >{{ 'Código postal' | trans }}:</label></br>
+                                <input class="campo_text cod_postal" name="encuesta_modelobundle_registrousuariotype[codigo_postal]" type="text" title="{{ 'Código postal' | trans }}" />
                             </div>
                             <div id="sel_pais">
-                                <label >Selecciona tu país:</label></br>
+                                <label >{{ 'Selecciona tu país' | trans }}:</label></br>
                                 <select class="campo_text cod_postal"/></select> 
                             </div>   
                             <div class="limpia_float"></div>
                             <div id="chec_aceptar">
                                 <input  name="" type="checkbox" value="" /> 
-                                <div id="chec_acepto"><b>Sí, acepto</b> las condiciones legales y políticas de </br>   
-                                    privacidad</div>
+                                <div id="chec_acepto"><b>{{ 'Sí, acepto'|trans }}</b> {{ 'las condiciones legales y políticas de </br>   
+                                    privacidad'}}</div>
                             </div>
 
                             <input id="btn_reg" name="" type="button" value="Registrarse"/>
                         </div>
 
 
-                        <form class="formulario" action="{{ path('frontend_login_check') }}" method="post">
+                        <form class="formulario" id="formularioLogin" action="{{ path('frontend_login_check') }}" method="post">
                         <div id="iniciar">
-                            <p>Inicia sesión</p>
+                            <p>{{ 'Inicia sesión' | trans }}</p>
 
-                            <label>Escribe tu correo electrónico:</label></br>
-                            <input class="campo_text validate[required]" name="_username" type="password" title="Escribe tu correo electrónico" />
+                            <label>{{ 'Escribe tu nombre de usuario' | trans }} :</label></br>
+                            <input class="campo_text validate[required]" name="_username" type="text" title="{{ 'Escribe tu nombre de usuario' | trans }}" />
                             </br></br>
-                            <label>Escribe tu contraseña:</label></br>
-                            <input class="campo_text validate[required]" name="_password" type="password" title="Escribe tu contraseña" />
+                            <label>{{ 'Escribe tu contraseña' | trans }}:</label></br>
+                            <input class="campo_text validate[required]" name="_password" type="password" title="{{ 'Escribe tu contraseña' | trans }}" />
 
                             <div id="chec_record">
                                 <input  name="" type="checkbox" value="" /> 
-                                <div id="chec_acepto">Recordar la sesión</div>
+                                <div id="chec_acepto">{{ 'Recordar la sesión' | trans }}</div>
                                 <div class="limpia_float"></div>
-                                <div id="olvid"><a href="#">¿Has olvidado tu <br>contraseña?</a></div>
+                                <div id="olvid"><a href="#">{% trans %}¿Has olvidado tu <br>contraseña?{% endtrans%}</a></div>
                             </div>
 
-                            <input id="btn_entrar" name="" type="button" value="Entrar"/>
-
+                            <input id="btn_entrar" name="" type="submit"  value="Entrar"/>
+                            <br>
+                            {% if error %}
+                                <p style="color:red;">Error de usuario o contraseña</p>{{ error }}
+                            {% endif %}
                         </div>
                         </form>
                         <div id="design4">DESIGN TEEMSTUDIOS.COM 2014</div>

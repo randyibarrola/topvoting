@@ -1,5 +1,5 @@
 {% extends '::base-frontend.html.twig' %}
-{% block body %}
+{% block contenido %}
 {#<div id="fb-root"></div>
 <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
 <br />
@@ -52,22 +52,6 @@
  {% endfor %}
  </ul> #}
 
-<div id="cuerpo">
-	<!-- Header -->
-    <div class="header">
-    <div id="slogan">YOU VOTE THE TOPS OF THE WORLD</div>
-    <div id="login"><a href="{{ path('frontend_login') }}">Entrar</a></div>
-    <div id="regist"><a href="{{ path('frontend_login') }}">Registrarse</a></div>
-    <div class="limpia_float"></div>
-    <div class="logo"><a href="{{ path('frontend_homepage') }}"></a></div>
-    <div id="buscador">
-       <div id="lupa"></div>
-       <div id="area_busc"><input class="buscarR" name="" type="text" value="Buscar Rankings"/></div>
-    </div>
-    <div id="voting"><div id="crea">CREA TU VOTING</div></div>
-    <div class="limpia_float"></div>
-    </div><!-- Fin de Header -->
-    
     <!-- Zona Promo -->
     <div id="zona_promo">
     	<div id="img_negocio"></div>
@@ -84,22 +68,17 @@
     <!-- Zona Pestañas -->
     <div id="contenido">
         <div id="pestannas">
-    		<div id="pest_home">Home</div>
-            <a href="#"><div id="pest_masV">¡Más Voting!</div></a>
-            <a href="#"><div id="pest_loultimo">Lo Último</div></a>
-            <a href="#"><div id="pest_categ">Categorías</div></a>
-            <div class="barra_pest" id="barra_home"></div>
+            <div id="pest_home" data-img="barra_home.png" class="cambiar_pestana pest_activa">Home</div>
+            <div id="pest_masV" data-img="barra_masV.png" class="cambiar_pestana">¡Más Voting!</div>
+            <div id="pest_loultimo" data-img="barra_loultimo.png" class="cambiar_pestana">Lo Último</div>
+            <div id="pest_categ" data-img="barra_categ.png" class="cambiar_pestana">Categorías</div>
+            <div class="barra_pest" class="cambiar_pestana"></div>
         </div>
         <div id="cuerpo_cont">
-        	<div class="caja"> <div class="foto_votacion"></div> <div class="descrip">Creado por: ThebestwebDesign</div> </div>
-            <div class="caja"> <div class="foto_votacion"></div> <div class="descrip">Creado por: USUARIOS 2</div> </div>
-            <div class="caja"> <div class="foto_votacion"></div> <div class="descrip">Creado por: USUARIOS 3</div> </div>
-            <div class="caja"> <div class="foto_votacion"></div> <div class="descrip">Creado por: USUARIOS 4</div> </div>
-            <div id="design">DESIGN TEEMSTUDIOS.COM 2014</div>
-            <div class="limpia_float"></div>  
+            {% include 'FrontendBundle:Default:votacionesHome.html.twig' %}
         </div>
     	     
     </div><!-- Fin Zona Pestañas -->
-</div><!-- fin de cuerpo -->
+<!-- fin de cuerpo -->
 
  {% endblock %}

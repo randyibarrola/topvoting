@@ -1,5 +1,14 @@
 $(document).ready(function() {
     
+    $('.cambiar_pestana').click(function(){
+        $('.cambiar_pestana').each(function(){
+            $('.cambiar_pestana').removeClass('pest_activa');
+        });
+        
+        $(this).addClass('pest_activa');
+        $('.barra_pest').css('background', 'url(/images/'+ $(this).data('img') +') no-repeat');
+    });
+    
     $('.cambiar_estado').click(function() {
         estado = $('#estado').data('estado');
         url = $(this).data('url');
@@ -18,7 +27,18 @@ $(document).ready(function() {
 
               }
           });        
-    });  
+    }); 
+    
+    $('#btn_entrar').click(function(e) {
+        e.preventDefault();
+        
+        if($('#formularioLogin').validationEngine('validate') === true){
+           
+            $('#formularioLogin').submit();
+                
+        }
+        
+    });    
     
     $('.votar').click(function(e) {
         e.preventDefault();

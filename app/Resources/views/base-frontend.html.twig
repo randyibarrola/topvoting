@@ -19,7 +19,7 @@
     {% block level_meta %}{% endblock %}
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     {% block base_stylesheet %}
-        <link href="{{ asset('css/estilos.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/frontend/estilos.css') }}" rel="stylesheet" type="text/css"/>
     {% endblock %}
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
@@ -109,7 +109,25 @@
           }
         </script>  
     {% endblock %}  
-    {% block body %}{% endblock %}
+    {% block body %}
+        <div id="cuerpo">
+            <!-- Header -->
+            <div class="header">
+            <div id="slogan">YOU VOTE THE TOPS OF THE WORLD</div>
+            <div id="login">{% if app.user %}<a href="{{ path('frontend_logout') }}">{{ 'Salir' | trans }}</a>{% else %}<a href="{{ path('frontend_login') }}">{{ 'Entrar' | trans }}</a> {% endif %}</div>
+            <div id="regist">{% if app.user %} {{ app.user.nombreCompleto }}{% else %}<a href="{{ path('frontend_registro') }}">{{ 'Registrarse' | trans }}</a> {% endif %}</div>
+            <div class="limpia_float"></div>
+            <div class="logo"><a href="{{ path('frontend_homepage') }}"></a></div>
+            {% include 'FrontendBundle:Parciales:buscador.html.twig' %}
+            {% include 'FrontendBundle:Parciales:creaVoting.html.twig' %}
+            <div class="limpia_float"></div>
+            </div>
+            <!-- Fin de Header --> 
+            
+            {% block contenido %}
+            {% endblock %}
+        </div>
+    {% endblock %}
 
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
