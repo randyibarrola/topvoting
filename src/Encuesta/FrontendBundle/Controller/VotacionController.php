@@ -42,7 +42,7 @@ class VotacionController extends Controller
 
                         $nombre = md5(time());
                         $form['imagen']->getData()->move($evento->getUploadDir(), $nombre.'.'.$extension);
-                        $evento->setImagen($nombre.$extension);
+                        $evento->setImagen($nombre.'.'.$extension);
                     }   
                 }
                 
