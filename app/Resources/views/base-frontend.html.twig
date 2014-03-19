@@ -13,6 +13,12 @@
     <!-- BEGIN CORE PLUGINS -->
     {% block base_javascript %}
         <script src="{{ asset('js/frontend/jquery-1.9.0.min.js') }}" type="text/javascript"></script>
+        <script type="text/javascript">
+            var url_cajas = "{{ path('frontend_cargar_cajas') }}";
+            var load_cajas = false;
+            var fin_cajas = false;
+            var pagina_cajas = 0;
+        </script>
         <script src="{{ asset('js/frontend/votacion.js') }}" type="text/javascript"></script>
               
     {% endblock %}        

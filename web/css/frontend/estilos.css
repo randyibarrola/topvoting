@@ -28,7 +28,7 @@ body{
 .header{
 	width:980px;
 	height:310px;
-	background:url(/images/banner_top.jpg) no-repeat;
+	background:url(../../images/banner_top.jpg) no-repeat;
 }
 
 #slogan{
@@ -48,7 +48,7 @@ body{
 	*margin-left:570px;
 	width:60px;
 	height:32px;
-	background:url(/images/entrar.png) no-repeat;
+	background:url(../../images/entrar.png) no-repeat;
 	padding-left:30px;
 	float:left;	
 	margin-top:10px;
@@ -67,7 +67,7 @@ body{
 #regist{
 	width:100px;
 	height:32px;
-	background:url(/images/regist.png) no-repeat;
+	background:url(../../images/regist.png) no-repeat;
 	padding-left:30px;
 	float:left;
 	margin-top:10px;
@@ -90,7 +90,7 @@ body{
 .logo a{
 	width:290px;
 	height:80px;
-	background:url(/images/logo.jpg) no-repeat;
+	background:url(../../images/logo.jpg) no-repeat;
 	margin-left:25px;
 	display:block;
 	
@@ -175,14 +175,14 @@ body{
 #lupa{
 	width:30px;
 	height:35px;
-	background:url(/images/lupa.png) no-repeat;
+	background:url(../../images/lupa.png) no-repeat;
 	float:left;
 }
 
 #voting{
 	width:121px;
 	height:142px;
-	background:url(/images/voting.png) no-repeat;
+	background:url(../../images/voting.png) no-repeat;
 	float:left;
 	margin:-130px 0 0 770px;
 }
@@ -241,14 +241,14 @@ body{
 a #vota{
 	width:85px;
 	height:78px;
-	background:url(/images/vota.png) top no-repeat;
+	background:url(../../images/vota.png) top no-repeat;
 	margin-left:75px;
 	float:left;
 	display:block;
 }
 
 a:hover #vota{
-	background:url(/images/vota.png) bottom no-repeat;
+	background:url(../../images/vota.png) bottom no-repeat;
 	display:block;
 }
 
@@ -262,13 +262,13 @@ a:hover #vota{
 a #creaV{
 	width:95px;
 	height:78px;
-	background:url(/images/creaV.png) top no-repeat;
+	background:url(../../images/creaV.png) top no-repeat;
 	margin-left:75px;
 	float:left;
 }
 
 a:hover #creaV{
-	background:url(/images/creaV.png) bottom no-repeat;
+	background:url(../../images/creaV.png) bottom no-repeat;
 	display:block;
 }
 
@@ -282,13 +282,13 @@ a:hover #creaV{
 a #comparteV{
 	width:85px;
 	height:78px;
-	background:url(/images/comparteV.png) top no-repeat;
+	background:url(../../images/comparteV.png) top no-repeat;
 	margin-left:75px;
 	float:left;
 }
 
 a:hover #comparteV{
-	background:url(/images/comparteV.png) bottom no-repeat;
+	background:url(../../images/comparteV.png) bottom no-repeat;
 	display:block;
 }
 
@@ -322,7 +322,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #pest_home{
 	width:163px;
 	height:36px;
-	background:url(/images/pest_home.png) no-repeat;
+	background:url(../../images/pest_home.png) no-repeat;
 	position:relative;
 	z-index:20;
 	margin-left:30px;
@@ -333,7 +333,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:163px;
 	height:36px;
 	margin-top:-36px;
-	background:url(/images/pest_masV.png) no-repeat;
+	background:url(../../images/pest_masV.png) no-repeat;
 	position:relative;
 	z-index:19;	
 	margin-left:160px;
@@ -344,7 +344,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:163px;
 	height:36px;
 	margin-top:-36px;
-	background:url(/images/pest_loultimo.png) no-repeat;
+	background:url(../../images/pest_loultimo.png) no-repeat;
 	position:relative;
 	z-index:18;	
 	margin-left:285px;
@@ -355,7 +355,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:288px;
 	height:36px;
 	margin-top:-36px;
-	background:url(/images/pest_categ.png) no-repeat;
+	background:url(../../images/pest_categ.png) no-repeat;
 	position:relative;
 	z-index:17;	
 	margin-left:410px;
@@ -372,7 +372,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 }
 
 .barra_pest{
-	background:url(/images/barra_home.png) no-repeat;
+	background:url(../../images/barra_home.png) no-repeat;
 }
 
 
@@ -437,7 +437,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #img_neg{
 	width:410px;
 	height:400px;
-	background:url(/images/img_neg.png);
+	background:url(../../images/img_neg.png);
 	margin-left:10px;
 	float:left;
 }
@@ -465,7 +465,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #interrog{
 	width:125px;
 	height:142px;
-	background:url(/images/interrog.png) no-repeat;
+	background:url(../../images/interrog.png) no-repeat;
 	float:left;
 	margin:-60px 0 0 820px;
 }
@@ -473,7 +473,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #registra_tienda a{
 	width:452px;
 	height:75px;
-	background:url(/images/registra_tienda.png) top no-repeat;
+	background:url(../../images/registra_tienda.png) top no-repeat;
 	float:left;
 	margin-left:70px;
 	display:block;
@@ -482,7 +482,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #registra_tienda a:hover{
 	width:452px;
 	height:75px;
-	background:url(/images/registra_tienda.png) bottom no-repeat;
+	background:url(../../images/registra_tienda.png) bottom no-repeat;
 	float:left;
 	margin-left:70px;
 	display:block;
@@ -502,15 +502,15 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 }
 
 .coviertete{
-	background:url(/images/coviertete.png) bottom no-repeat;
+	background:url(../../images/coviertete.png) bottom no-repeat;
 }
 
 .fideliza{
-	background:url(/images/fideliza.png) bottom no-repeat;
+	background:url(../../images/fideliza.png) bottom no-repeat;
 }
 
 .consigue{
-	background:url(/images/consigue.png) bottom no-repeat;
+	background:url(../../images/consigue.png) bottom no-repeat;
 }
 
 
@@ -527,7 +527,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #voting3{
 	width:121px;
 	height:142px;
-	background:url(/images/voting.png) no-repeat;
+	background:url(../../images/voting.png) no-repeat;
 	float:left;
 	margin:-75px 0 0 650px;
 	
@@ -541,7 +541,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #tit_votacion{
 	width:280px;
 	height:270px;
-	background:url(/images/tit_votacion.png) no-repeat;
+	background:url(../../images/tit_votacion.png) no-repeat;
 	margin-left:50px;
 	float:left;
 }
@@ -564,7 +564,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #barra_votacion{
 	width:960px;
 	height:50px;
-	background:url(/images/barra_votacion.png) no-repeat;
+	background:url(../../images/barra_votacion.png) no-repeat;
 	margin-top:-70px;	
 }
 
@@ -572,7 +572,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:100px;
 	height:90px;	
 	padding-top:15px;
-	background:url(/images/votos.png) no-repeat;	
+	background:url(../../images/votos.png) no-repeat;
 	margin:-80px 0 0 125px;
 	text-align:center;
 	font-size:37px;
@@ -608,7 +608,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:40px;
 	height:40px;
 	margin:7px 0 0 140px;
-	background:url(/images/f.png) no-repeat;
+	background:url(../../images/f.png) no-repeat;
 	float:left;
 	z-index:22;
 }
@@ -617,7 +617,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:40px;
 	height:40px;
 	margin:7px 0 0 15px;
-	background:url(/images/tweet.png) no-repeat;
+	background:url(../../images/tweet.png) no-repeat;
 	float:left;
 	z-index:22;
 }
@@ -626,7 +626,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:40px;
 	height:40px;
 	margin:7px 0 0 15px;
-	background:url(/images/g.png) no-repeat;
+	background:url(../../images/g.png) no-repeat;
 	float:left;
 	z-index:22;
 }
@@ -643,13 +643,13 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 #annadir_cand a{
 	width:130px;
 	height:124px;
-	background:url(/images/annadir_cand.png) top no-repeat;
+	background:url(../../images/annadir_cand.png) top no-repeat;
 	margin:10px 0 0 25px;
 	display:block;
 }
 
 #annadir_cand a:hover{
-	background:url(/images/annadir_cand.png) bottom no-repeat;
+	background:url(../../images/annadir_cand.png) bottom no-repeat;
 	display:block;
 } 
 #annad{
@@ -664,7 +664,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	width:740px;
 	height:112px;	
 	padding-left: 20px;
-	background:url(/images/descrip_vota.png) no-repeat;
+	background:url(../../images/descrip_vota.png) no-repeat;
 	margin:-112px 0 0 210px;
 	font-size: 24px;
 	color: #000;
@@ -726,7 +726,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	height:47px;
 	margin-top:10px;
 	font-size:30px;
-	background:url(/images/bola_votar.png) top left no-repeat;
+	background:url(../../images/bola_votar.png) top left no-repeat;
 	padding-left: 55px;
 	color:#000;	
 	float:left;
@@ -735,7 +735,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 }
 
 #bot_votar a:hover{
-	background:url(/images/bola_votar.png) bottom left no-repeat;
+	background:url(../../images/bola_votar.png) bottom left no-repeat;
 	display:block;
 	color:#C5B04E;
 }
@@ -764,7 +764,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 .header_reg{
 	width:965px;
 	height:300px;
-	background:url(/images/header_registro.jpg) no-repeat;
+	background:url(../../images/header_registro.jpg) no-repeat;
 }
 
 
@@ -865,7 +865,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	text-align:left;
 	padding-left:15px;
 	margin-left:60px;	
-	background:url(/images/btn_reg.png) no-repeat;
+	background:url(../../images/btn_reg.png) no-repeat;
 	cursor:pointer;
 	border:none;
 	letter-spacing:-0.5pt;
@@ -881,7 +881,7 @@ filter:progid:DXImageTransform.Microsoft.dropshadow(OffX = 3,OffY = 3,Color = #6
 	text-align:left;
 	padding-left:15px;
 	margin-left:190px;	
-	background:url(/images/btn_entrar.png) no-repeat;
+	background:url(../../images/btn_entrar.png) no-repeat;
 	cursor:pointer;
 	border:none;
 	letter-spacing:-0.5pt;

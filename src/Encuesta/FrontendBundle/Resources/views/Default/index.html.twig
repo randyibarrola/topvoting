@@ -68,14 +68,19 @@
     <!-- Zona Pestañas -->
     <div id="contenido">
         <div id="pestannas">
-            <div id="pest_home" data-img="barra_home.png" class="cambiar_pestana pest_activa">Home</div>
-            <div id="pest_masV" data-img="barra_masV.png" class="cambiar_pestana">¡Más Voting!</div>
-            <div id="pest_loultimo" data-img="barra_loultimo.png" class="cambiar_pestana">Lo Último</div>
-            <div id="pest_categ" data-img="barra_categ.png" class="cambiar_pestana">Categorías</div>
+            <div id="pest_home" data-img="{{ asset('images/barra_home.png') }}" data-content="home" class="cambiar_pestana pest_activa">Home</div>
+            <div id="pest_masV" data-img="{{ asset('images/barra_masV.png') }}" data-content="mas_voting" class="cambiar_pestana">¡Más Voting!</div>
+            <div id="pest_loultimo" data-img="{{ asset('images/barra_loultimo.png') }}" data-content="ultimo" class="cambiar_pestana">Lo Último</div>
+            <div id="pest_categ" data-img="{{ asset('images/barra_categ.png') }}" data-content="categoria" class="cambiar_pestana">Categorías</div>
             <div class="barra_pest" class="cambiar_pestana"></div>
         </div>
         <div id="cuerpo_cont">
-            {% include 'FrontendBundle:Default:votacionesHome.html.twig' %}
+            <div class="cajas"></div>
+            <div id="load_cajas" style="text-align: center; padding: 20px 0px; display: none;">
+                <img src="{{ asset('images/ajax-loading.gif') }}"/>
+            </div>
+            <div id="design">DESIGN TEEMSTUDIOS.COM 2014</div>
+            <div class="limpia_float"></div>
         </div>
     	     
     </div><!-- Fin Zona Pestañas -->

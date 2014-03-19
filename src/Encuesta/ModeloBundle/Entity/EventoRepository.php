@@ -70,6 +70,49 @@ class EventoRepository extends EntityRepository
         $resultado = $consulta->getResult(); 
         
         return count($resultado) > 0;
-    } 
-    
+    }
+
+    /*
+     * Retorna todos los eventos activos ordenados por fecha, si se le indica usuario, retorna solamente los creados por ese usuario
+     */
+    public function getEventosActivosOrdenFecha($idioma = null, $usuario = null)
+    {
+        $em = $this->getEntityManager();
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.activo = 1 ';
+        if($idioma) {
+            $sql .= ' and e.idioma like :idioma ';
+        }
+        if($usuario){
+            $sql .= ' and e.creador = :usuario ';
+        }
+        $sql .= ' ORDER BY e.created_at DESC';
+        $consulta = $em->createQuery($sql);
+        if($idioma) {
+            $consulta->setParameter('idioma',$idioma);
+        }
+        if($usuario){
+            $consulta->setParameter('usuario',$usuario);
+        }
+        return $consulta->getResult();
+    }
+
+    /*
+     * Retorna los eventos publicados con mas votaciones para el home
+     */
+    public function getEventosMasVotadosIndex($idioma = null)
+    {
+        $em = $this->getEntityManager();
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.activo = 1 ';
+        if($idioma) {
+            $sql .= ' and e.idioma like :idioma ';
+        }
+        $sql .= ' ORDER BY e.numero_votaciones DESC';
+        $consulta = $em->createQuery($sql);
+        if($idioma) {
+            $consulta->setParameter('idioma',$idioma);
+        }
+
+        return $consulta->getResult();
+    }
+
 }
