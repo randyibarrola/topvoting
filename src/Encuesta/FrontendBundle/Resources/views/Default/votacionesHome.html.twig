@@ -2,12 +2,12 @@
     <div class="caja">
         <div class="foto_votacion">
             {% if caja.imagen is null %}
-                <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text={{ 'sin+imagen' | trans }}" alt="" />
+                <img src="http://www.placehold.it/195x238/EFEFEF/AAAAAA&amp;text={{ 'sin+imagen' | trans }}" alt="" />
             {% else %}
                 {% if contenido == 'categoria' %}
-                    <img src="{{ asset(upload_dir | slice(1) ~ 'categoria/' ~ caja.id ~ '/' ~ caja.imagen) }}" alt="{{ caja.nombre }}" style="width: 195px;" />
+                    <img src="{{ asset(upload_dir | slice(1) ~ 'categoria/' ~ caja.id ~ '/' ~ caja.imagen) }}" title="{{ caja.nombre }}" alt="{{ caja.nombre }}" style="width: 195px;" />
                 {% else %}
-                    <img src="{{ asset(upload_dir | slice(1) ~ 'evento/' ~ caja.id ~ '/' ~ caja.imagen) }}" alt="{{ caja.titulo }}" style="width: 195px;" />
+                    <img src="{{ asset(upload_dir | slice(1) ~ 'evento/' ~ caja.id ~ '/' ~ caja.imagen) }}" title="{{ caja.titulo }}" alt="{{ caja.titulo }}" style="width: 195px;" />
                 {% endif %}
             {% endif %}
         </div>
