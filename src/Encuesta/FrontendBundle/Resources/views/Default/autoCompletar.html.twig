@@ -1,0 +1,15 @@
+{% for evento in eventos %}
+    <div class="autocomplete-item">
+        <a title="{{evento.titulo}}" href="#">
+            {% if evento.imagen is null %}
+                <img src="http://www.placehold.it/66x66/EFEFEF/AAAAAA&amp;text={{ 'sin+imagen' | trans }}" alt="" />
+            {% else %}
+                <img src="{{ asset(upload_dir | slice(1) ~ 'evento/' ~ evento.id ~ '/' ~ evento.imagen) }}" alt="{{ evento.titulo }}" title="{{ evento.titulo }}" />
+            {% endif %}
+            <p class="autocomplete_nombre">{{ evento.titulo }}</p>
+        </a>
+    </div>
+{% endfor %}
+<script type="text/javascript">
+    revisarAutcompletar();
+</script>

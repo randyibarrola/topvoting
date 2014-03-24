@@ -48,4 +48,19 @@ class DefaultController extends Controller
             'paginador' => $paginador
         ));
     }
+
+    public function autoCompletarAction()
+    {
+        $peticion = $this->getRequest();
+        $translator = $this->get('translator');
+        $texto = $peticion->request->get('texto', false);
+        if (!$texto || strlen(trim($texto)) < 3)
+            return new Response($translator->trans('No existen coincidencias'));
+
+        $eventos = $this->getDoctrine()->getManager()->getRepository('ModeloBundle:Evento')->getEventosAutocompletar($texto, $peticion->getLocale());
+
+        return $this->render('FrontendBundle:Default:autoCompletar.html.twig', array(
+            'eventos' => $eventos
+        ));
+    }
 }

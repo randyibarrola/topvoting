@@ -115,4 +115,25 @@ class EventoRepository extends EntityRepository
         return $consulta->getResult();
     }
 
+    /*
+     * Retorna los eventos para autocompletar búsqueda
+     */
+    public function getEventosAutocompletar($texto, $idioma = null)
+    {
+        $em = $this->getEntityManager();
+        $sql = 'SELECT e FROM ModeloBundle:Evento e WHERE e.activo = 1 and e.titulo like :texto ';
+        if($idioma) {
+            $sql .= ' and e.idioma like :idioma ';
+        }
+        $sql .= ' ORDER BY e.numero_votaciones DESC';
+        $consulta = $em->createQuery($sql);
+        $consulta->setParameter('texto', '%'.$texto.'%');
+        if($idioma) {
+            $consulta->setParameter('idioma',$idioma);
+        }
+        $consulta->setMaxResults(5);
+
+        return $consulta->getResult();
+    }
+
 }

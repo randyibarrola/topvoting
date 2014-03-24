@@ -1,4 +1,12 @@
 <div id="buscador">
    <div id="lupa"></div>
-   <div id="area_busc"><input placeholder="Buscar Rankings" class="buscarR" name="" type="text" /></div>
+   <div id="area_busc">
+       <input id="buscar_evento" placeholder="Buscar Rankings" class="buscarR" name="" type="text" />
+       <div class="autocomplete-container">
+           <div id="autocompletar-items"></div>
+           <div id="ajaxLoadingBuscar" style="text-align: center">
+               <img title="cargando" id="" src="{{ asset('images/ajax-loading.gif')}}"/>
+           </div>
+       </div>
+   </div>
 </div>

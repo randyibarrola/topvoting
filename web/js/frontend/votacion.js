@@ -76,7 +76,40 @@ $(document).ready(function() {
 
               }
           });        
-    });      
+    });
+
+    $('#buscar_evento').blur(function(e) {
+        $('.autocomplete-container').fadeOut('fast');
+    });
+
+    $('#buscar_evento').keyup(function(e) {
+        t_value = $(this).val().trim();
+        revisarAutcompletar();
+        if (t_value.length > 0) {
+            if($('.autocomplete-item').length > 0)
+                $('.autocomplete-container:eq(0)').slideDown('fast');
+//            $('#clearTitulo').fadeIn('fast');
+            if (t_value.length > 2 && !en_accion_autocompletar){
+                $('.autocomplete-container:eq(0)').slideDown('fast');
+                if(enviarAutcompletar()) {
+                    $('#autocompletar-items').empty();
+                    en_accion_autocompletar = true;
+                    $('#ajaxLoadingBuscar').show();
+                    $.post(url_autoCompletar, { 'texto' : t_value }, function(data){
+                        if(data != "") {
+                            $('#autocompletar-items').html(data);
+                        }
+                        $('#ajaxLoadingBuscar').hide();
+                        en_accion_autocompletar = false;
+                    });
+                }
+
+            }
+        } else {
+//            $('#clearTitulo').fadeOut('fast');
+            $('.autocomplete-container').fadeOut('fast');
+        }
+    });
 
     cargarCajasIndex();
 });
@@ -117,5 +150,45 @@ function cargarCajasIndex() {
             }
         });
     }
+}
+
+function revisarAutcompletar(){
+    $('.autocomplete-item').each(function() {
+        var elemento = $(this);
+        texto = elemento.find('.autocomplete_nombre:eq(0)').text();
+        texto = estandarizarTexto(texto.toLowerCase());
+        var t_patron = estandarizarTexto(t_value.toLowerCase());
+        if(texto.indexOf(t_patron) == -1)
+            elemento.hide();
+        else
+            elemento.show();
+    });
+}
+
+function enviarAutcompletar(){
+    enviar = true;
+
+
+    $('.autocomplete-item:eq(0) .autocomplete_nombre').each(function() {
+        texto = $(this).text();
+        texto = estandarizarTexto(texto.toLowerCase());
+        var t_patron = estandarizarTexto(t_value.toLowerCase());
+        if(texto.indexOf(t_patron) != -1)
+            enviar = false;
+    });
+
+    return enviar;
+}
+
+function estandarizarTexto(texto) {
+    var reemplazados =   ['a', 'e', 'i', 'o', 'u', 'a', 'e', 'i', 'o', 'u'];
+    var reemplazar =     ['á', 'é', 'í', 'ó', 'ú', 'ä', 'ë', 'ï', 'ö', 'ü'];
+
+    for(var i in reemplazar) {
+        while(texto.search(reemplazar[i]) != -1) {
+            texto = texto.replace(reemplazar[i], reemplazados[i]);
+        }
+    }
+    return texto;
 }
 

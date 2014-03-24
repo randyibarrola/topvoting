@@ -60,6 +60,10 @@ frontend_cargar_cajas:
     pattern:  /{_locale}/cargar-cajas
     defaults: { _controller: FrontendBundle:Default:cargarCajas, _locale: es }
 
+frontend_autocompletar_evento:
+    pattern: /{_locale}/auto-completar
+    defaults: { _controller: FrontendBundle:Default:autoCompletar, _locale: es }
+
 frontend_homepage:
     pattern:  /{_locale}
     defaults: { _controller: FrontendBundle:Default:index, _locale: es }
